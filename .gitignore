@@ -1,7 +1,7 @@
 # Training and validation datasets
-training/
-validation/
-evaluation/
+# training/
+# validation/
+# evaluation/
 
 # OS generated files
 .DS_Store
