@@ -315,26 +315,34 @@ class GoTawiApp {
         
         const navLabel = navItem.querySelector('.nav-label').textContent;
         
-        // Morph background shape based on navigation
+        // Morph background shape and shadow based on navigation
         const backgroundAccent = document.querySelector('.background-accent');
-        backgroundAccent.classList.remove('morph-search', 'morph-orders', 'morph-profile');
+        const backgroundShadow = document.querySelector('.background-accent-shadow');
+        
+        // Remove all morph classes from both elements
+        backgroundAccent.classList.remove('morph-home', 'morph-search', 'morph-orders', 'morph-profile');
+        backgroundShadow.classList.remove('morph-home', 'morph-search', 'morph-orders', 'morph-profile');
         
         switch(navLabel) {
+            case 'Home':
+                backgroundAccent.classList.add('morph-home');
+                backgroundShadow.classList.add('morph-home');
+                this.showToast('🏠 Welcome to Go Tawi!');
+                break;
             case 'Search':
                 backgroundAccent.classList.add('morph-search');
+                backgroundShadow.classList.add('morph-search');
                 this.showToast('🔍 Search screen - Coming soon!');
                 break;
             case 'Orders':
                 backgroundAccent.classList.add('morph-orders');
+                backgroundShadow.classList.add('morph-orders');
                 this.showToast('📋 Orders screen - Coming soon!');
                 break;
             case 'Profile':
                 backgroundAccent.classList.add('morph-profile');
+                backgroundShadow.classList.add('morph-profile');
                 this.showToast('👤 Profile screen - Coming soon!');
-                break;
-            default:
-                // Home - default shape
-                this.showToast('🏠 Welcome to Go Tawi!');
                 break;
         }
     }
