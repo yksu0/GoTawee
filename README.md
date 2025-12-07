@@ -1,200 +1,92 @@
 # Go Tawi - Food Delivery App
 
-A modern, mobile-first food delivery application built with vanilla HTML, CSS, and JavaScript.
+A modern, mobile-first food delivery application UI/UX prototype built with vanilla HTML, CSS, and JavaScript.
 
-## Design Overview
+## 📁 Project Structure
 
-Go Tawi features a clean, intuitive interface with a distinctive zigzag background accent and warm color palette inspired by natural tones.
+```
+gotawee/
+├── index.html              # Main home screen
+├── .gitignore             # Git ignore rules
+│
+├── assets/                # All media assets
+│   ├── images/
+│   │   ├── logo/         # App logo files
+│   │   └── deals/        # Promotional images
+│   ├── training/         # Food dataset (training)
+│   ├── validation/       # Food dataset (validation)
+│   └── evaluation/       # Food dataset (evaluation)
+│
+├── css/
+│   └── style.css         # Main stylesheet with animations
+│
+├── js/
+│   ├── script.js         # Main application logic
+│   ├── components/       # Component-specific JS (future)
+│   ├── pages/            # Page-specific JS (future)
+│   └── utils/            # Helper functions (future)
+│
+├── pages/
+│   └── splash.html       # Loading splash screen
+│
+└── docs/
+    └── README.md         # Detailed documentation
+```
+
+## 🎨 Features
+
+- **Animated Background**: Morphing gradient shapes that change with navigation
+- **Interactive Cart**: Add/remove items with quantity controls
+- **Deals & Promos**: Horizontal scrolling promotional cards
+- **Food Categories**: Icon-based category navigation
+- **Restaurant Listings**: Nearby restaurants with photos and details
+- **Responsive Design**: Optimized for mobile devices (430px)
+- **Smooth Animations**: CSS transitions and keyframe animations
+
+## 🎯 Design System
 
 ### Color Palette
-```css
---porcelain: #FDFDFA     /* Primary background */
---turf-green: #237E56    /* Primary brand color */
---light-gold: #EAD290    /* Secondary accent */
---amber-flame: #FDBC22   /* Call-to-action */
---evergreen: #183526     /* Text & dark elements */
-```
+- **Porcelain**: `#FDFDFA` - Primary background
+- **Turf Green**: `#237E56` - Primary brand color
+- **Light Gold**: `#EAD290` - Secondary accent
+- **Amber Flame**: `#FDBC22` - Call-to-action
+- **Evergreen**: `#183526` - Text & dark elements
 
-## Application Structure
+## 🚀 Getting Started
 
-### Layout Wireframe
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yksu0/GoTawee.git
+   cd GoTawee
+   ```
 
-```
-┌─────────────────────────────────────┐
-│ BACKGROUND ACCENT (Zigzag Edge)    │ ← Dynamic morphing shape
-├─────────────────────────────────────┤
-│ Location | Cart Profile            │ ← Top navigation bar
-├─────────────────────────────────────┤
-│ Search Bar    | Filter             │ ← Search functionality
-├─────────────────────────────────────┤
-│ DEALS & PROMOS SECTION             │ ← Horizontal scroll cards
-│ [50% OFF] [Free Del] [20% OFF]     │   with burger images
-├─────────────────────────────────────┤
-│ CATEGORIES                         │ ← Icon-based category grid
-│ [Pizza] [Burger] [Asian] [Mexican]  │   with animated elements
-├─────────────────────────────────────┤
-│ RECOMMENDED                        │ ← 2x2 food grid
-│ [Pizza    ] [Burger   ]            │   with photos & ratings
-│ [Noodles  ] [Tacos    ]            │
-├─────────────────────────────────────┤
-│ RESTAURANTS NEAR YOU               │ ← Vertical list with photos
-│ [Restaurant 1] [>]                  │   and distance info
-│ [Restaurant 2] [>]                  │
-├─────────────────────────────────────┤
-│ SPECIAL OFFER                      │ ← Featured restaurant card
-│ [Large Image + Restaurant Info]     │   with promotional badge
-└─────────────────────────────────────┘
-│ Home | Search | Orders             │ ← Floating bottom navigation
-│ Profile                            │   with morphing background
-└─────────────────────────────────────┘
-```
+2. **Open in browser**
+   - Start with `pages/splash.html` for the splash screen
+   - Or open `index.html` directly for the home screen
 
-## Technical Architecture
+3. **No build process required** - Pure HTML/CSS/JS
 
-### File Structure
-```
-project/
-├── index.html          # Main application structure
-├── style.css           # Complete styling & animations
-├── script.js           # Interactive functionality
-├── README.md           # This documentation
-└── assets/
-    ├── delicious-juicy-double-cheeseburger-mid-air-levitation.png
-    └── training/        # Food category images
-        ├── Bread/
-        ├── Fried food/
-        ├── Noodles-Pasta/
-        └── Meat/
-```
+## 📱 Navigation States
 
-### Component Breakdown
+The background morphs between different shapes based on navigation:
+- **Home**: Organic zigzag pattern
+- **Search**: Wavy pattern with deeper valleys
+- **Orders**: Smooth wave pattern
+- **Profile**: Gentle rounded wave
 
-#### 1. Background System
-- **Dynamic Accent Shape**: CSS clip-path polygon creating zigzag pattern
-- **Morphing Animation**: Shape transforms based on navigation state
-- **Shadow Element**: Yellow accent shadow following zigzag contour
-- **Floating Elements**: Animated circles and shapes within accent area
+## 🔧 Tech Stack
 
-#### 2. Navigation Components
-**Top Bar:**
-- Location selector with dropdown functionality
-- Cart icon with item counter badge
-- Profile access button
+- **HTML5**: Semantic markup
+- **CSS3**: Custom properties, flexbox, grid, animations
+- **Vanilla JavaScript**: ES6+ features
+- **Google Fonts**: Inter font family
 
-**Bottom Navigation:**
-- 4-tab floating navigation (Home, Search, Orders, Profile)
-- Active state indicators
-- Background morphing triggers
+## 📄 License
 
-#### 3. Content Sections
+This project is for educational/portfolio purposes.
 
-**Search Interface:**
-- Full-width search input with icon
-- Filter button for advanced options
-- Auto-suggestion capability
+## 👤 Author
 
-**Deals & Promos:**
-- Horizontal scrolling card layout
-- Gradient backgrounds with animated overlays
-- Burger image integration (110px with transforms)
-- Copy-to-clipboard promo codes
-
-**Categories:**
-- Icon-based circular buttons (64px)
-- Subtle shadow effects (0 2px 8px rgba(0,0,0,0.1))
-- Animated floating elements on hover
-- SVG icons for each category
-
-**Recommended Foods:**
-- 2x2 grid layout with responsive design
-- Food photography with favorite toggle
-- Rating display and pricing
-- Add-to-cart functionality
-
-**Restaurant Listings:**
-- Vertical card layout with photos
-- Distance and rating information
-- Expandable details with arrow indicators
-
-**Special Offers:**
-- Large featured card (200px image height)
-- Restaurant branding with badges
-- Hover transformations
-
-#### 4. Interactive Features
-
-**Cart System:**
-- Modal overlay with item management
-- Quantity controls and pricing calculations
-- Promo code application
-- Checkout workflow
-
-**Animation Library:**
-- CSS keyframes for morphing shapes
-- Hover transformations
-- Floating element animations
-- Page transition effects
-
-## Key Features
-
-### Visual Design
-- **Mobile-First**: Responsive design optimized for mobile devices
-- **Organic Shapes**: Custom clip-path animations and floating elements
-- **Consistent Shadows**: Unified shadow system across components
-- **Brand Identity**: Cohesive color palette and typography
-
-### User Experience
-- **Intuitive Navigation**: Clear visual hierarchy and familiar patterns
-- **Interactive Feedback**: Hover states, animations, and micro-interactions
-- **Performance**: Optimized animations with CSS transforms
-- **Accessibility**: Semantic HTML structure and keyboard navigation
-
-### Technical Highlights
-- **Pure CSS Animations**: No external animation libraries
-- **Clip-path Mastery**: Complex zigzag shapes with shadow effects
-- **Modular JavaScript**: Object-oriented app architecture
-- **Responsive Grid**: Flexible layouts for different screen sizes
-
-## Development Notes
-
-### CSS Architecture
-- CSS Custom Properties for consistent theming
-- BEM-inspired class naming convention
-- Progressive enhancement approach
-- Hardware-accelerated animations
-
-### JavaScript Patterns
-- Class-based application structure
-- Event delegation for dynamic content
-- Local storage for cart persistence
-- Modal system for overlays
-
-### Performance Considerations
-- CSS `will-change` property for optimized animations
-- Lazy loading for food images
-- Debounced search functionality
-- Minimal DOM manipulation
-
-## Animation Showcase
-
-### Background Morphing
-The signature feature - a dynamic background that morphs based on user navigation:
-- **Home**: Default zigzag pattern
-- **Search**: Extended wave pattern
-- **Orders**: Simplified geometric shape
-- **Profile**: Rounded corner variation
-
-### Micro-Interactions
-- Card hover elevations with scale transforms
-- Floating element speed variations on interaction
-- Burger image rotation on deal card hover
-- Category icon bounce animations
-
-### Visual Hierarchy
-- Z-index layering system for proper element stacking
-- Shadow depth indicating interaction importance
-- Color temperature shifts for call-to-action elements
-
----
-
-*Built for seamless food delivery experiences*
+**yksu0**
+- GitHub: [@yksu0](https://github.com/yksu0)
+- Repository: [GoTawee](https://github.com/yksu0/GoTawee)
