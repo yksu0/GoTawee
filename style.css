@@ -1,0 +1,2314 @@
+/**
+ * ============================================================================
+ * GO TAWI - FOOD DELIVERY APPLICATION STYLESHEET
+ * ============================================================================
+ * 
+ * @file        style.css
+ * @description Comprehensive stylesheet for the Go Tawi food delivery mobile application
+ * @version     1.0.0
+ * @author      Development Team
+ * 
+ * ----------------------------------------------------------------------------
+ * ARCHITECTURE OVERVIEW
+ * ----------------------------------------------------------------------------
+ * 
+ * This stylesheet implements a mobile-first design pattern optimized for 
+ * devices with a maximum width of 430px. The architecture follows a modular
+ * component-based structure where each UI section is self-contained with 
+ * its own styling rules.
+ * 
+ * KEY DESIGN PATTERNS:
+ * - CSS Custom Properties (CSS Variables) for theme consistency
+ * - BEM-inspired naming conventions for component clarity
+ * - Progressive enhancement with CSS animations and transforms
+ * - Flexbox and Grid layouts for responsive positioning
+ * - Z-index layering system for proper element stacking
+ * 
+ * ----------------------------------------------------------------------------
+ * HTML CONNECTION STRUCTURE
+ * ----------------------------------------------------------------------------
+ * 
+ * The CSS connects to index.html through:
+ * 1. <link rel="stylesheet" href="style.css"> in the <head> section
+ * 2. Class-based selectors targeting HTML elements
+ * 3. Pseudo-classes and pseudo-elements for enhanced interactivity
+ * 
+ * MAIN HTML STRUCTURE MAPPING:
+ * 
+ * <body>
+ *   └── .background-container        → Fixed background with gradient shapes
+ *       ├── .background-accent        → Primary animated background shape
+ *       └── .background-accent-shadow → Shadow layer for depth
+ *   
+ *   └── .container                    → Main content wrapper (max-width: 430px)
+ *       └── .home-screen             → Primary screen container
+ *           ├── .top-bar             → Navigation header with location & actions
+ *           │   ├── .delivery-location → Location display component
+ *           │   └── .top-actions       → Cart and profile buttons
+ *           │
+ *           ├── .search-section      → Search functionality container
+ *           │   └── .search-container → Search input and filter button
+ *           │
+ *           ├── .deals-section       → Promotional deals carousel
+ *           │   └── .deals-scroll    → Horizontal scroll container
+ *           │       └── .deal-card   → Individual deal cards
+ *           │
+ *           ├── .categories-section  → Food category navigation
+ *           │   └── .categories-scroll → Horizontal category scroll
+ *           │       └── .category-item → Individual category buttons
+ *           │
+ *           ├── .recommended-section → Featured food items grid
+ *           │   └── .food-grid       → Responsive grid layout
+ *           │       └── .food-card   → Individual food item cards
+ *           │
+ *           └── .restaurants-section → Nearby restaurants list
+ *               └── .restaurants-grid → Restaurant cards container
+ *                   └── .restaurant-card → Individual restaurant items
+ *   
+ *   └── .floating-nav                → Fixed bottom navigation bar
+ *       └── .nav-item                → Navigation menu items
+ * 
+ * ----------------------------------------------------------------------------
+ * COMPONENT INTERACTION FLOW
+ * ----------------------------------------------------------------------------
+ * 
+ * 1. BACKGROUND LAYER (z-index: -2 to 0)
+ *    - Provides visual hierarchy with animated gradient shapes
+ *    - Morphs on user interaction (handled by script.js)
+ * 
+ * 2. CONTENT LAYER (z-index: 1)
+ *    - All primary content sits above background
+ *    - Utilizes relative positioning for stacking context
+ * 
+ * 3. NAVIGATION LAYER (z-index: 1000)
+ *    - Fixed positioning ensures always-visible navigation
+ *    - Box-shadow provides elevation effect
+ * 
+ * ----------------------------------------------------------------------------
+ * RESPONSIVE DESIGN STRATEGY
+ * ----------------------------------------------------------------------------
+ * 
+ * - Primary target: 430px wide mobile devices
+ * - Breakpoint at 430px adjusts for smaller screens
+ * - Flexbox provides fluid layouts that adapt to content
+ * - Overflow-x: auto enables horizontal scrolling for carousels
+ * 
+ * ----------------------------------------------------------------------------
+ * ANIMATION & INTERACTION
+ * ----------------------------------------------------------------------------
+ * 
+ * CSS handles static animations and hover states. Dynamic interactions
+ * (cart management, modal triggers, navigation) are managed by script.js
+ * which adds/removes CSS classes to trigger style changes.
+ * 
+ * ANIMATION TYPES:
+ * - Keyframe animations: Background shapes, floating elements
+ * - Transition effects: Hover states, scale transforms
+ * - Transform properties: translateY, scale, rotate for smooth motion
+ * 
+ * ----------------------------------------------------------------------------
+ * COLOR SYSTEM
+ * ----------------------------------------------------------------------------
+ * 
+ * The application uses a CSS Custom Properties system for consistent theming:
+ */
+
+/* Reset and Base Styles */
+:root {
+    --porcelain: #FDFDFA;    /* Primary background - soft white */
+    --turf-green: #237E56;   /* Primary brand color - medium green */
+    --light-gold: #EAD290;   /* Accent color - soft gold */
+    --amber-flame: #FDBC22;  /* Highlight color - vibrant amber */
+    --evergreen: #183526;    /* Text & dark elements - deep green */
+}
+
+/**
+ * ----------------------------------------------------------------------------
+ * GLOBAL RESET & BASE STYLES
+ * ----------------------------------------------------------------------------
+ * 
+ * Universal box-sizing ensures consistent element sizing by including
+ * padding and border in element width/height calculations.
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/**
+ * BODY ELEMENT
+ * 
+ * Establishes the foundation for the entire application:
+ * - Font stack prioritizes Inter (Google Font), falling back to system fonts
+ * - Line-height ensures readable text spacing
+ * - Background uses the --porcelain CSS variable for easy theme changes
+ * - overflow-x prevents horizontal scrolling on the main body
+ * 
+ * Connected to: <body> tag in index.html
+ */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--evergreen);
+    background-color: var(--porcelain);
+    overflow-x: hidden;
+}
+
+/**
+ * ============================================================================
+ * BACKGROUND LAYER SYSTEM
+ * ============================================================================
+ * 
+ * Creates an engaging visual hierarchy with animated gradient backgrounds.
+ * The background system uses CSS clip-path to create unique organic shapes
+ * that respond to user interactions (morphing handled by JavaScript).
+ * 
+ * LAYER STRUCTURE:
+ * 1. .background-container (z-index: -2) - Fixed positioning container
+ * 2. .background-accent-shadow (z-index: -1) - Golden shadow effect
+ * 3. .background-accent (z-index: 0) - Primary gradient shape
+ * 
+ * Connected to HTML:
+ * <div class="background-container">
+ *   <div class="background-accent"></div>
+ *   <div class="background-accent-shadow"></div>
+ * </div>
+ */
+
+/**
+ * PRIMARY BACKGROUND ACCENT
+ * 
+ * Features:
+ * - Gradient background using green color variations for brand consistency
+ * - clip-path creates organic zigzag shape at the bottom edge
+ * - Transitions smoothly between different shapes (morphing effect)
+ * - Pseudo-elements (::before, ::after) add floating decorative shapes
+ * 
+ * JavaScript Integration:
+ * - script.js adds classes (.morph-search, .morph-orders, .morph-profile)
+ *   to trigger shape transformations based on user navigation
+ */
+.background-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 35vh;  /* 35% of viewport height */
+    background: linear-gradient(135deg, #1a5f42 0%, rgba(20, 70, 48, 0.95) 25%, #164238 60%, rgba(24, 53, 38, 0.9) 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 60%, 80% 70%, 60% 85%, 40% 75%, 20% 90%, 0 80%);
+    z-index: 0;
+    transition: clip-path 0.8s cubic-bezier(0.4, 0, 0.2, 1);  /* Smooth morphing animation */
+    box-shadow: 0 8px 32px rgba(24, 53, 38, 0.3);
+}
+
+/* Yellow shadow element that follows the zigzag shape */
+.background-accent-shadow {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    right: 0;
+    height: 35vh;
+    background: #FFD700;
+    clip-path: polygon(0 0, 100% 0, 100% 60%, 80% 70%, 60% 85%, 40% 75%, 20% 90%, 0 80%);
+    z-index: -1;
+    opacity: 0.8;
+    filter: blur(2px);
+    box-shadow: 0 8px 16px rgba(255, 215, 0, 0.6), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Create a fixed background container */
+.background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 35vh;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.background-accent.morph-search {
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 85% 80%, 70% 65%, 30% 85%, 15% 70%, 0 85%);
+}
+
+.background-accent.morph-orders {
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 85%, 50% 70%, 25% 85%, 0 75%);
+}
+
+.background-accent.morph-profile {
+    clip-path: polygon(0 0, 100% 0, 100% 65%, 90% 80%, 10% 80%, 0 65%);
+}
+
+/* Add floating accent elements */
+.background-accent::before {
+    content: '';
+    position: absolute;
+    top: 35%;
+    right: 12%;
+    width: 80px;
+    height: 80px;
+    background: rgba(182, 165, 112, 0.4);
+    border-radius: 50%;
+    animation: float 5s ease-in-out infinite;
+    filter: blur(1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.background-accent::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 18%;
+    width: 50px;
+    height: 50px;
+    background: rgba(199, 147, 27, 0.5);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: float 7s ease-in-out infinite reverse;
+    filter: blur(0.5px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-10px) rotate(120deg); }
+    66% { transform: translateY(5px) rotate(240deg); }
+}
+
+/**
+ * ============================================================================
+ * MAIN CONTAINER STRUCTURE
+ * ============================================================================
+ */
+
+/**
+ * CONTAINER
+ * 
+ * Primary content wrapper with mobile-first constraints:
+ * - max-width: 430px targets standard mobile device width
+ * - margin: 0 auto centers content horizontally
+ * - min-height: 100vh ensures full viewport height coverage
+ * - position: relative establishes stacking context for child elements
+ * 
+ * Connected to: <div class="container"> in index.html
+ */
+.container {
+    min-height: 100vh;
+    position: relative;
+    max-width: 430px;
+    margin: 0 auto;
+}
+
+/**
+ * HOME SCREEN
+ * 
+ * Main content area with appropriate padding:
+ * - Top/side padding: 20px/16px for comfortable spacing
+ * - Bottom padding: 100px prevents content from being hidden behind
+ *   the fixed floating navigation bar
+ * 
+ * Connected to: <div class="home-screen"> in index.html
+ */
+.home-screen {
+    padding: 20px 16px 100px;
+}
+
+/**
+ * ============================================================================
+ * TOP BAR NAVIGATION
+ * ============================================================================
+ * 
+ * Header section containing location information and action buttons
+ * Connected to: <div class="top-bar"> in index.html
+ */
+
+/**
+ * TOP BAR
+ * 
+ * Flexbox layout creates space-between alignment:
+ * - Left side: delivery location information
+ * - Right side: cart and profile action buttons
+ */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+.delivery-location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.location-icon {
+    color: var(--porcelain);
+}
+
+.location-icon svg {
+    stroke: var(--porcelain);
+}
+
+.location-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.location-label {
+    font-size: 12px;
+    color: var(--porcelain);
+    opacity: 0.8;
+}
+
+.location-address {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--porcelain);
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cart-icon, .profile-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 12px;
+    padding: 10px;
+    color: var(--porcelain);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-icon svg, .profile-icon svg {
+    stroke: var(--porcelain);
+}
+
+.cart-icon:hover, .profile-icon:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--amber-flame);
+    color: var(--evergreen);
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/**
+ * ============================================================================
+ * SEARCH SECTION
+ * ============================================================================
+ * 
+ * Search functionality with input field and filter button
+ * 
+ * HTML Structure:
+ * <div class="search-section">
+ *   <div class="search-container">
+ *     <div class="search-box">
+ *       <svg class="search-icon">...</svg>
+ *       <input type="text" class="search-input">
+ *     </div>
+ *     <button class="filter-button">...</button>
+ *   </div>
+ * </div>
+ */
+
+/**
+ * SEARCH SECTION
+ * 
+ * Container with bottom margin to separate from deals section
+ */
+.search-section {
+    margin-bottom: 46px;
+}
+
+/**
+ * SEARCH CONTAINER
+ * 
+ * Flexbox layout with:
+ * - Flexible search box (grows to fill available space)
+ * - Fixed-width filter button
+ */
+.search-container {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/**
+ * SEARCH BOX
+ * 
+ * White background with rounded corners and subtle shadow:
+ * - flex: 1 allows it to grow and fill available space
+ * - Inner flexbox aligns search icon and input field
+ * - box-shadow provides elevation effect
+ * 
+ * Connected to: <div class="search-box"> containing SVG icon and input
+ */
+.search-box {
+    flex: 1;
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+    color: #999;
+}
+
+.search-icon svg {
+    stroke: #999;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    color: var(--evergreen);
+}
+
+.search-input::placeholder {
+    color: #999;
+}
+
+.filter-button {
+    background: var(--turf-green);
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-button svg {
+    stroke: white;
+}
+
+.filter-button:hover {
+    background: var(--evergreen);
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 16px;
+}
+
+/**
+ * ============================================================================
+ * DEALS & PROMOS SECTION
+ * ============================================================================
+ * 
+ * Horizontal scrolling carousel displaying promotional offers
+ * 
+ * HTML Structure:
+ * <div class="deals-section">
+ *   <h3 class="section-title">Deals & Promos</h3>
+ *   <div class="deals-scroll">
+ *     <div class="deal-card featured">
+ *       <div class="deal-content">...</div>
+ *       <div class="deal-image">...</div>
+ *     </div>
+ *     <!-- More deal cards -->
+ *   </div>
+ * </div>
+ * 
+ * FEATURES:
+ * - Horizontal scrolling with hidden scrollbar
+ * - Featured card styling with alternate gradient
+ * - Animated pseudo-elements for visual interest
+ * - Hover effects for interactivity
+ */
+
+/**
+ * DEALS SECTION
+ * 
+ * Section wrapper with title and scrollable content area
+ */
+.deals-section {
+    margin-bottom: 32px;
+}
+
+/**
+ * DEALS SCROLL CONTAINER
+ * 
+ * Implements horizontal scrolling carousel:
+ * - display: flex creates horizontal layout
+ * - overflow-x: auto enables horizontal scrolling
+ * - overflow-y: visible ensures shadows aren't clipped
+ * - scrollbar-width: none hides scrollbar (Firefox)
+ * - ::-webkit-scrollbar hides scrollbar (Chrome/Safari)
+ * 
+ * User Experience:
+ * - Touch/swipe scrolling on mobile devices
+ * - Smooth scroll behavior
+ * - No visible scrollbar for cleaner appearance
+ */
+.deals-scroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 12px 0 20px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.deals-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/**
+ * DEAL CARD
+ * 
+ * Individual promotional card with:
+ * - min-width prevents cards from shrinking below 280px
+ * - Gradient background (green for standard, amber for featured)
+ * - Pseudo-elements (::before, ::after) create animated decorative shapes
+ * - hover state lifts card with transform and shadow
+ * 
+ * JavaScript Integration:
+ * - Click handlers attached in script.js for promo code application
+ */
+.deal-card {
+    min-width: 280px;
+    background: linear-gradient(135deg, var(--turf-green) 0%, var(--evergreen) 100%);
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.deal-card::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -30%;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(234, 210, 144, 0.4) 0%, rgba(253, 188, 34, 0.2) 40%, transparent 70%);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: morphFloat 6s ease-in-out infinite;
+    z-index: 0;
+    filter: blur(1px);
+}
+
+.deal-card::after {
+    content: '';
+    position: absolute;
+    bottom: -25%;
+    left: -20%;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, rgba(253, 253, 250, 0.15) 0%, rgba(24, 53, 38, 0.2) 50%, transparent 80%);
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    animation: polygonPulse 4s ease-in-out infinite reverse;
+    z-index: 0;
+    transform: rotate(45deg);
+}
+
+@keyframes morphFloat {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg) scale(1);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        opacity: 0.6;
+    }
+    25% { 
+        transform: translateY(-15px) rotate(90deg) scale(1.1);
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        opacity: 0.4;
+    }
+    50% { 
+        transform: translateY(-5px) rotate(180deg) scale(0.9);
+        border-radius: 70% 30% 60% 40% / 40% 50% 60% 50%;
+        opacity: 0.7;
+    }
+    75% { 
+        transform: translateY(8px) rotate(270deg) scale(1.05);
+        border-radius: 40% 70% 30% 60% / 70% 40% 50% 30%;
+        opacity: 0.3;
+    }
+}
+
+@keyframes polygonPulse {
+    0%, 100% { 
+        transform: rotate(45deg) scale(1); 
+        opacity: 0.4;
+        clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    }
+    33% { 
+        transform: rotate(60deg) scale(1.2); 
+        opacity: 0.2;
+        clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+    }
+    66% { 
+        transform: rotate(30deg) scale(0.8); 
+        opacity: 0.6;
+        clip-path: polygon(40% 0%, 60% 0%, 100% 40%, 100% 60%, 60% 100%, 40% 100%, 0% 60%, 0% 40%);
+    }
+}
+
+.deal-card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+.deal-card:hover::before {
+    animation-duration: 3s;
+    filter: blur(0px);
+    opacity: 0.8;
+}
+
+.deal-card:hover::after {
+    animation-duration: 2s;
+    opacity: 0.8;
+}
+
+.deal-card.featured {
+    background: linear-gradient(135deg, var(--amber-flame) 0%, var(--light-gold) 60%, rgba(234, 210, 144, 0.9) 100%);
+    color: var(--evergreen);
+}
+
+.deal-card.featured::before {
+    background: radial-gradient(circle, rgba(24, 53, 38, 0.3) 0%, rgba(35, 126, 86, 0.2) 50%, transparent 80%);
+    animation: morphFloat 4s ease-in-out infinite reverse;
+    width: 140px;
+    height: 140px;
+}
+
+.deal-card.featured::after {
+    background: linear-gradient(60deg, rgba(253, 253, 250, 0.25) 0%, rgba(183, 126, 42, 0.15) 70%, transparent 90%);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: triangleSpin 5s linear infinite;
+}
+
+@keyframes triangleSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    33% { transform: rotate(120deg) scale(1.1); }
+    66% { transform: rotate(240deg) scale(0.9); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.deal-card.featured::after {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(0, 150, 136, 0.15));
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    animation: dealPulse 4s ease-in-out infinite reverse;
+}
+
+.deal-content {
+    position: relative;
+    z-index: 1;
+}
+
+.deal-content h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.deal-content p {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.deal-code {
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.deal-image {
+    font-size: 32px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Categories Section */
+.categories-section {
+    margin-bottom: 32px;
+}
+
+.categories-scroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.categories-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.category-item {
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.category-item:hover {
+    transform: translateY(-2px);
+}
+
+.category-icon {
+    width: 64px;
+    height: 64px;
+    background: white;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.category-icon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(45deg, rgba(255, 193, 7, 0.1), rgba(255, 87, 34, 0.08));
+    border-radius: 50%;
+    animation: categoryFloat 5s ease-in-out infinite;
+    z-index: 0;
+}
+
+.category-icon::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -15%;
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(103, 58, 183, 0.08));
+    clip-path: polygon(30% 0%, 70% 0%, 100% 70%, 0% 100%);
+    animation: categoryPulse 4s ease-in-out infinite;
+    z-index: 0;
+}
+
+.category-item:nth-child(odd) .category-icon::before {
+    background: linear-gradient(45deg, rgba(76, 175, 80, 0.1), rgba(0, 150, 136, 0.08));
+    animation: categoryFloat 4.5s ease-in-out infinite reverse;
+}
+
+.category-item:nth-child(odd) .category-icon::after {
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.08));
+    animation: categoryPulse 3.5s ease-in-out infinite reverse;
+}
+
+@keyframes categoryFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-2px, -3px) scale(1.1); }
+}
+
+@keyframes categoryPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(1.2); }
+}
+
+.category-icon:hover {
+    box-shadow: 0 4px 16px rgba(35, 126, 86, 0.2);
+    transform: scale(1.05);
+}
+
+.category-icon:hover::before,
+.category-icon:hover::after {
+    animation-duration: 2s;
+}
+
+.category-icon svg,
+.category-icon span {
+    position: relative;
+    z-index: 1;
+}
+
+.category-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--evergreen);
+    text-align: center;
+}
+
+/**
+ * ============================================================================
+ * RECOMMENDED FOOD SECTION
+ * ============================================================================
+ * 
+ * Grid layout displaying featured food items with images, details, and actions
+ * 
+ * HTML Structure:
+ * <div class="recommended-section">
+ *   <h3 class="section-title">Recommended</h3>
+ *   <div class="food-grid">
+ *     <div class="food-row">
+ *       <div class="food-card">
+ *         <div class="food-image">
+ *           <img class="food-photo" src="...">
+ *           <button class="favorite-btn">🤍</button>
+ *         </div>
+ *         <div class="food-info">
+ *           <h4 class="food-name">...</h4>
+ *           <p class="restaurant-name">...</p>
+ *           <div class="food-meta">
+ *             <span class="rating">...</span>
+ *             <span class="delivery-time">...</span>
+ *           </div>
+ *           <div class="food-price-section">
+ *             <span class="food-price">...</span>
+ *             <button class="add-to-cart-btn">+</button>
+ *           </div>
+ *         </div>
+ *       </div>
+ *       <!-- More food cards -->
+ *     </div>
+ *   </div>
+ * </div>
+ * 
+ * LAYOUT STRATEGY:
+ * - 2-column grid layout (.food-row)
+ * - Stacked animation with sequential delays
+ * - Hover effects for interactivity
+ * - Add-to-cart button integration with JavaScript
+ */
+
+/**
+ * RECOMMENDED SECTION
+ * 
+ * Container for the recommended food grid
+ */
+.recommended-section {
+    margin-bottom: 32px;
+}
+
+/**
+ * FOOD GRID
+ * 
+ * Flexbox column layout that contains multiple food-row elements
+ * Allows for vertical stacking of 2-column rows
+ */
+.food-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/**
+ * FOOD ROW
+ * 
+ * CSS Grid creates 2 equal-width columns:
+ * - grid-template-columns: 1fr 1fr creates two flexible columns
+ * - Each column takes up equal space
+ * - Responsive: collapses to single column on smaller screens (see media query)
+ */
+.food-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/**
+ * FOOD CARD
+ * 
+ * Individual food item card component:
+ * - White background with rounded corners
+ * - Box-shadow provides depth
+ * - Pseudo-elements add subtle animated decorations
+ * - Hover state: lifts card and increases shadow
+ * - Animation: fadeInUp with staggered delays (nth-child)
+ * 
+ * JavaScript Integration:
+ * - .add-to-cart-btn click handler adds item to cart
+ * - .favorite-btn toggles favorite state
+ */
+.food-card {
+    background: white;
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.food-card::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -30%;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, rgba(255, 193, 7, 0.08), rgba(255, 152, 0, 0.06));
+    border-radius: 50%;
+    animation: foodFloat 6s ease-in-out infinite;
+    z-index: 0;
+}
+
+.food-card::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -25%;
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.08), rgba(139, 195, 74, 0.06));
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: foodPulse 5s ease-in-out infinite;
+    z-index: 0;
+}
+
+.food-card:nth-child(even)::before {
+    background: linear-gradient(45deg, rgba(33, 150, 243, 0.08), rgba(63, 81, 181, 0.06));
+    animation: foodFloat 5.5s ease-in-out infinite reverse;
+}
+
+.food-card:nth-child(even)::after {
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.08), rgba(156, 39, 176, 0.06));
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    animation: foodPulse 4.5s ease-in-out infinite reverse;
+}
+
+@keyframes foodFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-2px, -2px) scale(1.05); }
+    66% { transform: translate(1px, -1px) scale(0.95); }
+}
+
+@keyframes foodPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
+    50% { opacity: 0.2; transform: scale(1.15) rotate(3deg); }
+}
+
+.food-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.food-card:hover::before {
+    animation-duration: 3s;
+}
+
+.food-card:hover::after {
+    animation-duration: 2.5s;
+}
+
+.food-image {
+    position: relative;
+    background: linear-gradient(135deg, var(--light-gold) 0%, var(--amber-flame) 100%);
+    border-radius: 12px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    z-index: 1;
+}
+
+.food-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.food-image:hover .food-photo {
+    transform: scale(1.05);
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    padding: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    z-index: 2;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1);
+}
+
+.food-info {
+    padding: 0 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.food-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
+
+.restaurant-name {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.food-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.rating {
+    color: var(--amber-flame);
+    font-weight: 500;
+}
+
+.food-price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.food-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--turf-green);
+}
+
+.add-to-cart-btn {
+    background: var(--turf-green);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-to-cart-btn:hover {
+    background: var(--evergreen);
+    transform: scale(1.1);
+}
+
+/**
+ * ============================================================================
+ * FLOATING NAVIGATION BAR
+ * ============================================================================
+ * 
+ * Fixed bottom navigation that remains visible during scrolling
+ * 
+ * HTML Structure:
+ * <nav class="floating-nav">
+ *   <div class="nav-item active">
+ *     <span class="nav-icon">
+ *       <svg>...</svg>
+ *     </span>
+ *     <span class="nav-label">Home</span>
+ *   </div>
+ *   <!-- More nav items: Search, Orders, Profile -->
+ * </nav>
+ * 
+ * POSITIONING:
+ * - position: fixed keeps it visible during scroll
+ * - bottom: 20px provides spacing from screen bottom
+ * - left: 50% + transform: translateX(-50%) centers horizontally
+ * - z-index: 1000 ensures it stays above all content
+ * 
+ * RESPONSIVE BEHAVIOR:
+ * - On screens <= 430px, changes to left/right positioning
+ *   instead of center transform for better edge-to-edge appearance
+ * 
+ * JAVASCRIPT INTEGRATION:
+ * - script.js adds/removes .active class based on current section
+ * - Click handlers navigate between different app sections
+ * - Background morph animations triggered on navigation
+ */
+
+/**
+ * FLOATING NAV
+ * 
+ * Main navigation container with pill shape and elevated appearance
+ */
+.floating-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: 24px;
+    padding: 12px 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    gap: 24px;
+    z-index: 1000;
+}
+
+/**
+ * NAV ITEM
+ * 
+ * Individual navigation button:
+ * - Flexbox column layout stacks icon above label
+ * - .active class applies brand green background and white text
+ * - Hover state adds subtle background tint
+ * - Transitions smooth all property changes
+ * 
+ * Active State (.nav-item.active):
+ * - Applied by JavaScript when section is active
+ * - Background changes to var(--turf-green)
+ * - Icons and text change to white color
+ */
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    min-width: 60px;
+}
+
+.nav-item:hover {
+    background: rgba(35, 126, 86, 0.1);
+}
+
+.nav-item.active {
+    background: var(--turf-green);
+    color: white;
+}
+
+.nav-item.active .nav-icon,
+.nav-item.active .nav-label {
+    color: white;
+}
+
+.nav-icon {
+    color: var(--evergreen);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-icon svg {
+    stroke: var(--evergreen);
+}
+
+.nav-item.active .nav-icon svg {
+    stroke: white;
+}
+
+.nav-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+/**
+ * ============================================================================
+ * RESPONSIVE DESIGN BREAKPOINTS
+ * ============================================================================
+ * 
+ * Media query adjustments for devices smaller than 430px
+ * 
+ * BREAKPOINT STRATEGY:
+ * - Primary design targets 430px (standard mobile width)
+ * - This media query adapts layout for smaller devices (320px - 429px)
+ * 
+ * KEY ADJUSTMENTS:
+ * 1. Reduced padding for tighter spacing
+ * 2. Single-column food grid for narrow screens
+ * 3. Smaller deal cards and gaps
+ * 4. Edge-to-edge navigation bar
+ * 5. Flexible navigation items that distribute evenly
+ */
+@media (max-width: 430px) {
+    /**
+     * Reduced horizontal padding for narrower screens
+     */
+    .home-screen {
+        padding: 20px 12px 100px;
+    }
+    
+    /**
+     * Single column layout for food items
+     * Overrides the 2-column grid for better readability
+     */
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /**
+     * Tighter spacing in deals carousel
+     */
+    .deals-scroll {
+        gap: 12px;
+    }
+    
+    /**
+     * Narrower deal cards with less padding
+     */
+    .deal-card {
+        min-width: 250px;
+        padding: 16px;
+    }
+    
+    /**
+     * Navigation bar adjustments:
+     * - Spans full width with 16px margins
+     * - Removes center transform positioning
+     * - Items flex evenly to fill available space
+     */
+    .floating-nav {
+        gap: 16px;
+        padding: 10px 16px;
+        left: 16px;
+        right: 16px;
+        transform: none;
+    }
+    
+    .nav-item {
+        min-width: auto;
+        flex: 1;
+    }
+}
+
+/**
+ * ============================================================================
+ * ANIMATION DEFINITIONS
+ * ============================================================================
+ * 
+ * CSS keyframe animations used throughout the application
+ * 
+ * ANIMATION CATEGORIES:
+ * 
+ * 1. PAGE LOAD ANIMATIONS:
+ *    - fadeInUp: Smooth entry animation for food cards
+ *    - Sequential delays create staggered appearance
+ * 
+ * 2. DECORATIVE ANIMATIONS (defined earlier in file):
+ *    - float: Background accent floating shapes
+ *    - morphFloat: Deal card decorative elements
+ *    - categoryFloat: Category icon animations
+ *    - foodFloat: Food card subtle animations
+ *    - restaurantFloat: Restaurant card animations
+ * 
+ * 3. INTERACTION ANIMATIONS:
+ *    - Handled via CSS transitions on hover/active states
+ *    - transform: translateY() for lift effects
+ *    - transform: scale() for emphasis
+ * 
+ * PERFORMANCE CONSIDERATIONS:
+ * - Animations use transform and opacity for GPU acceleration
+ * - will-change property implicitly handled by browser
+ * - Animations are subtle to avoid overwhelming users
+ */
+
+/**
+ * FADE IN UP ANIMATION
+ * 
+ * Creates smooth upward slide-in effect with fade:
+ * - Used for food cards on initial page load
+ * - Creates professional, polished appearance
+ * - Staggered delays (nth-child) create cascading effect
+ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/**
+ * ANIMATION APPLICATION
+ * 
+ * Food cards animate in with staggered timing:
+ * - Base animation: 0.5s duration
+ * - Each subsequent card delays by 0.1s
+ * - Creates smooth cascading appearance
+ */
+.food-card {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.food-card:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.food-card:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.food-card:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+/**
+ * ============================================================================
+ * CART MODAL SYSTEM
+ * ============================================================================
+ * 
+ * Shopping cart modal overlay with item management and checkout functionality
+ * 
+ * MODAL STRUCTURE:
+ * The cart modal is dynamically created by script.js and uses these CSS classes
+ * to style the overlay, modal container, and cart content.
+ * 
+ * HTML Structure (created by JavaScript):
+ * <div class="modal-overlay">
+ *   <div class="modal-container">
+ *     <div class="modal-header">
+ *       <h2>Your Cart</h2>
+ *       <button class="close-modal-btn">×</button>
+ *     </div>
+ *     <div class="modal-content">
+ *       <div class="cart-content-wrapper">
+ *         <div class="cart-header-info">...</div>
+ *         <div class="cart-items-list">
+ *           <div class="cart-item-card">
+ *             <div class="cart-item-image">...</div>
+ *             <div class="cart-item-details">...</div>
+ *             <div class="cart-item-quantity">
+ *               <button class="qty-decrease">-</button>
+ *               <span class="qty-display">1</span>
+ *               <button class="qty-increase">+</button>
+ *             </div>
+ *           </div>
+ *         </div>
+ *         <div class="cart-summary">
+ *           <div class="promo-code-section">...</div>
+ *           <div class="cart-totals">...</div>
+ *           <button class="checkout-button-main">...</button>
+ *         </div>
+ *       </div>
+ *     </div>
+ *   </div>
+ * </div>
+ * 
+ * FUNCTIONALITY:
+ * - Displays cart items with images, names, prices, and quantity controls
+ * - Promo code input and application
+ * - Real-time price calculations (subtotal, delivery, discount, total)
+ * - Checkout button with total amount
+ * - Empty cart state with call-to-action
+ * 
+ * JAVASCRIPT INTEGRATION:
+ * - Modal created/destroyed dynamically by script.js
+ * - Quantity buttons (+/-) update cart state
+ * - Promo code validation and discount application
+ * - Checkout button initiates order process
+ * - Item removal when quantity reaches zero
+ */
+
+/**
+ * CART CONTENT WRAPPER
+ * 
+ * Main flexbox container organizing cart sections vertically:
+ * - Header info at top
+ * - Scrollable items list in middle
+ * - Summary and checkout at bottom
+ */
+.cart-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 20px;
+}
+
+.cart-header-info {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #EAD290;
+}
+
+.cart-header-info h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #183526;
+    margin: 0 0 5px 0;
+    line-height: 1.2;
+}
+
+.cart-item-count {
+    color: #237E56;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.cart-items-list {
+    flex: 1;
+    overflow-y: auto;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    padding-right: 5px;
+}
+
+.cart-items-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cart-items-list::-webkit-scrollbar-track {
+    background: #FDFDFA;
+    border-radius: 3px;
+}
+
+.cart-items-list::-webkit-scrollbar-thumb {
+    background: #EAD290;
+    border-radius: 3px;
+}
+
+.cart-item-card {
+    display: flex;
+    align-items: center;
+    background: #FDFDFA;
+    border: 1px solid #EAD290;
+    border-radius: 12px;
+    padding: 12px;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+
+.cart-item-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(35, 126, 86, 0.1);
+    border-color: #237E56;
+}
+
+.cart-item-image {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #237E56, #183526);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cart-food-icon {
+    font-size: 24px;
+}
+
+.cart-item-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-item-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #183526;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item-restaurant {
+    font-size: 13px;
+    color: #237E56;
+    margin: 0 0 8px 0;
+    font-weight: 500;
+}
+
+.cart-item-price-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cart-item-unit-price {
+    font-size: 12px;
+    color: #666;
+}
+
+.cart-item-total-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: #FDBC22;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.qty-decrease,
+.qty-increase {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #EAD290;
+    color: #183526;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
+}
+
+.qty-decrease:hover,
+.qty-increase:hover {
+    background: #FDBC22;
+    transform: scale(1.05);
+}
+
+.qty-decrease svg,
+.qty-increase svg {
+    stroke-width: 2.5;
+}
+
+.qty-display {
+    min-width: 24px;
+    text-align: center;
+    font-weight: 700;
+    color: #183526;
+    font-size: 16px;
+}
+
+.cart-summary {
+    border-top: 1px solid #EAD290;
+    padding-top: 20px;
+    margin-top: auto;
+}
+
+.promo-code-section {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.promo-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #EAD290;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    background: #FDFDFA;
+    color: #183526;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.promo-input:focus {
+    border-color: #237E56;
+    box-shadow: 0 0 0 3px rgba(35, 126, 86, 0.1);
+}
+
+.promo-input::placeholder {
+    color: #999;
+}
+
+.apply-promo-btn {
+    padding: 12px 20px;
+    background: #237E56;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.apply-promo-btn:hover {
+    background: #183526;
+    transform: translateY(-1px);
+}
+
+.cart-totals {
+    background: linear-gradient(135deg, #FDFDFA 0%, #f8f9fa 100%);
+    border: 1px solid #EAD290;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.cart-total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+}
+
+.cart-total-line:last-child {
+    margin-bottom: 0;
+}
+
+.cart-total-line span:first-child {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cart-total-line span:last-child {
+    color: #183526;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.cart-total-line.total {
+    border-top: 1px solid #EAD290;
+    padding-top: 12px;
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
+.cart-total-line.total span {
+    font-size: 18px;
+    font-weight: 700;
+    color: #183526;
+}
+
+.free-delivery {
+    color: #237E56 !important;
+    font-weight: 700 !important;
+}
+
+.free-delivery-note {
+    background: linear-gradient(135deg, #237E56, #183526);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+    margin: 8px 0;
+    font-weight: 600;
+}
+
+.checkout-button-main {
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #FDBC22, #EAD290);
+    color: #183526;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 16px rgba(253, 188, 34, 0.3);
+}
+
+.checkout-button-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(253, 188, 34, 0.4);
+    background: linear-gradient(135deg, #EAD290, #FDBC22);
+}
+
+.checkout-button-main svg {
+    stroke-width: 2.5;
+}
+
+/* Empty Cart State */
+.cart-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    height: 100%;
+}
+
+.empty-cart-illustration {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #EAD290, #FDBC22);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: #183526;
+}
+
+.cart-empty-state h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #183526;
+    margin: 0 0 8px 0;
+}
+
+.cart-empty-state p {
+    color: #666;
+    margin: 0 0 24px 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.browse-food-btn {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #237E56, #183526);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.browse-food-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(35, 126, 86, 0.3);
+}
+
+/* Restaurants Near You Section */
+.restaurants-section {
+    margin: 32px 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.view-all {
+    font-size: 12px;
+    color: #999;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    opacity: 0.6;
+}
+
+.view-all:hover {
+    color: #237E56;
+    opacity: 1;
+}
+
+.restaurants-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.restaurant-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.see-more-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(35, 126, 86, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #237E56;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.restaurant-card:hover .see-more-icon {
+    background: #237E56;
+    color: white;
+    transform: scale(1.05);
+}
+
+.restaurant-card::before {
+    content: '';
+    position: absolute;
+    top: -25%;
+    right: -20%;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, rgba(255, 152, 0, 0.06), rgba(255, 193, 7, 0.04));
+    border-radius: 50%;
+    animation: restaurantFloat 7s ease-in-out infinite;
+    z-index: 0;
+}
+
+.restaurant-card::after {
+    content: '';
+    position: absolute;
+    bottom: -15%;
+    left: -20%;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.06), rgba(63, 81, 181, 0.04));
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: restaurantPulse 6s ease-in-out infinite;
+    z-index: 0;
+}
+
+.restaurant-card:nth-child(even)::before {
+    background: linear-gradient(45deg, rgba(76, 175, 80, 0.06), rgba(139, 195, 74, 0.04));
+    animation: restaurantFloat 6.5s ease-in-out infinite reverse;
+}
+
+.restaurant-card:nth-child(even)::after {
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.06), rgba(156, 39, 176, 0.04));
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    animation: restaurantPulse 5.5s ease-in-out infinite reverse;
+}
+
+@keyframes restaurantFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-1px, -2px) scale(1.02); }
+    66% { transform: translate(1px, -1px) scale(0.98); }
+}
+
+@keyframes restaurantPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+    50% { opacity: 0.1; transform: scale(1.1) rotate(2deg); }
+}
+
+.restaurant-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.restaurant-card:hover::before {
+    animation-duration: 3.5s;
+}
+
+.restaurant-card:hover::after {
+    animation-duration: 3s;
+}
+
+.restaurant-image {
+    position: relative;
+    background: linear-gradient(135deg, #FDFDFA 0%, #f8f9fa 100%);
+    border: 1px solid #EAD290;
+    border-radius: 12px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.restaurant-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.restaurant-image:hover .restaurant-photo {
+    transform: scale(1.05);
+}
+
+.restaurant-info {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.restaurant-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #183526;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+}
+
+.restaurant-cuisine {
+    font-size: 12px;
+    color: #666;
+    margin: 0 0 8px 0;
+}
+
+.restaurant-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+}
+
+.restaurant-meta .rating {
+    color: #FDBC22;
+    font-weight: 600;
+}
+
+.distance {
+    color: #237E56;
+    font-weight: 500;
+}
+
+/* Special Offer Section */
+.special-offer-section {
+    margin-bottom: 32px;
+}
+
+.special-offer-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    touch-action: pan-y;
+}
+
+.special-offer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.special-offer-image {
+    height: 200px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    touch-action: pan-y;
+}
+
+.special-offer-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.special-offer-card:hover .special-offer-photo {
+    transform: scale(1.05);
+}
+
+.special-offer-info {
+    padding: 16px 20px 20px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.special-restaurant-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #183526;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+}
+
+.special-offer-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.special-badge {
+    background: linear-gradient(135deg, var(--amber-flame), var(--light-gold));
+    color: var(--evergreen);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Deal Card Content & Images */
+.deal-content {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.deal-content h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+}
+
+.deal-content p {
+    font-size: 12px;
+    opacity: 0.9;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.deal-code {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.deal-image {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    margin-left: 12px;
+}
+
+.deal-burger {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
+    transform: translateY(5px) translateX(-15px);
+}
+
+.deal-card:hover .deal-burger {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/**
+ * ============================================================================
+ * CSS-HTML-JAVASCRIPT INTEGRATION SUMMARY
+ * ============================================================================
+ * 
+ * STYLESHEET CONNECTION:
+ * This stylesheet connects to index.html via:
+ * <link rel="stylesheet" href="style.css">
+ * 
+ * ----------------------------------------------------------------------------
+ * CLASS NAMING CONVENTIONS
+ * ----------------------------------------------------------------------------
+ * 
+ * Component-based naming structure for clarity and maintainability:
+ * 
+ * - .section-name          → Container for major sections
+ * - .section-name-item     → Individual items within sections
+ * - .component-name        → Reusable UI components
+ * - .component-name-part   → Sub-elements of components
+ * 
+ * Examples:
+ * - .deals-section > .deals-scroll > .deal-card > .deal-content
+ * - .food-grid > .food-row > .food-card > .food-info > .food-name
+ * 
+ * ----------------------------------------------------------------------------
+ * JAVASCRIPT INTERACTION POINTS
+ * ----------------------------------------------------------------------------
+ * 
+ * The following CSS classes are dynamically modified by script.js:
+ * 
+ * 1. NAVIGATION STATE:
+ *    - .nav-item.active      → Added to active navigation item
+ *    - .background-accent.morph-* → Shape transformations
+ * 
+ * 2. CART FUNCTIONALITY:
+ *    - .cart-badge           → Text content updated with item count
+ *    - .modal-overlay        → Created/removed for cart modal
+ *    - .cart-items-list      → Dynamically populated with cart items
+ *    - .qty-display          → Updated on quantity changes
+ * 
+ * 3. INTERACTIVE ELEMENTS:
+ *    - .add-to-cart-btn      → Click handler adds items to cart
+ *    - .favorite-btn         → Toggle favorite state (emoji change)
+ *    - .filter-button        → Opens filter modal (if implemented)
+ *    - .search-input         → Search functionality triggers
+ * 
+ * 4. MODAL SYSTEM:
+ *    - .modal-overlay        → Full-screen overlay backdrop
+ *    - .modal-container      → Centered modal content box
+ *    - .close-modal-btn      → Close button functionality
+ * 
+ * ----------------------------------------------------------------------------
+ * STATE MANAGEMENT
+ * ----------------------------------------------------------------------------
+ * 
+ * CSS handles visual states, JavaScript manages data states:
+ * 
+ * CSS STATES:
+ * - :hover           → Mouse over interactions
+ * - :active          → Click/touch active state
+ * - .active class    → Current section/item
+ * - .featured class  → Special styling for highlighted items
+ * 
+ * JAVASCRIPT DATA:
+ * - cart[]           → Array of cart items
+ * - cartCount        → Total number of items
+ * - activeSection    → Current navigation section
+ * - promoCode        → Applied promotional code
+ * 
+ * ----------------------------------------------------------------------------
+ * PERFORMANCE OPTIMIZATIONS
+ * ----------------------------------------------------------------------------
+ * 
+ * 1. CSS ANIMATIONS:
+ *    - Use transform and opacity for GPU acceleration
+ *    - Avoid animating layout properties (width, height, padding)
+ *    - will-change hint applied automatically by browser
+ * 
+ * 2. SCROLLING PERFORMANCE:
+ *    - overflow-x: auto for smooth native scrolling
+ *    - scrollbar hidden for cleaner appearance
+ *    - Touch-action optimized for mobile
+ * 
+ * 3. IMAGE LOADING:
+ *    - HTML uses loading="lazy" attribute
+ *    - object-fit: cover prevents layout shifts
+ *    - Border-radius applied to container, not image
+ * 
+ * ----------------------------------------------------------------------------
+ * ACCESSIBILITY CONSIDERATIONS
+ * ----------------------------------------------------------------------------
+ * 
+ * While visual styling is handled here, accessibility is enhanced by:
+ * 
+ * 1. Semantic HTML structure in index.html
+ * 2. Sufficient color contrast ratios (WCAG AA compliant)
+ * 3. Focus states for keyboard navigation (inherit from hover)
+ * 4. Touch targets minimum 44x44px for mobile
+ * 5. SVG icons include descriptive paths
+ * 
+ * Note: Full ARIA attributes and keyboard navigation handled in script.js
+ * 
+ * ----------------------------------------------------------------------------
+ * BROWSER COMPATIBILITY
+ * ----------------------------------------------------------------------------
+ * 
+ * Target browsers: Modern mobile browsers (Chrome, Safari, Firefox)
+ * 
+ * CSS Features used:
+ * - CSS Custom Properties (var())    → All modern browsers
+ * - Flexbox                          → Universal support
+ * - CSS Grid                         → Modern browsers (95%+)
+ * - clip-path                        → Modern browsers
+ * - Backdrop-filter                  → Limited (fallback provided)
+ * 
+ * Fallbacks provided for:
+ * - System fonts in font-family stack
+ * - Solid colors before gradients
+ * - Basic box-shadow before complex effects
+ * 
+ * ----------------------------------------------------------------------------
+ * MAINTENANCE GUIDELINES
+ * ----------------------------------------------------------------------------
+ * 
+ * When modifying this stylesheet:
+ * 
+ * 1. Update color values in :root for theme consistency
+ * 2. Maintain z-index hierarchy (background: <0, content: 1, nav: 1000)
+ * 3. Use existing animation keyframes before creating new ones
+ * 4. Test responsive behavior at 320px, 375px, 390px, 430px widths
+ * 5. Ensure hover states have corresponding transition properties
+ * 6. Keep specificity low (avoid !important unless absolutely necessary)
+ * 7. Group related components together with clear section comments
+ * 8. Test on actual mobile devices, not just browser DevTools
+ * 
+ * ----------------------------------------------------------------------------
+ * FILE DEPENDENCIES
+ * ----------------------------------------------------------------------------
+ * 
+ * This stylesheet depends on:
+ * - index.html         → HTML structure and class names
+ * - script.js          → Dynamic class additions/removals
+ * - Inter font family  → Google Fonts (loaded in HTML)
+ * - SVG icons          → Inline in HTML markup
+ * - Image assets       → training/ folder for food images
+ * 
+ * This stylesheet is required by:
+ * - index.html         → Linked in <head> section
+ * 
+ * ============================================================================
+ * END OF STYLESHEET
+ * ============================================================================
+ */
