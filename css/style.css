@@ -2346,6 +2346,284 @@ body {
  * - index.html         → Linked in <head> section
  * 
  * ============================================================================
+ * FILTER MODAL STYLES
+ * ============================================================================
+ */
+
+/* Filter Modal Content */
+.filter-content {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 0 4px;
+}
+
+/* Filter Section */
+.filter-section {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.filter-section:last-of-type {
+    border-bottom: none;
+}
+
+.filter-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 12px;
+}
+
+/* Filter Options */
+.filter-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--porcelain);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--evergreen);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-option:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.filter-option.active {
+    background: var(--turf-green);
+    color: white;
+    border-color: var(--evergreen);
+    transform: scale(1.02);
+}
+
+.filter-icon {
+    font-size: 18px;
+}
+
+/* Price Range Slider */
+.filter-range-container {
+    margin-bottom: 16px;
+}
+
+.range-slider {
+    padding: 0 8px;
+}
+
+.price-range-input {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, var(--light-gold) 0%, var(--amber-flame) 50%, var(--turf-green) 100%);
+    outline: none;
+    -webkit-appearance: none;
+    margin: 12px 0;
+}
+
+.price-range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--turf-green);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+.price-range-input::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+}
+
+.price-range-input::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--turf-green);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+.price-range-input::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+}
+
+.range-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+}
+
+.range-current {
+    font-weight: 600;
+    color: var(--turf-green);
+    font-size: 14px;
+}
+
+/* Filter Checkboxes */
+.filter-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--porcelain);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-checkbox:hover {
+    background: #f0f0f0;
+}
+
+.filter-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-custom {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--turf-green);
+    border-radius: 6px;
+    position: relative;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.filter-checkbox input[type="checkbox"]:checked + .checkbox-custom {
+    background: var(--turf-green);
+}
+
+.filter-checkbox input[type="checkbox"]:checked + .checkbox-custom::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--evergreen);
+    flex: 1;
+}
+
+/* Filter Actions */
+.filter-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 2px solid #f0f0f0;
+}
+
+.clear-filters-btn,
+.apply-filters-btn {
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-filters-btn {
+    background: var(--porcelain);
+    color: var(--evergreen);
+    border: 2px solid #e0e0e0;
+}
+
+.clear-filters-btn:hover {
+    background: #f0f0f0;
+    border-color: var(--turf-green);
+}
+
+.apply-filters-btn {
+    background: var(--turf-green);
+    color: white;
+    border: 2px solid var(--turf-green);
+}
+
+.apply-filters-btn:hover {
+    background: var(--evergreen);
+    border-color: var(--evergreen);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(35, 126, 86, 0.3);
+}
+
+/* Scrollbar Styling for Filter Content */
+.filter-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.filter-content::-webkit-scrollbar-track {
+    background: var(--porcelain);
+    border-radius: 10px;
+}
+
+.filter-content::-webkit-scrollbar-thumb {
+    background: var(--turf-green);
+    border-radius: 10px;
+}
+
+.filter-content::-webkit-scrollbar-thumb:hover {
+    background: var(--evergreen);
+}
+
+/* Animation for filter modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive adjustments for filters */
+@media (max-width: 360px) {
+    .filter-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-option {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
+
+/* ============================================================================
  * END OF STYLESHEET
  * ============================================================================
  */

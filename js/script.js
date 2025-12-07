@@ -34,7 +34,7 @@ class GoTawiApp {
 
         // Search functionality
         const searchInput = document.querySelector('.search-input');
-        const filterBtn = document.querySelector('.filter-btn');
+        const filterBtn = document.querySelector('.filter-button');
         
         if (searchInput) {
             searchInput.addEventListener('focus', () => this.showSearchSuggestions());
@@ -152,30 +152,153 @@ class GoTawiApp {
         const filterModal = this.createModal('Filters', `
             <div class="filter-content">
                 <div class="filter-section">
-                    <h4>Sort By</h4>
+                    <h4 class="filter-section-title">Sort By</h4>
                     <div class="filter-options">
-                        <button class="filter-option active">Recommended</button>
-                        <button class="filter-option">Nearest</button>
-                        <button class="filter-option">Rating</button>
-                        <button class="filter-option">Delivery Time</button>
+                        <button class="filter-option active" data-filter="sort" data-value="recommended">
+                            <span class="filter-icon">⭐</span>
+                            <span>Recommended</span>
+                        </button>
+                        <button class="filter-option" data-filter="sort" data-value="nearest">
+                            <span class="filter-icon">📍</span>
+                            <span>Nearest</span>
+                        </button>
+                        <button class="filter-option" data-filter="sort" data-value="rating">
+                            <span class="filter-icon">⭐</span>
+                            <span>Rating</span>
+                        </button>
+                        <button class="filter-option" data-filter="sort" data-value="delivery-time">
+                            <span class="filter-icon">⚡</span>
+                            <span>Delivery Time</span>
+                        </button>
                     </div>
                 </div>
+
                 <div class="filter-section">
-                    <h4>Price Range</h4>
+                    <h4 class="filter-section-title">Price Range</h4>
+                    <div class="filter-range-container">
+                        <div class="range-slider">
+                            <input type="range" class="price-range-input" min="0" max="100" value="50" step="5">
+                            <div class="range-values">
+                                <span class="range-min">$0</span>
+                                <span class="range-current">$50</span>
+                                <span class="range-max">$100+</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="filter-options">
-                        <button class="filter-option">$ Budget</button>
-                        <button class="filter-option">$$ Moderate</button>
-                        <button class="filter-option">$$$ Premium</button>
+                        <button class="filter-option" data-filter="price" data-value="budget">
+                            <span class="filter-icon">💵</span>
+                            <span>$ Budget</span>
+                        </button>
+                        <button class="filter-option" data-filter="price" data-value="moderate">
+                            <span class="filter-icon">💰</span>
+                            <span>$$ Moderate</span>
+                        </button>
+                        <button class="filter-option" data-filter="price" data-value="premium">
+                            <span class="filter-icon">💎</span>
+                            <span>$$$ Premium</span>
+                        </button>
                     </div>
                 </div>
+
                 <div class="filter-section">
-                    <h4>Delivery Time</h4>
-                    <div class="filter-options">
-                        <button class="filter-option">Under 20 min</button>
-                        <button class="filter-option">20-30 min</button>
-                        <button class="filter-option">30+ min</button>
+                    <h4 class="filter-section-title">Cuisine Type</h4>
+                    <div class="filter-options filter-checkboxes">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-cuisine="asian">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🍜 Asian</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-cuisine="italian">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🍝 Italian</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-cuisine="american">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🍔 American</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-cuisine="mexican">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🌮 Mexican</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-cuisine="dessert">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🍰 Dessert</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-cuisine="healthy">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🥗 Healthy</span>
+                        </label>
                     </div>
                 </div>
+
+                <div class="filter-section">
+                    <h4 class="filter-section-title">Delivery Time</h4>
+                    <div class="filter-options">
+                        <button class="filter-option" data-filter="delivery" data-value="fast">
+                            <span class="filter-icon">⚡</span>
+                            <span>Under 20 min</span>
+                        </button>
+                        <button class="filter-option" data-filter="delivery" data-value="medium">
+                            <span class="filter-icon">🚴</span>
+                            <span>20-30 min</span>
+                        </button>
+                        <button class="filter-option" data-filter="delivery" data-value="slow">
+                            <span class="filter-icon">🚗</span>
+                            <span>30+ min</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h4 class="filter-section-title">Rating</h4>
+                    <div class="filter-options">
+                        <button class="filter-option" data-filter="rating" data-value="4.5">
+                            <span class="filter-icon">⭐</span>
+                            <span>4.5+ Stars</span>
+                        </button>
+                        <button class="filter-option" data-filter="rating" data-value="4.0">
+                            <span class="filter-icon">⭐</span>
+                            <span>4.0+ Stars</span>
+                        </button>
+                        <button class="filter-option" data-filter="rating" data-value="3.5">
+                            <span class="filter-icon">⭐</span>
+                            <span>3.5+ Stars</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h4 class="filter-section-title">Dietary Preferences</h4>
+                    <div class="filter-options filter-checkboxes">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-dietary="vegetarian">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🥬 Vegetarian</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-dietary="vegan">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🌱 Vegan</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-dietary="gluten-free">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🌾 Gluten-Free</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" data-dietary="halal">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">☪️ Halal</span>
+                        </label>
+                    </div>
+                </div>
+
                 <div class="filter-actions">
                     <button class="clear-filters-btn">Clear All</button>
                     <button class="apply-filters-btn">Apply Filters</button>
@@ -183,6 +306,112 @@ class GoTawiApp {
             </div>
         `);
         this.showModal(filterModal);
+        this.setupFilterInteractions();
+    }
+
+    setupFilterInteractions() {
+        const modal = document.querySelector('.modal-overlay');
+        if (!modal) return;
+
+        // Single-select filter options (Sort By, Price, Delivery, Rating)
+        const singleSelectOptions = modal.querySelectorAll('.filter-option');
+        singleSelectOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                const filterType = option.dataset.filter;
+                if (filterType) {
+                    // Remove active from same filter type
+                    modal.querySelectorAll(`[data-filter="${filterType}"]`).forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    option.classList.add('active');
+                }
+            });
+        });
+
+        // Price range slider
+        const priceRangeInput = modal.querySelector('.price-range-input');
+        const rangeCurrent = modal.querySelector('.range-current');
+        if (priceRangeInput && rangeCurrent) {
+            priceRangeInput.addEventListener('input', (e) => {
+                const value = e.target.value;
+                rangeCurrent.textContent = `$${value}${value >= 100 ? '+' : ''}`;
+            });
+        }
+
+        // Clear filters
+        const clearBtn = modal.querySelector('.clear-filters-btn');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                // Reset all single-select options
+                modal.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('active'));
+                modal.querySelector('[data-value="recommended"]')?.classList.add('active');
+                
+                // Reset checkboxes
+                modal.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+                
+                // Reset price range
+                if (priceRangeInput) {
+                    priceRangeInput.value = 50;
+                    rangeCurrent.textContent = '$50';
+                }
+                
+                this.showToast('🔄 Filters cleared');
+            });
+        }
+
+        // Apply filters
+        const applyBtn = modal.querySelector('.apply-filters-btn');
+        if (applyBtn) {
+            applyBtn.addEventListener('click', () => {
+                const selectedFilters = this.getSelectedFilters(modal);
+                console.log('Applying filters:', selectedFilters);
+                this.showToast('✅ Filters applied');
+                modal.remove();
+            });
+        }
+    }
+
+    getSelectedFilters(modal) {
+        const filters = {
+            sort: null,
+            price: { range: 50, tier: null },
+            cuisine: [],
+            delivery: null,
+            rating: null,
+            dietary: []
+        };
+
+        // Get sort option
+        const activeSort = modal.querySelector('[data-filter="sort"].active');
+        if (activeSort) filters.sort = activeSort.dataset.value;
+
+        // Get price tier
+        const activePrice = modal.querySelector('[data-filter="price"].active');
+        if (activePrice) filters.price.tier = activePrice.dataset.value;
+        
+        // Get price range
+        const priceRange = modal.querySelector('.price-range-input');
+        if (priceRange) filters.price.range = priceRange.value;
+
+        // Get cuisine types
+        modal.querySelectorAll('input[data-cuisine]:checked').forEach(cb => {
+            filters.cuisine.push(cb.dataset.cuisine);
+        });
+
+        // Get delivery time
+        const activeDelivery = modal.querySelector('[data-filter="delivery"].active');
+        if (activeDelivery) filters.delivery = activeDelivery.dataset.value;
+
+        // Get rating
+        const activeRating = modal.querySelector('[data-filter="rating"].active');
+        if (activeRating) filters.rating = activeRating.dataset.value;
+
+        // Get dietary preferences
+        modal.querySelectorAll('input[data-dietary]:checked').forEach(cb => {
+            filters.dietary.push(cb.dataset.dietary);
+        });
+
+        return filters;
     }
 
     handleDealClick(dealCard) {
