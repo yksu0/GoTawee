@@ -542,7 +542,7 @@
                     </div>
                     <span class="reviews-count">(245 reviews)</span>
                 </div>
-                <div class="food-price">$24.99</div>
+                <div class="food-price">₱1,249</div>
             </div>
 
             <!-- Description -->
@@ -578,28 +578,28 @@
                 <div class="addon-item">
                     <div class="addon-info">
                         <div class="addon-name">Extra Sauce</div>
-                        <div class="addon-price">+$2.00</div>
+                        <div class="addon-price">+₱100</div>
                     </div>
                     <div class="addon-checkbox" onclick="toggleAddon(this)"></div>
                 </div>
                 <div class="addon-item">
                     <div class="addon-info">
                         <div class="addon-name">Garlic Butter</div>
-                        <div class="addon-price">+$3.00</div>
+                        <div class="addon-price">+₱150</div>
                     </div>
                     <div class="addon-checkbox" onclick="toggleAddon(this)"></div>
                 </div>
                 <div class="addon-item">
                     <div class="addon-info">
                         <div class="addon-name">Grilled Mushrooms</div>
-                        <div class="addon-price">+$4.50</div>
+                        <div class="addon-price">+₱225</div>
                     </div>
                     <div class="addon-checkbox" onclick="toggleAddon(this)"></div>
                 </div>
                 <div class="addon-item">
                     <div class="addon-info">
                         <div class="addon-name">Side Salad</div>
-                        <div class="addon-price">+$5.00</div>
+                        <div class="addon-price">+₱250</div>
                     </div>
                     <div class="addon-checkbox" onclick="toggleAddon(this)"></div>
                 </div>
@@ -669,28 +669,28 @@
                             <img src="../assets/training/Meat/90.jpg" alt="BBQ Ribs">
                         </div>
                         <div class="related-name">BBQ Ribs</div>
-                        <div class="related-price">$22.99</div>
+                        <div class="related-price">₱1,149</div>
                     </div>
                     <div class="related-item">
                         <div class="related-image">
                             <img src="../assets/training/Meat/91.jpg" alt="Lamb Chops">
                         </div>
                         <div class="related-name">Lamb Chops</div>
-                        <div class="related-price">$28.99</div>
+                        <div class="related-price">₱1,449</div>
                     </div>
                     <div class="related-item">
                         <div class="related-image">
                             <img src="../assets/training/Seafood/0.jpg" alt="Grilled Salmon">
                         </div>
                         <div class="related-name">Grilled Salmon</div>
-                        <div class="related-price">$26.99</div>
+                        <div class="related-price">₱1,349</div>
                     </div>
                     <div class="related-item">
                         <div class="related-image">
                             <img src="../assets/training/Meat/88.jpg" alt="Pork Tenderloin">
                         </div>
                         <div class="related-name">Pork Tenderloin</div>
-                        <div class="related-price">$23.99</div>
+                        <div class="related-price">₱1,199</div>
                     </div>
                 </div>
             </div>
@@ -714,14 +714,14 @@
                     <circle cx="19" cy="21" r="1"></circle>
                     <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43h-15.12"></path>
                 </svg>
-                <span class="cart-total" id="cartTotal">$24.99</span>
+                <span class="cart-total" id="cartTotal">₱1,249</span>
             </button>
         </div>
     </div>
 
     <script>
         let quantity = 1;
-        const basePrice = 24.99;
+        const basePrice = 1249;
         let addonsTotal = 0;
 
         function toggleFavorite(button) {
@@ -769,7 +769,7 @@
 
         function updateTotal() {
             const total = (basePrice + addonsTotal) * quantity;
-            document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('cartTotal').textContent = `₱${total.toLocaleString('en-PH')}`;
         }
 
         function addToCart() {
@@ -793,7 +793,7 @@
             console.log('Adding to cart:', cartItem);
             
             // Show success message
-            alert(`Added ${quantity}x Grilled Beef Steak to cart!\nTotal: $${cartItem.total.toFixed(2)}`);
+            alert(`Added ${quantity}x Grilled Beef Steak to cart!\nTotal: ₱${cartItem.total.toLocaleString('en-PH')}`);
             
             // Here you would typically update the cart state and navigate
             // For now, we'll just go back
