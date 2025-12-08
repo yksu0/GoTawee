@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Details - Go Tawi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Page specific styles */
+        body {
+            background: var(--porcelain);
+            padding-bottom: 100px;
+        }
+
+        .food-detail-page {
+            max-width: 430px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Food Image Section */
+        .food-image-section {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .food-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+            z-index: 10;
+        }
+
+        .back-button {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 20;
+        }
+
+        .back-button:hover {
+            background: #f5f5f5;
+            transform: translateX(-3px);
+        }
+
+        .back-button svg {
+            color: var(--evergreen);
+        }
+
+        .favorite-button {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .favorite-button:hover {
+            transform: scale(1.1);
+        }
+
+        .favorite-button svg {
+            color: #999;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-button.active svg {
+            fill: #ff4444;
+            stroke: #ff4444;
+        }
+
+        /* Content Section */
+        .food-content {
+            padding: 24px 20px;
+        }
+
+        /* Header Info */
+        .food-header {
+            margin-bottom: 20px;
+        }
+
+        .food-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--evergreen);
+            margin-bottom: 8px;
+        }
+
+        .food-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .food-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--evergreen);
+        }
+
+        .reviews-count {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .food-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--turf-green);
+        }
+
+        /* Description */
+        .food-description {
+            margin-bottom: 24px;
+        }
+
+        .section-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--evergreen);
+            margin-bottom: 8px;
+        }
+
+        .description-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Size Options */
+        .size-options {
+            margin-bottom: 24px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .option-item {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .option-item:hover {
+            border-color: var(--turf-green);
+        }
+
+        .option-item.selected {
+            border-color: var(--turf-green);
+            background: rgba(35, 126, 86, 0.08);
+        }
+
+        .option-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--evergreen);
+            margin-bottom: 4px;
+        }
+
+        .option-price {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Add-ons */
+        .addons-section {
+            margin-bottom: 24px;
+        }
+
+        .addon-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .addon-item:last-child {
+            border-bottom: none;
+        }
+
+        .addon-info {
+            flex: 1;
+        }
+
+        .addon-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--evergreen);
+            margin-bottom: 4px;
+        }
+
+        .addon-price {
+            font-size: 13px;
+            color: var(--turf-green);
+        }
+
+        .addon-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .addon-checkbox.checked {
+            background: var(--turf-green);
+            border-color: var(--turf-green);
+        }
+
+        .addon-checkbox.checked::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: white;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
+        }
+
+        /* Special Instructions */
+        .instructions-section {
+            margin-bottom: 24px;
+        }
+
+        .instructions-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--evergreen);
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .instructions-textarea:focus {
+            outline: none;
+            border-color: var(--turf-green);
+        }
+
+        .instructions-textarea::placeholder {
+            color: #999;
+        }
+
+        /* Nutritional Info */
+        .nutrition-section {
+            margin-bottom: 24px;
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .nutrition-item {
+            text-align: center;
+            padding: 12px 8px;
+            background: var(--porcelain);
+            border-radius: 12px;
+        }
+
+        .nutrition-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--evergreen);
+            margin-bottom: 4px;
+        }
+
+        .nutrition-label {
+            font-size: 11px;
+            color: #999;
+        }
+
+        /* Allergen Warnings */
+        .allergen-section {
+            margin-bottom: 24px;
+        }
+
+        .allergen-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .allergen-tag {
+            padding: 6px 12px;
+            background: #fff4e6;
+            border: 1px solid #ffb84d;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #e67700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .allergen-tag svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Related Items */
+        .related-section {
+            margin-bottom: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .related-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 4px 0;
+        }
+
+        .related-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .related-item {
+            min-width: 120px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .related-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .related-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .related-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .related-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--evergreen);
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .related-price {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--turf-green);
+        }
+
+        /* Bottom Action Bar */
+        .bottom-action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 430px;
+            width: 100%;
+            background: white;
+            padding: 16px 20px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+
+        .action-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--porcelain);
+            border-radius: 12px;
+            padding: 8px 12px;
+        }
+
+        .qty-button {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--turf-green);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .qty-button:hover {
+            background: var(--turf-green);
+            color: white;
+        }
+
+        .qty-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .qty-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--evergreen);
+            min-width: 24px;
+            text-align: center;
+        }
+
+        /* Add to Cart Button */
+        .add-to-cart-button {
+            flex: 1;
+            padding: 16px;
+            background: var(--turf-green);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart-button:hover {
+            background: var(--evergreen);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(35, 126, 86, 0.3);
+        }
+
+        .add-to-cart-button:active {
+            transform: translateY(0);
+        }
+
+        .cart-total {
+            font-size: 18px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="food-detail-page">
+        <!-- Food Image with Overlay Buttons -->
+        <div class="food-image-section">
+            <img src="../assets/training/Meat/89.jpg" alt="Grilled Beef Steak" class="food-image">
+            <div class="image-overlay">
+                <button class="back-button" onclick="history.back()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <button class="favorite-button" onclick="toggleFavorite(this)">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Food Content -->
+        <div class="food-content">
+            <!-- Header Info -->
+            <div class="food-header">
+                <h1 class="food-name">Grilled Beef Steak</h1>
+                <div class="food-meta">
+                    <div class="food-rating">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        4.9
+                    </div>
+                    <span class="reviews-count">(245 reviews)</span>
+                </div>
+                <div class="food-price">$24.99</div>
+            </div>
+
+            <!-- Description -->
+            <div class="food-description">
+                <h3 class="section-label">Description</h3>
+                <p class="description-text">
+                    Premium quality beef steak grilled to perfection. Served with a side of seasonal vegetables and your choice of sauce. Our signature marinade includes herbs and spices that bring out the natural flavors of the meat.
+                </p>
+            </div>
+
+            <!-- Size Options -->
+            <div class="size-options">
+                <h3 class="section-label">Choose Size</h3>
+                <div class="options-grid">
+                    <div class="option-item" onclick="selectOption(this)">
+                        <div class="option-name">Small</div>
+                        <div class="option-price">6 oz</div>
+                    </div>
+                    <div class="option-item selected" onclick="selectOption(this)">
+                        <div class="option-name">Medium</div>
+                        <div class="option-price">8 oz</div>
+                    </div>
+                    <div class="option-item" onclick="selectOption(this)">
+                        <div class="option-name">Large</div>
+                        <div class="option-price">12 oz</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add-ons -->
+            <div class="addons-section">
+                <h3 class="section-label">Add-ons</h3>
+                <div class="addon-item">
+                    <div class="addon-info">
+                        <div class="addon-name">Extra Sauce</div>
+                        <div class="addon-price">+$2.00</div>
+                    </div>
+                    <div class="addon-checkbox" onclick="toggleAddon(this)"></div>
+                </div>
+                <div class="addon-item">
+                    <div class="addon-info">
+                        <div class="addon-name">Garlic Butter</div>
+                        <div class="addon-price">+$3.00</div>
+                    </div>
+                    <div class="addon-checkbox" onclick="toggleAddon(this)"></div>
+                </div>
+                <div class="addon-item">
+                    <div class="addon-info">
+                        <div class="addon-name">Grilled Mushrooms</div>
+                        <div class="addon-price">+$4.50</div>
+                    </div>
+                    <div class="addon-checkbox" onclick="toggleAddon(this)"></div>
+                </div>
+                <div class="addon-item">
+                    <div class="addon-info">
+                        <div class="addon-name">Side Salad</div>
+                        <div class="addon-price">+$5.00</div>
+                    </div>
+                    <div class="addon-checkbox" onclick="toggleAddon(this)"></div>
+                </div>
+            </div>
+
+            <!-- Special Instructions -->
+            <div class="instructions-section">
+                <h3 class="section-label">Special Instructions</h3>
+                <textarea 
+                    class="instructions-textarea" 
+                    placeholder="Any special requests? (e.g., extra spicy, no onions, well done...)"
+                ></textarea>
+            </div>
+
+            <!-- Nutritional Information -->
+            <div class="nutrition-section">
+                <h3 class="section-label">Nutritional Information</h3>
+                <div class="nutrition-grid">
+                    <div class="nutrition-item">
+                        <div class="nutrition-value">450</div>
+                        <div class="nutrition-label">Calories</div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div class="nutrition-value">35g</div>
+                        <div class="nutrition-label">Protein</div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div class="nutrition-value">12g</div>
+                        <div class="nutrition-label">Carbs</div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div class="nutrition-value">28g</div>
+                        <div class="nutrition-label">Fat</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Allergen Information -->
+            <div class="allergen-section">
+                <h3 class="section-label">Allergen Information</h3>
+                <div class="allergen-tags">
+                    <div class="allergen-tag">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        Contains Dairy
+                    </div>
+                    <div class="allergen-tag">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        Contains Soy
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Items -->
+            <div class="related-section">
+                <h3 class="section-label">You May Also Like</h3>
+                <div class="related-scroll">
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="../assets/training/Meat/90.jpg" alt="BBQ Ribs">
+                        </div>
+                        <div class="related-name">BBQ Ribs</div>
+                        <div class="related-price">$22.99</div>
+                    </div>
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="../assets/training/Meat/91.jpg" alt="Lamb Chops">
+                        </div>
+                        <div class="related-name">Lamb Chops</div>
+                        <div class="related-price">$28.99</div>
+                    </div>
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="../assets/training/Seafood/0.jpg" alt="Grilled Salmon">
+                        </div>
+                        <div class="related-name">Grilled Salmon</div>
+                        <div class="related-price">$26.99</div>
+                    </div>
+                    <div class="related-item">
+                        <div class="related-image">
+                            <img src="../assets/training/Meat/88.jpg" alt="Pork Tenderloin">
+                        </div>
+                        <div class="related-name">Pork Tenderloin</div>
+                        <div class="related-price">$23.99</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Action Bar -->
+    <div class="bottom-action-bar">
+        <div class="action-content">
+            <!-- Quantity Selector -->
+            <div class="quantity-selector">
+                <button class="qty-button" onclick="decreaseQuantity()">−</button>
+                <div class="qty-value" id="quantity">1</div>
+                <button class="qty-button" onclick="increaseQuantity()">+</button>
+            </div>
+            
+            <!-- Add to Cart Button -->
+            <button class="add-to-cart-button" onclick="addToCart()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="8" cy="21" r="1"></circle>
+                    <circle cx="19" cy="21" r="1"></circle>
+                    <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43h-15.12"></path>
+                </svg>
+                <span class="cart-total" id="cartTotal">$24.99</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let quantity = 1;
+        const basePrice = 24.99;
+        let addonsTotal = 0;
+
+        function toggleFavorite(button) {
+            button.classList.toggle('active');
+        }
+
+        function selectOption(element) {
+            // Remove selected class from all options
+            const options = element.parentElement.querySelectorAll('.option-item');
+            options.forEach(opt => opt.classList.remove('selected'));
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            updateTotal();
+        }
+
+        function toggleAddon(checkbox) {
+            checkbox.classList.toggle('checked');
+            
+            // Get addon price
+            const priceText = checkbox.parentElement.querySelector('.addon-price').textContent;
+            const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+            
+            if (checkbox.classList.contains('checked')) {
+                addonsTotal += price;
+            } else {
+                addonsTotal -= price;
+            }
+            
+            updateTotal();
+        }
+
+        function increaseQuantity() {
+            quantity++;
+            document.getElementById('quantity').textContent = quantity;
+            updateTotal();
+        }
+
+        function decreaseQuantity() {
+            if (quantity > 1) {
+                quantity--;
+                document.getElementById('quantity').textContent = quantity;
+                updateTotal();
+            }
+        }
+
+        function updateTotal() {
+            const total = (basePrice + addonsTotal) * quantity;
+            document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
+        }
+
+        function addToCart() {
+            // Get selected options
+            const selectedSize = document.querySelector('.option-item.selected .option-name').textContent;
+            const selectedAddons = Array.from(document.querySelectorAll('.addon-checkbox.checked')).map(
+                checkbox => checkbox.parentElement.querySelector('.addon-name').textContent
+            );
+            const specialInstructions = document.querySelector('.instructions-textarea').value;
+            
+            // Create cart item object
+            const cartItem = {
+                name: 'Grilled Beef Steak',
+                size: selectedSize,
+                addons: selectedAddons,
+                instructions: specialInstructions,
+                quantity: quantity,
+                total: (basePrice + addonsTotal) * quantity
+            };
+            
+            console.log('Adding to cart:', cartItem);
+            
+            // Show success message
+            alert(`Added ${quantity}x Grilled Beef Steak to cart!\nTotal: $${cartItem.total.toFixed(2)}`);
+            
+            // Here you would typically update the cart state and navigate
+            // For now, we'll just go back
+            // history.back();
+        }
+    </script>
+</body>
+</html>
