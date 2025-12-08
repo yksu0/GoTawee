@@ -1,0 +1,454 @@
+/**
+ * ============================================================================
+ * SEARCH PAGE STYLESHEET
+ * ============================================================================
+ * 
+ * @file        search.css
+ * @description Dedicated stylesheet for search and filtering functionality
+ * @version     1.0.0
+ * @author      Development Team
+ * @dependency  style.css (base styles and CSS variables)
+ * 
+ * ----------------------------------------------------------------------------
+ * PURPOSE
+ * ----------------------------------------------------------------------------
+ * 
+ * This stylesheet provides styling for the search interface, including:
+ * - Search input with auto-focus and clear functionality
+ * - Category filter tabs (Food, Restaurants, Cuisines)
+ * - Popular searches grid
+ * - Recent search history with remove capability
+ * - Live search results display
+ * - Empty state handling
+ * - Sort and filter controls
+ * 
+ * The design prioritizes quick access to search functionality with real-time
+ * feedback and intuitive filtering options to help users find food items and
+ * restaurants efficiently.
+ * 
+ * ----------------------------------------------------------------------------
+ * CONNECTED HTML
+ * ----------------------------------------------------------------------------
+ * 
+ * pages/search.html
+ * 
+ */
+
+body {
+    background: var(--porcelain);
+    padding-bottom: 100px;
+}
+
+.search-page {
+    max-width: 430px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Search Header */
+.search-header {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    z-index: 100;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.back-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--porcelain);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(35,126,86,0.1);
+}
+
+.back-btn svg {
+    color: var(--evergreen);
+}
+
+.search-input-container {
+    flex: 1;
+    position: relative;
+}
+
+.search-input-main {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.search-input-main:focus {
+    outline: none;
+    border-color: var(--turf-green);
+}
+
+.search-icon-input {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+}
+
+.clear-search {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background: #ccc;
+    border: none;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-search.active {
+    display: flex;
+}
+
+.clear-search:hover {
+    background: #999;
+}
+
+.clear-search svg {
+    color: white;
+    width: 14px;
+    height: 14px;
+}
+
+/* Filter Tabs */
+.filter-tabs {
+    padding: 16px 20px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.filter-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-tab {
+    padding: 8px 16px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-tab:hover {
+    border-color: var(--turf-green);
+}
+
+.filter-tab.active {
+    background: var(--turf-green);
+    border-color: var(--turf-green);
+    color: white;
+}
+
+/* Popular Searches */
+.popular-section {
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 16px;
+}
+
+.popular-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.popular-item {
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(35,126,86,0.05) 0%, rgba(35,126,86,0.02) 100%);
+    border: 2px solid rgba(35,126,86,0.1);
+    border-radius: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.popular-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border-color: var(--turf-green);
+}
+
+.popular-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.popular-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+/* Recent Searches */
+.recent-section {
+    padding: 0 20px 20px;
+}
+
+.recent-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.recent-item:hover {
+    border-color: var(--turf-green);
+    transform: translateX(4px);
+}
+
+.recent-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--porcelain);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.recent-icon svg {
+    color: #999;
+}
+
+.recent-text {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--evergreen);
+}
+
+.remove-recent {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remove-recent:hover {
+    background: rgba(244,67,54,0.1);
+}
+
+.remove-recent svg {
+    color: #999;
+    width: 18px;
+    height: 18px;
+}
+
+/* Search Results */
+.results-section {
+    padding: 20px;
+    display: none;
+}
+
+.results-section.active {
+    display: block;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.results-count {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.sort-btn {
+    padding: 8px 16px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.sort-btn:hover {
+    border-color: var(--turf-green);
+}
+
+.sort-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.result-card {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.result-card:hover {
+    border-color: var(--turf-green);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.result-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.result-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.result-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.result-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.result-restaurant {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 8px;
+}
+
+.result-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: #666;
+}
+
+.result-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--turf-green);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    display: none;
+}
+
+.empty-state.active {
+    display: block;
+}
+
+.empty-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, rgba(35,126,86,0.1) 0%, rgba(35,126,86,0.05) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-icon svg {
+    width: 60px;
+    height: 60px;
+    color: var(--turf-green);
+}
+
+.empty-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 8px;
+}
+
+.empty-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Floating Navigation - Inherits from style.css */

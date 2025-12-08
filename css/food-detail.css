@@ -1,0 +1,570 @@
+/**
+ * ============================================================================
+ * @file        food-detail.css
+ * @description Stylesheet for food item detail page with options, add-ons,
+ *              and nutritional information
+ * @version     1.0.0
+ * @author      Go Tawi Development Team
+ * @dependency  style.css (base styles and CSS variables)
+ * ============================================================================
+ * 
+ * PURPOSE:
+ * Provides complete styling for the food detail interface including image
+ * display, pricing, size options, add-ons selection, special instructions,
+ * nutritional info, allergen warnings, and quantity controls.
+ * 
+ * FEATURES:
+ * - Full-screen hero image with overlay controls
+ * - Back and favorite buttons
+ * - Food meta information (rating, price)
+ * - Size/variant selection grid
+ * - Add-ons with custom checkboxes
+ * - Special instructions textarea
+ * - Nutritional information grid
+ * - Allergen warning tags
+ * - Related items carousel
+ * - Fixed bottom action bar with quantity selector
+ * - Add to cart functionality
+ * 
+ * CONNECTED HTML:
+ * - pages/food-detail.html
+ * ============================================================================
+ */
+
+/* Page specific styles */
+body {
+    background: var(--porcelain);
+    padding-bottom: 100px;
+}
+
+.food-detail-page {
+    max-width: 430px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ============================================================================
+   FOOD IMAGE SECTION
+   ============================================================================ */
+
+.food-image-section {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.food-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+    z-index: 10;
+}
+
+.back-button {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 20;
+}
+
+.back-button:hover {
+    background: #f5f5f5;
+    transform: translateX(-3px);
+}
+
+.back-button svg {
+    color: var(--evergreen);
+}
+
+.favorite-button {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.favorite-button:hover {
+    transform: scale(1.1);
+}
+
+.favorite-button svg {
+    color: #999;
+    transition: all 0.3s ease;
+}
+
+.favorite-button.active svg {
+    fill: #ff4444;
+    stroke: #ff4444;
+}
+
+/* ============================================================================
+   CONTENT SECTION
+   ============================================================================ */
+
+.food-content {
+    padding: 24px 20px;
+}
+
+/* ============================================================================
+   HEADER INFO
+   ============================================================================ */
+
+.food-header {
+    margin-bottom: 20px;
+}
+
+.food-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 8px;
+}
+
+.food-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.food-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.reviews-count {
+    font-size: 13px;
+    color: #999;
+}
+
+.food-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--turf-green);
+}
+
+/* ============================================================================
+   DESCRIPTION
+   ============================================================================ */
+
+.food-description {
+    margin-bottom: 24px;
+}
+
+.section-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 8px;
+}
+
+.description-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* ============================================================================
+   SIZE OPTIONS
+   ============================================================================ */
+
+.size-options {
+    margin-bottom: 24px;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.option-item {
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.option-item:hover {
+    border-color: var(--turf-green);
+}
+
+.option-item.selected {
+    border-color: var(--turf-green);
+    background: rgba(35, 126, 86, 0.08);
+}
+
+.option-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.option-price {
+    font-size: 12px;
+    color: #999;
+}
+
+/* ============================================================================
+   ADD-ONS
+   ============================================================================ */
+
+.addons-section {
+    margin-bottom: 24px;
+}
+
+.addon-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.addon-item:last-child {
+    border-bottom: none;
+}
+
+.addon-info {
+    flex: 1;
+}
+
+.addon-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.addon-price {
+    font-size: 13px;
+    color: var(--turf-green);
+}
+
+.addon-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.addon-checkbox.checked {
+    background: var(--turf-green);
+    border-color: var(--turf-green);
+}
+
+.addon-checkbox.checked::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: white;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* ============================================================================
+   SPECIAL INSTRUCTIONS
+   ============================================================================ */
+
+.instructions-section {
+    margin-bottom: 24px;
+}
+
+.instructions-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--evergreen);
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.instructions-textarea:focus {
+    outline: none;
+    border-color: var(--turf-green);
+}
+
+.instructions-textarea::placeholder {
+    color: #999;
+}
+
+/* ============================================================================
+   NUTRITIONAL INFO
+   ============================================================================ */
+
+.nutrition-section {
+    margin-bottom: 24px;
+}
+
+.nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.nutrition-item {
+    text-align: center;
+    padding: 12px 8px;
+    background: var(--porcelain);
+    border-radius: 12px;
+}
+
+.nutrition-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.nutrition-label {
+    font-size: 11px;
+    color: #999;
+}
+
+/* ============================================================================
+   ALLERGEN WARNINGS
+   ============================================================================ */
+
+.allergen-section {
+    margin-bottom: 24px;
+}
+
+.allergen-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.allergen-tag {
+    padding: 6px 12px;
+    background: #fff4e6;
+    border: 1px solid #ffb84d;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #e67700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.allergen-tag svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ============================================================================
+   RELATED ITEMS
+   ============================================================================ */
+
+.related-section {
+    margin-bottom: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.related-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 4px 0;
+}
+
+.related-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.related-item {
+    min-width: 120px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.related-item:hover {
+    transform: translateY(-4px);
+}
+
+.related-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.related-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.related-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.related-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--turf-green);
+}
+
+/* ============================================================================
+   BOTTOM ACTION BAR
+   ============================================================================ */
+
+.bottom-action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 430px;
+    width: 100%;
+    background: white;
+    padding: 16px 20px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+}
+
+.action-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ============================================================================
+   QUANTITY SELECTOR
+   ============================================================================ */
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--porcelain);
+    border-radius: 12px;
+    padding: 8px 12px;
+}
+
+.qty-button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--turf-green);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.qty-button:hover {
+    background: var(--turf-green);
+    color: white;
+}
+
+.qty-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.qty-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+    min-width: 24px;
+    text-align: center;
+}
+
+/* ============================================================================
+   ADD TO CART BUTTON
+   ============================================================================ */
+
+.add-to-cart-button {
+    flex: 1;
+    padding: 16px;
+    background: var(--turf-green);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.add-to-cart-button:hover {
+    background: var(--evergreen);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(35, 126, 86, 0.3);
+}
+
+.add-to-cart-button:active {
+    transform: translateY(0);
+}
+
+.cart-total {
+    font-size: 18px;
+    font-weight: 700;
+}

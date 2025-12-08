@@ -34,15 +34,15 @@
                     </div>
                 </div>
                 <div class="top-actions">
-                    <button class="cart-icon">
+                    <button class="cart-icon" onclick="window.location.href='pages/cart.html'">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="8" cy="21" r="1"></circle>
                             <circle cx="19" cy="21" r="1"></circle>
                             <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43h-15.12"></path>
                         </svg>
-                        <span class="cart-badge">0</span>
+                        <span class="cart-badge">3</span>
                     </button>
-                    <button class="profile-icon">
+                    <button class="profile-icon" onclick="window.location.href='pages/profile.html'">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
@@ -59,7 +59,7 @@
                             <circle cx="11" cy="11" r="8"></circle>
                             <path d="m21 21-4.35-4.35"></path>
                         </svg>
-                        <input type="text" placeholder="Search for food, restaurants..." class="search-input">
+                        <input type="text" placeholder="Search for food, restaurants..." class="search-input" onclick="window.location.href='pages/search.html'">
                     </div>
                     <button class="filter-button">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -185,10 +185,10 @@
             <h3 class="section-title">Recommended</h3>
             <div class="food-grid">
                 <div class="food-row">
-                    <div class="food-card" onclick="window.location.href='pages/food-detail.html'" style="cursor: pointer;">
+                    <div class="food-card" onclick="openFoodModal({name: 'Margherita Pizza', description: 'Authentic Italian pizza with fresh mozzarella, tomatoes, and basil on a thin crust', image: 'assets/training/Bread/5.jpg'})" style="cursor: pointer;">
                         <div class="food-image">
                             <img class="food-photo" src="assets/training/Bread/5.jpg" alt="Margherita Pizza" loading="lazy">
-                            <button class="favorite-btn">🤍</button>
+                            <button class="favorite-btn" onclick="event.stopPropagation()">🤍</button>
                         </div>
                         <div class="food-info">
                             <h4 class="food-name">Margherita Pizza</h4>
@@ -199,15 +199,15 @@
                             </div>
                             <div class="food-price-section">
                                 <span class="food-price">₱649</span>
-                                <button class="add-to-cart-btn">+</button>
+                                <button class="add-to-cart-btn" onclick="event.stopPropagation()">+</button>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="food-card" onclick="window.location.href='pages/food-detail.html'" style="cursor: pointer;">
+                    <div class="food-card" onclick="openFoodModal({name: 'Classic Burger', description: 'Juicy beef patty with lettuce, tomato, pickles, and special sauce on a toasted bun', image: 'assets/training/Fried food/15.jpg'})" style="cursor: pointer;">
                         <div class="food-image">
                             <img class="food-photo" src="assets/training/Fried food/15.jpg" alt="Classic Burger" loading="lazy">
-                            <button class="favorite-btn">🤍</button>
+                            <button class="favorite-btn" onclick="event.stopPropagation()">🤍</button>
                         </div>
                         <div class="food-info">
                             <h4 class="food-name">Classic Burger</h4>
@@ -218,17 +218,17 @@
                             </div>
                             <div class="food-price-section">
                                 <span class="food-price">₱499</span>
-                                <button class="add-to-cart-btn">+</button>
+                                <button class="add-to-cart-btn" onclick="event.stopPropagation()">+</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="food-row">
-                    <div class="food-card" onclick="window.location.href='pages/food-detail.html'" style="cursor: pointer;">
+                    <div class="food-card" onclick="openFoodModal({name: 'Beef Noodle Soup', description: 'Tender beef slices in rich broth with fresh noodles, bok choy, and aromatic spices', image: 'assets/training/Noodles-Pasta/25.jpg'})" style="cursor: pointer;">
                         <div class="food-image">
                             <img class="food-photo" src="assets/training/Noodles-Pasta/25.jpg" alt="Beef Noodle Soup" loading="lazy">
-                            <button class="favorite-btn">🤍</button>
+                            <button class="favorite-btn" onclick="event.stopPropagation()">🤍</button>
                         </div>
                         <div class="food-info">
                             <h4 class="food-name">Beef Noodle Soup</h4>
@@ -239,15 +239,15 @@
                             </div>
                             <div class="food-price-section">
                                 <span class="food-price">₱699</span>
-                                <button class="add-to-cart-btn">+</button>
+                                <button class="add-to-cart-btn" onclick="event.stopPropagation()">+</button>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="food-card" onclick="window.location.href='pages/food-detail.html'" style="cursor: pointer;">
+                    <div class="food-card" onclick="openFoodModal({name: 'Beef Tacos', description: 'Three soft corn tortillas filled with seasoned beef, fresh salsa, cilantro, and lime', image: 'assets/training/Meat/42.jpg'})" style="cursor: pointer;">
                         <div class="food-image">
                             <img class="food-photo" src="assets/training/Meat/42.jpg" alt="Beef Tacos" loading="lazy">
-                            <button class="favorite-btn">🤍</button>
+                            <button class="favorite-btn" onclick="event.stopPropagation()">🤍</button>
                         </div>
                         <div class="food-info">
                             <h4 class="food-name">Beef Tacos</h4>
@@ -258,7 +258,7 @@
                             </div>
                             <div class="food-price-section">
                                 <span class="food-price">₱449</span>
-                                <button class="add-to-cart-btn">+</button>
+                                <button class="add-to-cart-btn" onclick="event.stopPropagation()">+</button>
                             </div>
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                 <span class="view-all" onclick="window.location.href='pages/nearby-merchants.html'">View all</span>
             </div>
             <div class="restaurants-grid">
-                <div class="restaurant-card">
+                <div class="restaurant-card" onclick="window.location.href='pages/merchant-detail.html'" style="cursor: pointer;">
                     <div class="restaurant-image">
                         <img class="restaurant-photo" src="assets/training/Bread/12.jpg" alt="Tony's Pizzeria" loading="lazy">
                     </div>
@@ -292,7 +292,7 @@
                     </div>
                 </div>
                 
-                <div class="restaurant-card">
+                <div class="restaurant-card" onclick="window.location.href='pages/merchant-detail.html'" style="cursor: pointer;">
                     <div class="restaurant-image">
                         <img class="restaurant-photo" src="assets/training/Fried food/78.jpg" alt="Burger Palace" loading="lazy">
                     </div>
@@ -311,7 +311,7 @@
                     </div>
                 </div>
                 
-                <div class="restaurant-card">
+                <div class="restaurant-card" onclick="window.location.href='pages/merchant-detail.html'" style="cursor: pointer;">
                     <div class="restaurant-image">
                         <img class="restaurant-photo" src="assets/training/Noodles-Pasta/88.jpg" alt="Noodle Express" loading="lazy">
                     </div>
@@ -330,7 +330,7 @@
                     </div>
                 </div>
                 
-                <div class="restaurant-card">
+                <div class="restaurant-card" onclick="window.location.href='pages/merchant-detail.html'" style="cursor: pointer;">
                     <div class="restaurant-image">
                         <img class="restaurant-photo" src="assets/training/Meat/125.jpg" alt="Taco Corner" loading="lazy">
                     </div>
@@ -384,7 +384,7 @@
             </span>
             <span class="nav-label">Home</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" onclick="window.location.href='pages/search.html'">
             <span class="nav-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -393,7 +393,7 @@
             </span>
             <span class="nav-label">Search</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" onclick="window.location.href='pages/orders.html'">
             <span class="nav-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -405,7 +405,7 @@
             </span>
             <span class="nav-label">Orders</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" onclick="window.location.href='pages/profile.html'">
             <span class="nav-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -416,6 +416,7 @@
         </div>
     </nav>
 
+    <script src="js/food-modal.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,780 @@
+/**
+ * ============================================================================
+ * ORDER TRACKING PAGE STYLESHEET
+ * ============================================================================
+ * 
+ * @file        order-tracking.css
+ * @description Dedicated stylesheet for the order tracking and delivery monitoring page
+ * @version     1.0.0
+ * @author      Development Team
+ * @dependency  style.css (base styles and CSS variables)
+ * 
+ * ----------------------------------------------------------------------------
+ * PURPOSE
+ * ----------------------------------------------------------------------------
+ * 
+ * This stylesheet provides styling for the real-time order tracking interface,
+ * including:
+ * - Interactive status timeline with clickable markers
+ * - Dynamic progress visualization
+ * - Map integration for delivery tracking
+ * - Driver information display
+ * - Order details and summary
+ * - Delivery address information
+ * - Support and help section
+ * 
+ * The design emphasizes clarity and real-time feedback, with smooth animations
+ * to indicate progress and state changes throughout the delivery journey.
+ * 
+ * ----------------------------------------------------------------------------
+ * CONNECTED HTML
+ * ----------------------------------------------------------------------------
+ * 
+ * pages/order-tracking.html
+ * 
+ */
+
+body {
+    background: var(--porcelain);
+    padding-bottom: 20px;
+}
+
+.order-tracking-page {
+    max-width: 430px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Background decorations */
+.background-decoration {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-circle-1 {
+    top: 10%;
+    right: -50px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(35,126,86,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+}
+
+.bg-circle-2 {
+    top: 40%;
+    left: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(234,210,144,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(50px);
+}
+
+/* Header */
+.order-header {
+    position: relative;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--turf-green) 0%, var(--evergreen) 100%);
+    color: white;
+    z-index: 1;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.back-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.back-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateX(-3px);
+}
+
+.back-btn svg {
+    color: white;
+}
+
+.help-btn {
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.help-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+}
+
+.order-number {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.order-id {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.estimated-time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.estimated-time svg {
+    animation: rotate 3s linear infinite;
+}
+
+.estimated-time-text {
+    flex: 1;
+}
+
+.estimated-label {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.estimated-value {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Status Timeline */
+.status-section {
+    padding: 24px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.current-status {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.status-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, var(--turf-green) 0%, #1a6d4d 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(35,126,86,0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.status-icon svg {
+    color: white;
+    width: 40px;
+    height: 40px;
+}
+
+.status-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 8px;
+}
+
+.status-subtitle {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Progress Timeline */
+.progress-timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 15px;
+    top: 20px;
+    bottom: 20px;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--turf-green) 0%, var(--turf-green) var(--progress, 50%), #e0e0e0 var(--progress, 50%), #e0e0e0 100%);
+    border-radius: 2px;
+}
+
+.timeline-step {
+    position: relative;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.timeline-step:last-child {
+    margin-bottom: 0;
+}
+
+.step-marker {
+    position: absolute;
+    left: -32px;
+    width: 32px;
+    height: 32px;
+    background: white;
+    border: 3px solid #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.step-marker:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.timeline-step.completed .step-marker {
+    background: var(--turf-green);
+    border-color: var(--turf-green);
+}
+
+.timeline-step.active .step-marker {
+    background: white;
+    border-color: var(--turf-green);
+    border-width: 4px;
+    box-shadow: 0 0 0 4px rgba(35,126,86,0.2);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.step-marker svg {
+    color: white;
+    width: 14px;
+    height: 14px;
+}
+
+.timeline-step.completed .step-marker svg {
+    display: block;
+}
+
+.timeline-step:not(.completed) .step-marker svg {
+    display: none;
+}
+
+.timeline-step.active .step-marker::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--turf-green);
+    border-radius: 50%;
+}
+
+.step-content {
+    flex: 1;
+    padding-top: 4px;
+}
+
+.step-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.timeline-step:not(.completed):not(.active) .step-title {
+    color: #999;
+}
+
+.step-time {
+    font-size: 13px;
+    color: #666;
+}
+
+.timeline-step:not(.completed):not(.active) .step-time {
+    color: #ccc;
+}
+
+/* Map Tracking Section */
+.map-section {
+    margin: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+    display: none;
+}
+
+.map-section.show {
+    display: block;
+}
+
+.map-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.map-overlay-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--turf-green) 0%, #1a6d4d 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.map-overlay-icon svg {
+    color: white;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.map-overlay-text {
+    flex: 1;
+}
+
+.map-overlay-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 2px;
+}
+
+.map-overlay-subtitle {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Driver Section */
+.driver-section {
+    margin: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(35,126,86,0.06) 0%, rgba(35,126,86,0.02) 100%);
+    border: 2px solid rgba(35,126,86,0.1);
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.driver-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.driver-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.driver-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--light-gold) 0%, var(--amber-flame) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--evergreen);
+    box-shadow: 0 4px 12px rgba(234,210,144,0.4);
+}
+
+.driver-details {
+    flex: 1;
+}
+
+.driver-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.driver-vehicle {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.driver-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.driver-rating svg {
+    color: var(--amber-flame);
+}
+
+.rating-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.driver-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.driver-action-btn {
+    padding: 12px;
+    border: 2px solid var(--turf-green);
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--turf-green);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.driver-action-btn:hover {
+    background: var(--turf-green);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(35,126,86,0.3);
+}
+
+.driver-action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.driver-action-btn:hover svg {
+    color: white;
+}
+
+/* Order Details Section */
+.order-details-section {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-title svg {
+    color: var(--turf-green);
+}
+
+.restaurant-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--porcelain);
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.restaurant-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.restaurant-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.restaurant-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.order-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: var(--porcelain);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.order-item:hover {
+    background: rgba(35,126,86,0.05);
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-quantity {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--turf-green);
+    margin-right: 8px;
+}
+
+.item-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.item-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--evergreen);
+}
+
+.order-summary {
+    padding-top: 16px;
+    border-top: 2px dashed #e0e0e0;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.summary-line:last-child {
+    margin-bottom: 0;
+}
+
+.summary-label {
+    color: #666;
+}
+
+.summary-value {
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.summary-line.total {
+    padding-top: 12px;
+    border-top: 2px solid #f0f0f0;
+    margin-top: 8px;
+}
+
+.summary-line.total .summary-label,
+.summary-line.total .summary-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--turf-green);
+}
+
+/* Delivery Address Section */
+.delivery-address-section {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.address-content {
+    display: flex;
+    gap: 12px;
+}
+
+.address-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--turf-green) 0%, #1a6d4d 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.address-icon svg {
+    color: white;
+}
+
+.address-details {
+    flex: 1;
+}
+
+.address-label {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 4px;
+}
+
+.address-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--evergreen);
+    line-height: 1.5;
+}
+
+/* Support Section */
+.support-section {
+    margin: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(234,210,144,0.15) 0%, rgba(253,188,34,0.1) 100%);
+    border: 2px solid rgba(234,210,144,0.3);
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.support-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 12px;
+    background: linear-gradient(135deg, var(--light-gold) 0%, var(--amber-flame) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(234,210,144,0.4);
+}
+
+.support-icon svg {
+    color: white;
+    width: 28px;
+    height: 28px;
+}
+
+.support-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 8px;
+}
+
+.support-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.support-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--light-gold) 0%, var(--amber-flame) 100%);
+    border: none;
+    border-radius: 12px;
+    color: var(--evergreen);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(234,210,144,0.3);
+}
+
+.support-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(234,210,144,0.5);
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 8px 24px rgba(35,126,86,0.3);
+    }
+    50% {
+        box-shadow: 0 8px 24px rgba(35,126,86,0.5), 0 0 0 8px rgba(35,126,86,0.1);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}

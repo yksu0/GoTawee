@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Go Tawi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cart.css">
+    </style>
+</head>
+<body>
+    <!-- Background Decorations -->
+    <div class="background-decoration bg-circle-1"></div>
+    <div class="background-decoration bg-circle-2"></div>
+
+    <div class="cart-page">
+        <!-- Top Bar -->
+        <div class="cart-top-bar">
+            <button class="back-button" onclick="history.back()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <h1 class="cart-title">My Cart</h1>
+            <button class="clear-cart-btn" id="clearCartBtn" onclick="clearCart()">Clear All</button>
+        </div>
+
+        <!-- Cart Content -->
+        <div class="cart-content" id="cartContent">
+            <!-- Empty Cart State (shown when cart is empty) -->
+            <div class="empty-cart" id="emptyCartState">
+                <div class="empty-cart-icon">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="8" cy="21" r="1"></circle>
+                        <circle cx="19" cy="21" r="1"></circle>
+                        <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43h-15.12"></path>
+                    </svg>
+                </div>
+                <h2 class="empty-cart-title">Your cart is empty</h2>
+                <p class="empty-cart-text">Looks like you haven't added<br>anything to your cart yet</p>
+                <button class="browse-button" onclick="window.location.href='../index.html'">Browse Menu</button>
+            </div>
+
+            <!-- Cart Items Section (shown when cart has items) -->
+            <div id="cartItemsSection" style="display: none;">
+                <!-- Restaurant Items -->
+                <div class="cart-section">
+                    <div class="section-header">
+                        <div class="restaurant-name">
+                            <span>Golden Spoon Restaurant</span>
+                            <span class="restaurant-badge">Open</span>
+                        </div>
+                    </div>
+                    <div class="cart-items" id="cartItemsList">
+                        <!-- Cart items will be dynamically inserted here -->
+                        <div class="cart-item">
+                            <div class="item-image">
+                                <img src="../assets/training/Rice/1.jpg" alt="Chicken Adobo Rice">
+                            </div>
+                            <div class="item-details">
+                                <div>
+                                    <div class="item-name">Chicken Adobo Rice</div>
+                                    <div class="item-options">Regular • Extra Sauce</div>
+                                </div>
+                                <div class="item-footer">
+                                    <div class="item-price">₱349</div>
+                                    <div class="quantity-controls">
+                                        <button class="qty-btn" onclick="updateQuantity(this, -1)">−</button>
+                                        <span class="qty-display">1</span>
+                                        <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="remove-item" onclick="removeItem(this)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="cart-item">
+                            <div class="item-image">
+                                <img src="../assets/training/Rice/5.jpg" alt="Beef Tapa Rice">
+                            </div>
+                            <div class="item-details">
+                                <div>
+                                    <div class="item-name">Beef Tapa Rice</div>
+                                    <div class="item-options">Large • Garlic Butter</div>
+                                </div>
+                                <div class="item-footer">
+                                    <div class="item-price">₱449</div>
+                                    <div class="quantity-controls">
+                                        <button class="qty-btn" onclick="updateQuantity(this, -1)">−</button>
+                                        <span class="qty-display">2</span>
+                                        <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="remove-item" onclick="removeItem(this)">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Address -->
+                <div class="delivery-section">
+                    <h3 class="section-title">Delivery Address</h3>
+                    <div class="address-card" onclick="changeAddress()">
+                        <div class="address-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="address-info">
+                            <div class="address-label">Deliver to</div>
+                            <div class="address-text">123 Main Street, Downtown<br>Metro Manila, Philippines</div>
+                        </div>
+                        <button class="change-btn">Change</button>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="delivery-section">
+                    <h3 class="section-title">Payment Method</h3>
+                    <div class="payment-methods">
+                        <div class="payment-option selected" onclick="selectPayment(this)">
+                            <div class="payment-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div class="payment-info">
+                                <div class="payment-name">Credit/Debit Card</div>
+                                <div class="payment-desc">Visa, Mastercard, JCB</div>
+                            </div>
+                            <div class="radio-check"></div>
+                        </div>
+
+                        <div class="payment-option" onclick="selectPayment(this)">
+                            <div class="payment-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
+                                    <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
+                                    <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
+                                </svg>
+                            </div>
+                            <div class="payment-info">
+                                <div class="payment-name">Cash on Delivery</div>
+                                <div class="payment-desc">Pay when you receive</div>
+                            </div>
+                            <div class="radio-check"></div>
+                        </div>
+
+                        <div class="payment-option" onclick="selectPayment(this)">
+                            <div class="payment-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                </svg>
+                            </div>
+                            <div class="payment-info">
+                                <div class="payment-name">GCash / PayMaya</div>
+                                <div class="payment-desc">E-wallet payment</div>
+                            </div>
+                            <div class="radio-check"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promo Code -->
+                <div class="promo-section">
+                    <h3 class="section-title">Promo Code</h3>
+                    <div class="promo-input-wrapper" id="promoInputWrapper">
+                        <input type="text" class="promo-input" id="promoInput" placeholder="Enter promo code">
+                        <button class="apply-promo-btn" onclick="applyPromo()">Apply</button>
+                    </div>
+                    <div class="promo-applied" id="promoApplied" style="display: none;">
+                        <span class="promo-applied-text">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="2" fill="none"></polyline>
+                            </svg>
+                            WELCOME50 Applied
+                        </span>
+                        <span class="promo-discount">-₱125</span>
+                        <button class="remove-promo" onclick="removePromo()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="summary-section">
+                    <h3 class="section-title">Order Summary</h3>
+                    <div class="summary-row">
+                        <span class="summary-label">Subtotal</span>
+                        <span class="summary-value" id="subtotalValue">₱1,247</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Delivery Fee</span>
+                        <span class="summary-value" id="deliveryFeeValue">₱0</span>
+                    </div>
+                    <div class="summary-row discount" id="discountRow" style="display: none;">
+                        <span class="summary-label">Discount</span>
+                        <span class="summary-value" id="discountValue">-₱125</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Service Fee</span>
+                        <span class="summary-value">₱25</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span class="summary-label">Total</span>
+                        <span class="summary-value" id="totalValue">₱1,272</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div class="cart-bottom-bar" id="cartBottomBar" style="display: none;">
+            <div class="delivery-time-info">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span class="delivery-time-text">Estimated delivery: 25-35 min</span>
+            </div>
+            <button class="checkout-button" onclick="placeOrder()">
+                <span>Place Order</span>
+                <span class="checkout-total" id="checkoutTotal">₱1,272</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize cart state
+        let cartItems = [
+            {
+                id: 1,
+                name: 'Chicken Adobo Rice',
+                image: '../assets/training/Rice/1.jpg',
+                options: 'Regular • Extra Sauce',
+                price: 349,
+                quantity: 1
+            },
+            {
+                id: 2,
+                name: 'Beef Tapa Rice',
+                image: '../assets/training/Rice/5.jpg',
+                options: 'Large • Garlic Butter',
+                price: 449,
+                quantity: 2
+            }
+        ];
+
+        let promoApplied = false;
+        let promoDiscount = 0;
+
+        // Initialize page
+        function initializePage() {
+            if (cartItems.length === 0) {
+                showEmptyCart();
+            } else {
+                showCartItems();
+                updateOrderSummary();
+            }
+        }
+
+        function showEmptyCart() {
+            document.getElementById('emptyCartState').style.display = 'flex';
+            document.getElementById('cartItemsSection').style.display = 'none';
+            document.getElementById('cartBottomBar').style.display = 'none';
+            document.getElementById('clearCartBtn').style.display = 'none';
+        }
+
+        function showCartItems() {
+            document.getElementById('emptyCartState').style.display = 'none';
+            document.getElementById('cartItemsSection').style.display = 'block';
+            document.getElementById('cartBottomBar').style.display = 'block';
+            document.getElementById('clearCartBtn').style.display = 'block';
+        }
+
+        function updateQuantity(button, change) {
+            const cartItem = button.closest('.cart-item');
+            const qtyDisplay = cartItem.querySelector('.qty-display');
+            let quantity = parseInt(qtyDisplay.textContent);
+            
+            quantity += change;
+            if (quantity < 1) {
+                removeItem(button);
+                return;
+            }
+            
+            qtyDisplay.textContent = quantity;
+            updateOrderSummary();
+        }
+
+        function removeItem(button) {
+            const cartItem = button.closest('.cart-item');
+            cartItem.style.transform = 'translateX(100%)';
+            cartItem.style.opacity = '0';
+            
+            setTimeout(() => {
+                cartItem.remove();
+                
+                // Check if cart is empty
+                const remainingItems = document.querySelectorAll('.cart-item');
+                if (remainingItems.length === 0) {
+                    cartItems = [];
+                    showEmptyCart();
+                } else {
+                    updateOrderSummary();
+                }
+            }, 300);
+        }
+
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                cartItems = [];
+                showEmptyCart();
+            }
+        }
+
+        function updateOrderSummary() {
+            let subtotal = 0;
+            document.querySelectorAll('.cart-item').forEach(item => {
+                const price = parseInt(item.querySelector('.item-price').textContent.replace('₱', '').replace(',', ''));
+                const quantity = parseInt(item.querySelector('.qty-display').textContent);
+                subtotal += price * quantity;
+            });
+
+            const deliveryFee = subtotal >= 1250 ? 0 : 150;
+            const serviceFee = 25;
+            const discount = promoApplied ? promoDiscount : 0;
+            const total = subtotal + deliveryFee + serviceFee - discount;
+
+            document.getElementById('subtotalValue').textContent = '₱' + subtotal.toLocaleString('en-PH');
+            document.getElementById('deliveryFeeValue').textContent = deliveryFee === 0 ? 'FREE' : '₱' + deliveryFee.toLocaleString('en-PH');
+            document.getElementById('totalValue').textContent = '₱' + total.toLocaleString('en-PH');
+            document.getElementById('checkoutTotal').textContent = '₱' + total.toLocaleString('en-PH');
+
+            if (promoApplied) {
+                document.getElementById('discountRow').style.display = 'flex';
+                document.getElementById('discountValue').textContent = '-₱' + discount.toLocaleString('en-PH');
+            } else {
+                document.getElementById('discountRow').style.display = 'none';
+            }
+        }
+
+        function selectPayment(element) {
+            document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function changeAddress() {
+            alert('Address selection modal would open here');
+        }
+
+        function applyPromo() {
+            const promoCode = document.getElementById('promoInput').value.trim().toUpperCase();
+            
+            if (promoCode === 'WELCOME50' || promoCode === 'SAVE20') {
+                promoApplied = true;
+                promoDiscount = promoCode === 'WELCOME50' ? 125 : 50;
+                
+                document.getElementById('promoInputWrapper').style.display = 'none';
+                document.getElementById('promoApplied').style.display = 'flex';
+                
+                updateOrderSummary();
+            } else {
+                alert('Invalid promo code');
+            }
+        }
+
+        function removePromo() {
+            promoApplied = false;
+            promoDiscount = 0;
+            
+            document.getElementById('promoInputWrapper').style.display = 'flex';
+            document.getElementById('promoApplied').style.display = 'none';
+            document.getElementById('promoInput').value = '';
+            
+            updateOrderSummary();
+        }
+
+        function placeOrder() {
+            const selectedPayment = document.querySelector('.payment-option.selected .payment-name').textContent;
+            alert(`Order placed successfully!\nPayment Method: ${selectedPayment}\n\nRedirecting to order tracking...`);
+            // In production, navigate to order tracking page
+        }
+
+        // Initialize on load
+        initializePage();
+    </script>
+
+    <!-- Floating Navigation -->
+    <nav class="floating-nav">
+        <div class="nav-item" onclick="window.location.href='../index.html'">
+            <span class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9,22 9,12 15,12 15,22"></polyline>
+                </svg>
+            </span>
+            <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='search.html'">
+            <span class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </span>
+            <span class="nav-label">Search</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='orders.html'">
+            <span class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14,2 14,8 20,8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10,9 9,9 8,9"></polyline>
+                </svg>
+            </span>
+            <span class="nav-label">Orders</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='profile.html'">
+            <span class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </span>
+            <span class="nav-label">Profile</span>
+        </div>
+    </nav>
+</body>
+</html>

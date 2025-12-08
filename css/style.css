@@ -2428,6 +2428,7 @@ body {
     border-radius: 3px;
     background: linear-gradient(to right, var(--light-gold) 0%, var(--amber-flame) 50%, var(--turf-green) 100%);
     outline: none;
+    appearance: none;
     -webkit-appearance: none;
     margin: 12px 0;
 }
@@ -2620,6 +2621,517 @@ body {
     .filter-option {
         padding: 10px 14px;
         font-size: 13px;
+    }
+}
+
+/* ============================================================================
+ * FOOD DETAIL MODAL
+ * ============================================================================ */
+
+.food-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.food-modal.active {
+    display: flex;
+}
+
+.food-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+}
+
+.food-modal-content {
+    position: relative;
+    max-width: 430px;
+    width: 100%;
+    max-height: 95vh;
+    background: white;
+    border-radius: 24px 24px 0 0;
+    overflow: hidden;
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.food-modal-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Food Image Section in Modal */
+.food-modal .food-image-section {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.food-modal .food-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.food-modal .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+    z-index: 10;
+}
+
+.food-modal .back-button {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.food-modal .back-button:hover {
+    background: #f5f5f5;
+    transform: scale(1.05);
+}
+
+.food-modal .back-button svg {
+    color: var(--evergreen);
+}
+
+.food-modal .favorite-button {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.food-modal .favorite-button:hover {
+    transform: scale(1.1);
+}
+
+.food-modal .favorite-button svg {
+    color: #999;
+    transition: all 0.3s ease;
+}
+
+.food-modal .favorite-button.active svg {
+    fill: #ff4444;
+    stroke: #ff4444;
+}
+
+/* Food Info Section */
+.food-modal .food-info-section {
+    padding: 24px 20px;
+}
+
+.food-modal .food-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 12px;
+}
+
+.food-modal .food-meta-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.food-modal .food-rating-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.food-modal .rating-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.food-modal .reviews-count {
+    font-size: 14px;
+    color: #999;
+}
+
+.food-modal .modal-food-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--turf-green);
+    margin-bottom: 16px;
+}
+
+.food-modal .food-description {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Options Section */
+.food-modal .options-section {
+    padding: 20px;
+    border-top: 8px solid var(--porcelain);
+}
+
+.food-modal .section-heading {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 16px;
+}
+
+/* Size Options */
+.food-modal .size-options {
+    display: flex;
+    gap: 12px;
+}
+
+.food-modal .size-option {
+    flex: 1;
+    padding: 16px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.food-modal .size-option:hover {
+    border-color: var(--turf-green);
+    transform: translateY(-2px);
+}
+
+.food-modal .size-option.active {
+    background: var(--turf-green);
+    border-color: var(--turf-green);
+}
+
+.food-modal .size-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.food-modal .size-option.active .size-name {
+    color: white;
+}
+
+.food-modal .size-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--turf-green);
+}
+
+.food-modal .size-option.active .size-price {
+    color: white;
+}
+
+/* Add-ons */
+.food-modal .addons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.food-modal .addon-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--porcelain);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.food-modal .addon-item:hover {
+    background: #f0f0f0;
+}
+
+.food-modal .addon-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--turf-green);
+}
+
+.food-modal .addon-name {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--evergreen);
+}
+
+.food-modal .addon-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--turf-green);
+}
+
+/* Special Instructions */
+.food-modal .instructions-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--evergreen);
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.food-modal .instructions-input:focus {
+    outline: none;
+    border-color: var(--turf-green);
+}
+
+.food-modal .instructions-input::placeholder {
+    color: #999;
+}
+
+/* Nutritional Info */
+.food-modal .nutritional-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.food-modal .nutritional-item {
+    padding: 16px 8px;
+    background: var(--porcelain);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.food-modal .nutritional-value {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 6px;
+}
+
+.food-modal .nutritional-label {
+    display: block;
+    font-size: 11px;
+    color: #999;
+}
+
+/* Allergen Tags */
+.food-modal .allergen-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.food-modal .allergen-tag {
+    padding: 8px 14px;
+    background: #fff4e6;
+    border: 1px solid #ffb84d;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #e67700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.food-modal .allergen-tag svg {
+    flex-shrink: 0;
+}
+
+/* Related Items */
+.food-modal .related-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 4px 0;
+    margin: 0 -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.food-modal .related-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.food-modal .related-item {
+    min-width: 120px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.food-modal .related-item:hover {
+    transform: translateY(-4px);
+}
+
+.food-modal .related-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.food-modal .related-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.food-modal .related-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.food-modal .related-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--turf-green);
+}
+
+/* Bottom Action Bar */
+.food-modal .bottom-action-bar {
+    padding: 16px 20px;
+    background: white;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.food-modal .quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: var(--porcelain);
+    border-radius: 12px;
+}
+
+.food-modal .quantity-btn {
+    width: 32px;
+    height: 32px;
+    background: white;
+    border: 2px solid var(--turf-green);
+    border-radius: 8px;
+    color: var(--turf-green);
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.food-modal .quantity-btn:hover {
+    background: var(--turf-green);
+    color: white;
+}
+
+.food-modal .quantity-value {
+    min-width: 30px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+}
+
+.food-modal .add-to-cart-button {
+    flex: 1;
+    padding: 14px 20px;
+    background: var(--turf-green);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.food-modal .add-to-cart-button:hover {
+    background: var(--evergreen);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(35, 126, 86, 0.3);
+}
+
+.food-modal .cart-total {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Details - Go Tawi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/merchant-detail.css">
+    </style>
+</head>
+<body>
+    <div class="merchant-detail-page">
+        <!-- Hero Image -->
+        <div class="merchant-hero">
+            <img src="../assets/training/Rice/0.jpg" alt="Golden Spoon Restaurant" class="merchant-hero-image">
+            <div class="hero-overlay">
+                <button class="back-button" onclick="history.back()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div class="hero-actions">
+                    <button class="icon-button" id="shareButton" onclick="shareRestaurant()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="18" cy="5" r="3"></circle>
+                            <circle cx="6" cy="12" r="3"></circle>
+                            <circle cx="18" cy="19" r="3"></circle>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                        </svg>
+                    </button>
+                    <button class="icon-button" id="favoriteButton" onclick="toggleFavorite()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Merchant Info -->
+        <div class="merchant-info-section">
+            <h1 class="merchant-name">Golden Spoon Restaurant</h1>
+            <p class="merchant-cuisine">Asian Cuisine • Rice Dishes • Filipino</p>
+
+            <div class="merchant-meta-grid">
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <div class="meta-value">4.8</div>
+                    <div class="meta-label">Rating</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <div class="meta-value">25-35</div>
+                    <div class="meta-label">Minutes</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <div class="meta-value">1.2 km</div>
+                    <div class="meta-label">Distance</div>
+                </div>
+            </div>
+
+            <div class="merchant-status">
+                <div class="status-indicator"></div>
+                <span class="status-text">Open Now</span>
+                <span class="status-hours">• Closes at 10:00 PM</span>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">All Menu</button>
+            <button class="category-tab" data-category="popular">Popular</button>
+            <button class="category-tab" data-category="rice">Rice Dishes</button>
+            <button class="category-tab" data-category="noodles">Noodles</button>
+            <button class="category-tab" data-category="seafood">Seafood</button>
+            <button class="category-tab" data-category="desserts">Desserts</button>
+        </div>
+
+        <!-- Menu Section -->
+        <div class="menu-section">
+            <!-- Popular Items -->
+            <div class="menu-category">
+                <h2 class="category-title">Popular Items</h2>
+                <div class="menu-items-grid">
+                    <div class="menu-item" onclick="openFoodModal({name: 'Chicken Adobo Rice', description: 'Savory Filipino chicken adobo served with garlic rice and vegetables', image: '../assets/training/Rice/1.jpg'})">
+                        <div class="menu-item-image">
+                            <img src="../assets/training/Rice/1.jpg" alt="Chicken Adobo Rice">
+                        </div>
+                        <div class="menu-item-details">
+                            <div>
+                                <div class="menu-item-name">Chicken Adobo Rice</div>
+                                <div class="menu-item-description">Savory Filipino chicken adobo served with garlic rice and vegetables</div>
+                            </div>
+                            <div class="menu-item-footer">
+                                <div class="menu-item-price">₱249</div>
+                                <button class="add-to-cart-mini" onclick="event.stopPropagation(); addToCart(this, 'Chicken Adobo Rice', 249)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" onclick="openFoodModal({name: 'Beef Tapa Rice', description: 'Marinated beef tapa with fried egg, garlic rice, and tomatoes', image: '../assets/training/Rice/5.jpg'})">
+                        <div class="menu-item-image">
+                            <img src="../assets/training/Rice/5.jpg" alt="Beef Tapa Rice">
+                        </div>
+                        <div class="menu-item-details">
+                            <div>
+                                <div class="menu-item-name">Beef Tapa Rice</div>
+                                <div class="menu-item-description">Marinated beef tapa with fried egg, garlic rice, and tomatoes</div>
+                            </div>
+                            <div class="menu-item-footer">
+                                <div class="menu-item-price">₱299</div>
+                                <button class="add-to-cart-mini" onclick="event.stopPropagation(); addToCart(this, 'Beef Tapa Rice', 299)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" onclick="openFoodModal({name: 'Grilled Bangus', description: 'Filipino milkfish grilled to perfection with special sauce', image: '../assets/training/Seafood/12.jpg'})">
+                        <div class="menu-item-image">
+                            <img src="../assets/training/Seafood/12.jpg" alt="Grilled Bangus">
+                        </div>
+                        <div class="menu-item-details">
+                            <div>
+                                <div class="menu-item-name">Grilled Bangus</div>
+                                <div class="menu-item-description">Filipino milkfish grilled to perfection with special sauce</div>
+                            </div>
+                            <div class="menu-item-footer">
+                                <div class="menu-item-price">₱349</div>
+                                <button class="add-to-cart-mini" onclick="event.stopPropagation(); addToCart(this, 'Grilled Bangus', 349)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rice Dishes -->
+            <div class="menu-category">
+                <h2 class="category-title">Rice Dishes</h2>
+                <div class="menu-items-grid">
+                    <div class="menu-item" onclick="openFoodModal({name: 'Pork Sisig Rice', description: 'Sizzling sisig served with steamed rice and egg on top', image: '../assets/training/Rice/8.jpg'})">
+                        <div class="menu-item-image">
+                            <img src="../assets/training/Rice/8.jpg" alt="Pork Sisig Rice">
+                        </div>
+                        <div class="menu-item-details">
+                            <div>
+                                <div class="menu-item-name">Pork Sisig Rice</div>
+                                <div class="menu-item-description">Sizzling sisig served with steamed rice and egg on top</div>
+                            </div>
+                            <div class="menu-item-footer">
+                                <div class="menu-item-price">₱279</div>
+                                <button class="add-to-cart-mini" onclick="event.stopPropagation(); addToCart(this, 'Pork Sisig Rice', 279)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" onclick="openFoodModal({name: 'Fried Chicken Rice', description: 'Crispy fried chicken with java rice and gravy', image: '../assets/training/Rice/15.jpg'})">
+                        <div class="menu-item-image">
+                            <img src="../assets/training/Rice/15.jpg" alt="Fried Chicken Rice">
+                        </div>
+                        <div class="menu-item-details">
+                            <div>
+                                <div class="menu-item-name">Fried Chicken Rice</div>
+                                <div class="menu-item-description">Crispy fried chicken with java rice and gravy</div>
+                            </div>
+                            <div class="menu-item-footer">
+                                <div class="menu-item-price">₱229</div>
+                                <button class="add-to-cart-mini" onclick="event.stopPropagation(); addToCart(this, 'Fried Chicken Rice', 229)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Noodles -->
+            <div class="menu-category">
+                <h2 class="category-title">Noodles</h2>
+                <div class="menu-items-grid">
+                    <div class="menu-item" onclick="openFoodModal({name: 'Pancit Canton', description: 'Filipino stir-fried noodles with vegetables and meat', image: '../assets/training/Noodles-Pasta/8.jpg'})">
+                        <div class="menu-item-image">
+                            <img src="../assets/training/Noodles-Pasta/8.jpg" alt="Pancit Canton">
+                        </div>
+                        <div class="menu-item-details">
+                            <div>
+                                <div class="menu-item-name">Pancit Canton</div>
+                                <div class="menu-item-description">Filipino stir-fried noodles with vegetables and meat</div>
+                            </div>
+                            <div class="menu-item-footer">
+                                <div class="menu-item-price">₱199</div>
+                                <button class="add-to-cart-mini" onclick="event.stopPropagation(); addToCart(this, 'Pancit Canton', 199)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 class="section-title">Reviews & Ratings</h2>
+                <span class="view-all-link">View All</span>
+            </div>
+
+            <div class="reviews-summary">
+                <div class="rating-big">
+                    <div class="rating-number">4.8</div>
+                    <div class="rating-stars">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#E0E0E0" stroke="#E0E0E0">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <div class="rating-count">245 reviews</div>
+                </div>
+
+                <div class="rating-bars">
+                    <div class="rating-bar-row">
+                        <span class="bar-label">5</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 75%"></div>
+                        </div>
+                        <span class="bar-count">184</span>
+                    </div>
+                    <div class="rating-bar-row">
+                        <span class="bar-label">4</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 15%"></div>
+                        </div>
+                        <span class="bar-count">37</span>
+                    </div>
+                    <div class="rating-bar-row">
+                        <span class="bar-label">3</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 6%"></div>
+                        </div>
+                        <span class="bar-count">15</span>
+                    </div>
+                    <div class="rating-bar-row">
+                        <span class="bar-label">2</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 3%"></div>
+                        </div>
+                        <span class="bar-count">7</span>
+                    </div>
+                    <div class="rating-bar-row">
+                        <span class="bar-label">1</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 1%"></div>
+                        </div>
+                        <span class="bar-count">2</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">JD</div>
+                        <div>
+                            <div class="reviewer-name">Juan Dela Cruz</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <span>5.0</span>
+                    </div>
+                </div>
+                <p class="review-text">Amazing food! The Chicken Adobo Rice was absolutely delicious. Great portion sizes and very affordable. Will definitely order again!</p>
+                <div class="review-date">2 days ago</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">MS</div>
+                        <div>
+                            <div class="reviewer-name">Maria Santos</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <span>4.5</span>
+                    </div>
+                </div>
+                <p class="review-text">Fast delivery and food arrived hot. The beef tapa was tender and flavorful. My new favorite restaurant!</p>
+                <div class="review-date">1 week ago</div>
+            </div>
+        </div>
+
+        <!-- Restaurant Info -->
+        <div class="info-section">
+            <h2 class="section-title" style="margin-bottom: 20px;">Restaurant Information</h2>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">Opening Hours</div>
+                    <div class="info-value">Monday - Sunday<br>10:00 AM - 10:00 PM</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">Address</div>
+                    <div class="info-value">123 Main Street, Downtown<br>Metro Manila, Philippines</div>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-label">Contact Number</div>
+                    <div class="info-value">+63 912 345 6789</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Cart Bar -->
+    <div class="bottom-cart-bar" id="bottomCartBar">
+        <button class="view-cart-button" onclick="viewCart()">
+            <div class="cart-button-left">
+                <div class="cart-count" id="cartCount">0</div>
+                <span>View Cart</span>
+            </div>
+            <span class="cart-total-amount" id="cartTotalAmount">₱0</span>
+        </button>
+    </div>
+
+    <script>
+        let cart = [];
+        let cartTotal = 0;
+
+        // Category tabs functionality
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Here you would filter menu items based on category
+            });
+        });
+
+        function addToCart(button, itemName, price) {
+            cart.push({ name: itemName, price: price });
+            cartTotal += price;
+            updateCartDisplay();
+            
+            // Show animation
+            button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+            setTimeout(() => {
+                button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>';
+            }, 1000);
+        }
+
+        function updateCartDisplay() {
+            const cartBar = document.getElementById('bottomCartBar');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotalAmount = document.getElementById('cartTotalAmount');
+            
+            cartCount.textContent = cart.length;
+            cartTotalAmount.textContent = '₱' + cartTotal.toLocaleString('en-PH');
+            
+            if (cart.length > 0) {
+                cartBar.classList.add('show');
+            } else {
+                cartBar.classList.remove('show');
+            }
+        }
+
+        function viewCart() {
+            window.location.href = 'cart.html';
+        }
+
+        function toggleFavorite() {
+            const button = document.getElementById('favoriteButton');
+            button.classList.toggle('active');
+        }
+
+        function shareRestaurant() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Golden Spoon Restaurant',
+                    text: 'Check out this amazing restaurant on Go Tawi!',
+                    url: window.location.href
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                alert('Share: Golden Spoon Restaurant');
+            }
+        }
+    </script>
+    <script src="../js/food-modal.js"></script>
+
+    <!-- Floating Navigation -->
+    <nav class="floating-nav">
+        <div class="nav-item" onclick="window.location.href='../index.html'">
+            <span class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9,22 9,12 15,12 15,22"></polyline>
+                </svg>
+            </span>
+            <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='search.html'">
+            <span class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </span>
+            <span class="nav-label">Search</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='orders.html'">
+            <span class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14,2 14,8 20,8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10,9 9,9 8,9"></polyline>
+                </svg>
+            </span>
+            <span class="nav-label">Orders</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='profile.html'">
+            <span class="nav-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </span>
+            <span class="nav-label">Profile</span>
+        </div>
+    </nav>
+</body>
+</html>

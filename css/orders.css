@@ -1,0 +1,362 @@
+/**
+ * ============================================================================
+ * ORDERS PAGE STYLESHEET
+ * ============================================================================
+ * 
+ * @file        orders.css
+ * @description Dedicated stylesheet for order history and management page
+ * @version     1.0.0
+ * @author      Development Team
+ * @dependency  style.css (base styles and CSS variables)
+ * 
+ * ----------------------------------------------------------------------------
+ * PURPOSE
+ * ----------------------------------------------------------------------------
+ * 
+ * This stylesheet provides styling for the orders management interface,
+ * including:
+ * - Status-based filtering tabs (All, In Progress, Completed, Cancelled)
+ * - Order cards with restaurant information
+ * - Status badges with color-coded indicators
+ * - Action buttons (Track Order, Reorder, Rate)
+ * - Order details display (items, totals, dates)
+ * - Empty state for filtered views
+ * 
+ * The design emphasizes order status clarity and provides quick access to
+ * order-related actions. Status-specific color coding helps users quickly
+ * identify order states at a glance.
+ * 
+ * ----------------------------------------------------------------------------
+ * CONNECTED HTML
+ * ----------------------------------------------------------------------------
+ * 
+ * pages/orders.html
+ * 
+ */
+
+body {
+    background: var(--porcelain);
+    padding-bottom: 100px;
+}
+
+.orders-page {
+    max-width: 430px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Background decorations */
+.background-decoration {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-circle-1 {
+    top: 8%;
+    right: -60px;
+    width: 270px;
+    height: 270px;
+    background: radial-gradient(circle, rgba(35,126,86,0.09) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(45px);
+}
+
+.bg-circle-2 {
+    top: 40%;
+    left: -75px;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(234,210,144,0.13) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(48px);
+}
+
+/* Header */
+.orders-header {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(135deg, var(--turf-green) 0%, var(--evergreen) 100%);
+    color: white;
+    padding: 20px;
+    z-index: 100;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.page-subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Filter Tabs */
+.order-tabs {
+    position: sticky;
+    top: 88px;
+    background: white;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    z-index: 99;
+}
+
+.order-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.order-tab {
+    padding: 10px 20px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.order-tab:hover {
+    border-color: var(--turf-green);
+}
+
+.order-tab.active {
+    background: var(--turf-green);
+    border-color: var(--turf-green);
+    color: white;
+}
+
+.order-tab-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: white;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 6px;
+}
+
+.order-tab.active .order-tab-badge {
+    background: var(--evergreen);
+    color: white;
+}
+
+/* Orders List */
+.orders-section {
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.order-card {
+    padding: 16px;
+    background: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.order-card:hover {
+    border-color: var(--turf-green);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.order-number {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.order-date {
+    font-size: 12px;
+    color: #999;
+}
+
+.order-status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.order-status-badge.in-progress {
+    background: linear-gradient(135deg, rgba(255,152,0,0.15) 0%, rgba(255,152,0,0.1) 100%);
+    color: #ff9800;
+    border: 2px solid rgba(255,152,0,0.2);
+}
+
+.order-status-badge.completed {
+    background: linear-gradient(135deg, rgba(35,126,86,0.15) 0%, rgba(35,126,86,0.1) 100%);
+    color: var(--turf-green);
+    border: 2px solid rgba(35,126,86,0.2);
+}
+
+.order-status-badge.cancelled {
+    background: linear-gradient(135deg, rgba(244,67,54,0.15) 0%, rgba(244,67,54,0.1) 100%);
+    color: #f44336;
+    border: 2px solid rgba(244,67,54,0.2);
+}
+
+.restaurant-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--porcelain);
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.restaurant-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.restaurant-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.restaurant-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.order-items-count {
+    font-size: 13px;
+    color: #666;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px dashed #e0e0e0;
+}
+
+.order-total {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--turf-green);
+}
+
+.order-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.order-action-btn {
+    padding: 8px 16px;
+    background: white;
+    border: 2px solid var(--turf-green);
+    border-radius: 20px;
+    color: var(--turf-green);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.order-action-btn:hover {
+    background: var(--turf-green);
+    color: white;
+}
+
+.order-action-btn.primary {
+    background: var(--turf-green);
+    color: white;
+}
+
+.order-action-btn.primary:hover {
+    background: var(--evergreen);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    display: none;
+}
+
+.empty-state.active {
+    display: block;
+}
+
+.empty-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, rgba(35,126,86,0.1) 0%, rgba(35,126,86,0.05) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-icon svg {
+    width: 60px;
+    height: 60px;
+    color: var(--turf-green);
+}
+
+.empty-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 12px;
+}
+
+.empty-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.browse-btn {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--turf-green) 0%, var(--evergreen) 100%);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(35,126,86,0.3);
+}
+
+.browse-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(35,126,86,0.4);
+}
+
+/* Floating Navigation - Inherits from style.css */

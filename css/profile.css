@@ -1,0 +1,562 @@
+/**
+ * ============================================================================
+ * PROFILE PAGE STYLESHEET
+ * ============================================================================
+ * 
+ * @file        profile.css
+ * @description Dedicated stylesheet for user profile and account management page
+ * @version     1.0.0
+ * @author      Development Team
+ * @dependency  style.css (base styles and CSS variables)
+ * 
+ * ----------------------------------------------------------------------------
+ * PURPOSE
+ * ----------------------------------------------------------------------------
+ * 
+ * This stylesheet provides styling for the user profile interface, including:
+ * - User information card with avatar and details
+ * - Statistics dashboard (orders, spending, addresses)
+ * - Account management menu items
+ * - Recent order history preview
+ * - Logout functionality with confirmation modal
+ * - Settings and preferences access
+ * 
+ * The design focuses on clear information hierarchy and easy access to
+ * account-related features while maintaining visual consistency with the
+ * overall application design system.
+ * 
+ * ----------------------------------------------------------------------------
+ * CONNECTED HTML
+ * ----------------------------------------------------------------------------
+ * 
+ * pages/profile.html
+ * 
+ */
+
+body {
+    background: var(--porcelain);
+    padding-bottom: 100px;
+}
+
+.profile-page {
+    max-width: 430px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Background decorations */
+.background-decoration {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-circle-1 {
+    top: 5%;
+    right: -60px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(35,126,86,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(50px);
+}
+
+.bg-circle-2 {
+    top: 35%;
+    left: -70px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(234,210,144,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(45px);
+}
+
+/* Header */
+.profile-header {
+    position: relative;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--turf-green) 0%, var(--evergreen) 100%);
+    color: white;
+    z-index: 1;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.settings-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.settings-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: rotate(90deg);
+}
+
+.settings-btn svg {
+    color: white;
+}
+
+/* User Info Card */
+.user-info-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--light-gold) 0%, var(--amber-flame) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--evergreen);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    border: 4px solid white;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.avatar-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--turf-green);
+    border: 3px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.avatar-badge:hover {
+    transform: scale(1.1);
+}
+
+.avatar-badge svg {
+    width: 14px;
+    height: 14px;
+    color: white;
+}
+
+.user-details {
+    flex: 1;
+}
+
+.user-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.user-email {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.user-member-since {
+    font-size: 12px;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.user-member-since svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Stats Section */
+.stats-section {
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.stat-card {
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(35,126,86,0.06) 0%, rgba(35,126,86,0.02) 100%);
+    border: 2px solid rgba(35,126,86,0.1);
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--turf-green);
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Menu Section */
+.menu-section {
+    padding: 0 20px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 16px;
+    padding-left: 4px;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+    border-color: var(--turf-green);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.menu-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(35,126,86,0.1) 0%, rgba(35,126,86,0.05) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.menu-icon svg {
+    color: var(--turf-green);
+    width: 22px;
+    height: 22px;
+}
+
+.menu-content {
+    flex: 1;
+}
+
+.menu-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.menu-subtitle {
+    font-size: 13px;
+    color: #999;
+}
+
+.menu-arrow {
+    width: 24px;
+    height: 24px;
+    color: #ccc;
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover .menu-arrow {
+    color: var(--turf-green);
+    transform: translateX(4px);
+}
+
+.menu-badge {
+    padding: 4px 10px;
+    background: var(--amber-flame);
+    color: var(--evergreen);
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Order History Section */
+.orders-preview {
+    margin-top: 24px;
+}
+
+.order-card {
+    padding: 16px;
+    background: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+}
+
+.order-card:hover {
+    border-color: var(--turf-green);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.order-id {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--evergreen);
+}
+
+.order-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.order-status.completed {
+    background: #e8f5e9;
+    color: var(--turf-green);
+}
+
+.order-status.in-progress {
+    background: #fff4e6;
+    color: #ff9800;
+}
+
+.order-status.cancelled {
+    background: #ffebee;
+    color: #f44336;
+}
+
+.order-restaurant {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 8px;
+}
+
+.order-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-items {
+    font-size: 13px;
+    color: #666;
+}
+
+.order-total {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--turf-green);
+}
+
+.order-date {
+    font-size: 12px;
+    color: #999;
+    margin-top: 8px;
+}
+
+/* Logout Button */
+.logout-section {
+    padding: 0 20px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(244,67,54,0.1) 0%, rgba(244,67,54,0.05) 100%);
+    border: 2px solid rgba(244,67,54,0.2);
+    border-radius: 16px;
+    color: #f44336;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.logout-btn:hover {
+    background: #f44336;
+    color: white;
+    border-color: #f44336;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(244,67,54,0.3);
+}
+
+.logout-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    max-width: 380px;
+    margin: 20px;
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 12px;
+}
+
+.modal-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.modal-btn {
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-btn.cancel {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.modal-btn.cancel:hover {
+    background: #e0e0e0;
+}
+
+.modal-btn.confirm {
+    background: #f44336;
+    color: white;
+}
+
+.modal-btn.confirm:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244,67,54,0.3);
+}
+
+/* Floating Navigation - Inherits from style.css */
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card, .menu-item {
+    animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+.menu-item:nth-child(1) { animation-delay: 0.1s; }
+.menu-item:nth-child(2) { animation-delay: 0.2s; }
+.menu-item:nth-child(3) { animation-delay: 0.3s; }
+.menu-item:nth-child(4) { animation-delay: 0.4s; }
+.menu-item:nth-child(5) { animation-delay: 0.5s; }
