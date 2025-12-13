@@ -1,5 +1,5 @@
 // Order status management
-let currentStatusIndex = 1; // 0: placed, 1: preparing, 2: on-the-way, 3: delivered
+let currentStatusIndex = 1; // 0: placed, 1: finding-rider, 2: preparing, 3: on-the-way, 4: delivered
 const statuses = [
     {
         name: 'placed',
@@ -11,6 +11,16 @@ const statuses = [
         progress: 0
     },
     {
+        name: 'finding-rider',
+        title: 'Looking for Rider',
+        subtitle: 'We are finding the best rider for your delivery',
+        icon: `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+        </svg>`,
+        progress: 25
+    },
+    {
         name: 'preparing',
         title: 'Preparing Your Order',
         subtitle: 'The restaurant is carefully preparing your food',
@@ -18,7 +28,7 @@ const statuses = [
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
             <polyline points="9 22 9 12 15 12 15 22"/>
         </svg>`,
-        progress: 25
+        progress: 50
     },
     {
         name: 'on-the-way',
@@ -30,7 +40,7 @@ const statuses = [
             <circle cx="5.5" cy="18.5" r="2.5"/>
             <circle cx="18.5" cy="18.5" r="2.5"/>
         </svg>`,
-        progress: 60
+        progress: 75
     },
     {
         name: 'delivered',
@@ -69,7 +79,7 @@ function updateStatus(index) {
     // Show driver section and map when on the way
     const driverSection = document.getElementById('driverSection');
     const mapSection = document.getElementById('mapSection');
-    if (index >= 2) {
+    if (index >= 3) {
         driverSection.style.display = 'block';
         mapSection.classList.add('show');
     } else {

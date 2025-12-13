@@ -223,9 +223,9 @@ body {
 
 .timeline-line {
     position: absolute;
-    left: 15px;
+    left: 22px;
     top: 20px;
-    bottom: 20px;
+    bottom: 36px;
     width: 3px;
     background: linear-gradient(to bottom, var(--turf-green) 0%, var(--turf-green) var(--progress, 50%), #e0e0e0 var(--progress, 50%), #e0e0e0 100%);
     border-radius: 2px;

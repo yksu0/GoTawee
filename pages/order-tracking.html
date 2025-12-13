@@ -57,7 +57,7 @@
 
             <!-- Progress Timeline -->
             <div class="progress-timeline">
-                <div class="timeline-line" id="timelineLine" style="--progress: 25%"></div>
+                <div class="timeline-line" id="timelineLine" style="--progress: 20%"></div>
                 
                 <div class="timeline-step completed" data-status="placed">
                     <div class="step-marker" onclick="jumpToStatus(0)">
@@ -71,20 +71,32 @@
                     </div>
                 </div>
 
-                <div class="timeline-step active" data-status="preparing">
+                <div class="timeline-step active" data-status="finding-rider">
                     <div class="step-marker" onclick="jumpToStatus(1)">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 17 4 12"/>
                         </svg>
                     </div>
                     <div class="step-content">
-                        <div class="step-title">Preparing Food</div>
+                        <div class="step-title">Looking for Rider</div>
                         <div class="step-time">In progress...</div>
                     </div>
                 </div>
 
-                <div class="timeline-step" data-status="on-the-way">
+                <div class="timeline-step" data-status="preparing">
                     <div class="step-marker" onclick="jumpToStatus(2)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-title">Preparing Food</div>
+                        <div class="step-time">Estimated 2:25 PM</div>
+                    </div>
+                </div>
+
+                <div class="timeline-step" data-status="on-the-way">
+                    <div class="step-marker" onclick="jumpToStatus(3)">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 17 4 12"/>
                         </svg>
@@ -96,7 +108,7 @@
                 </div>
 
                 <div class="timeline-step" data-status="delivered">
-                    <div class="step-marker" onclick="jumpToStatus(3)">
+                    <div class="step-marker" onclick="jumpToStatus(4)">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 17 4 12"/>
                         </svg>
@@ -233,7 +245,7 @@
                 </div>
                 <div class="address-details">
                     <div class="address-label">Home</div>
-                    <div class="address-text">123 Main Street, Barangay Centro, Manila, Metro Manila</div>
+                    <div class="address-text">Old Housing, Bongao, Tawi-Tawi</div>
                 </div>
             </div>
         </div>

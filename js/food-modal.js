@@ -310,17 +310,6 @@ class FoodModal {
             cartBadge.textContent = currentCount + quantity;
         }
         
-        // Show success message
-        const successMsg = document.createElement('div');
-        successMsg.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--turf-green); color: white; padding: 12px 24px; border-radius: 12px; font-weight: 600; z-index: 10000; animation: slideDown 0.3s ease;';
-        successMsg.textContent = `Added ${quantity}x ${foodName} to cart`;
-        document.body.appendChild(successMsg);
-        
-        setTimeout(() => {
-            successMsg.style.animation = 'slideUp 0.3s ease';
-            setTimeout(() => successMsg.remove(), 300);
-        }, 2000);
-        
         this.close();
     }
 }

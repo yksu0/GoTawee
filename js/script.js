@@ -462,7 +462,6 @@ class GoTawiApp {
         
         this.cart.push(item);
         this.updateCartBadge();
-        this.showToast(`✅ Added ${foodName} to cart`);
         
         // Add visual feedback
         button.style.transform = 'scale(0.8)';

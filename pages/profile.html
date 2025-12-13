@@ -40,8 +40,8 @@
                     </div>
                 </div>
                 <div class="user-details">
-                    <div class="user-name">Juan Dela Cruz</div>
-                    <div class="user-email">juan.delacruz@email.com</div>
+                    <div class="user-name">Daud Hassan</div>
+                    <div class="user-email">daud.Dman@email.com</div>
                     <div class="user-member-since">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -63,8 +63,8 @@
                     <div class="stat-label">Orders</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">₱8,450</div>
-                    <div class="stat-label">Total Spent</div>
+                    <div class="stat-value">⭐ 4.8</div>
+                    <div class="stat-label">Rating</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value">3</div>
@@ -326,6 +326,730 @@
             <div class="modal-actions">
                 <button class="modal-btn cancel" onclick="closeLogoutModal()">Cancel</button>
                 <button class="modal-btn confirm" onclick="confirmLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-overlay" id="editProfileModal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeModal('editProfileModal')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="modal-title">Edit Profile</div>
+                    <div class="modal-subtitle">Update your personal information</div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Full Name
+                    </label>
+                    <input type="text" class="form-input" value="Daud Hassan" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        Email Address
+                    </label>
+                    <input type="email" class="form-input" value="daud.Dman@email.com" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        Phone Number
+                    </label>
+                    <input type="tel" class="form-input" value="+63 912 345 6789" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        Date of Birth
+                    </label>
+                    <input type="date" class="form-input" value="1995-06-15">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-cancel" onclick="closeModal('editProfileModal')">Cancel</button>
+                <button class="modal-btn modal-btn-primary" onclick="saveProfile()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Addresses Modal -->
+    <div class="modal-overlay" id="addressesModal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeModal('addressesModal')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </div>
+                <div class="modal-header-text">
+                    <div class="modal-title">Saved Addresses</div>
+                    <div class="modal-subtitle">Manage your delivery locations</div>
+                </div>
+                <button class="add-btn" onclick="showAddAddressForm()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Add New
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="address-list">
+                    <div class="address-card">
+                        <div class="address-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            </svg>
+                        </div>
+                        <div class="address-content">
+                            <div class="address-header">
+                                <div class="address-type">Home</div>
+                                <div class="address-default">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                    Default
+                                </div>
+                            </div>
+                            <div class="address-name">Daud Hassan</div>
+                            <div class="address-details">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                Old Housing, Bongao, Tawi-Tawi
+                            </div>
+                            <div class="address-phone">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                                +63 912 345 6789
+                            </div>
+                        </div>
+                        <div class="address-actions">
+                            <button class="address-action-btn" onclick="editAddress(1)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                            </button>
+                            <button class="address-action-btn delete" onclick="deleteAddress(1)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="address-card">
+                        <div class="address-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                            </svg>
+                        </div>
+                        <div class="address-content">
+                            <div class="address-header">
+                                <div class="address-type work">Work</div>
+                            </div>
+                            <div class="address-name">Daud Hassan</div>
+                            <div class="address-details">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                City Center, Bongao, Tawi-Tawi
+                            </div>
+                            <div class="address-phone">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                                +63 912 345 6789
+                            </div>
+                        </div>
+                        <div class="address-actions">
+                            <button class="address-action-btn" onclick="editAddress(2)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                            </button>
+                            <button class="address-action-btn delete" onclick="deleteAddress(2)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="address-card">
+                        <div class="address-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="10" r="3"/>
+                                <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/>
+                            </svg>
+                        </div>
+                        <div class="address-content">
+                            <div class="address-header">
+                                <div class="address-type other">Other</div>
+                            </div>
+                            <div class="address-name">Daud Hassan</div>
+                            <div class="address-details">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                Poblacion, Bongao, Tawi-Tawi
+                            </div>
+                            <div class="address-phone">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                                +63 912 345 6789
+                            </div>
+                        </div>
+                        <div class="address-actions">
+                            <button class="address-action-btn" onclick="editAddress(3)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                            </button>
+                            <button class="address-action-btn delete" onclick="deleteAddress(3)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Methods Modal -->
+    <div class="modal-overlay" id="paymentsModal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeModal('paymentsModal')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                        <line x1="1" y1="10" x2="23" y2="10"/>
+                    </svg>
+                </div>
+                <div class="modal-header-text">
+                    <div class="modal-title">Payment Methods</div>
+                    <div class="modal-subtitle">Manage your cards and wallets</div>
+                </div>
+                <button class="add-btn" onclick="showAddPaymentForm()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Add Card
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="payment-section-title">Credit & Debit Cards</div>
+                <div class="payment-list">
+                    <div class="payment-card">
+                        <div class="payment-icon card-icon visa">
+                            <svg width="32" height="20" viewBox="0 0 48 32" fill="none">
+                                <rect width="48" height="32" rx="4" fill="#1A1F71"/>
+                                <text x="24" y="20" font-family="Arial" font-size="12" font-weight="bold" fill="white" text-anchor="middle">VISA</text>
+                            </svg>
+                        </div>
+                        <div class="payment-info">
+                            <div class="payment-name">Visa Debit Card</div>
+                            <div class="payment-number">•••• •••• •••• 4242</div>
+                            <div class="payment-expiry">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                Expires 12/25
+                            </div>
+                        </div>
+                        <div class="payment-default">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                            Default
+                        </div>
+                        <button class="payment-delete" onclick="deletePayment(1)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="payment-card">
+                        <div class="payment-icon card-icon mastercard">
+                            <svg width="32" height="20" viewBox="0 0 48 32" fill="none">
+                                <rect width="48" height="32" rx="4" fill="#EB001B"/>
+                                <circle cx="18" cy="16" r="8" fill="#FF5F00"/>
+                                <circle cx="30" cy="16" r="8" fill="#F79E1B"/>
+                            </svg>
+                        </div>
+                        <div class="payment-info">
+                            <div class="payment-name">Mastercard Credit</div>
+                            <div class="payment-number">•••• •••• •••• 8888</div>
+                            <div class="payment-expiry">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                Expires 09/26
+                            </div>
+                        </div>
+                        <button class="payment-delete" onclick="deletePayment(2)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="payment-section-title">Digital Wallets</div>
+                <div class="payment-list">
+                    <div class="payment-card">
+                        <div class="payment-icon wallet-icon gcash">
+                            <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+                                <rect width="48" height="48" rx="8" fill="#007DFF"/>
+                                <path d="M24 10L18 28H22L20 38L30 20H26L28 10H24Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div class="payment-info">
+                            <div class="payment-name">GCash</div>
+                            <div class="payment-number">+63 912 345 6789</div>
+                            <div class="payment-expiry">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Verified
+                            </div>
+                        </div>
+                        <button class="payment-delete" onclick="deletePayment(3)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="payment-option" onclick="addCashOption()">
+                        <div class="payment-icon wallet-icon cash">
+                            <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+                                <rect width="48" height="48" rx="8" fill="#4CAF50"/>
+                                <rect x="12" y="16" width="24" height="16" rx="2" fill="white"/>
+                                <circle cx="24" cy="24" r="4" fill="#4CAF50"/>
+                            </svg>
+                        </div>
+                        <div class="payment-info">
+                            <div class="payment-name">Cash on Delivery</div>
+                            <div class="payment-number">Pay when you receive</div>
+                            <div class="payment-expiry">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                                Available
+                            </div>
+                        </div>
+                        <svg class="payment-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vouchers Modal -->
+    <div class="modal-overlay" id="vouchersModal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeModal('vouchersModal')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                        <line x1="7" y1="7" x2="7.01" y2="7"/>
+                    </svg>
+                </div>
+                <div class="modal-header-text">
+                    <div class="modal-title">Vouchers & Promos</div>
+                    <div class="modal-subtitle">Save more on every order</div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="voucher-list">
+                    <div class="voucher-card active">
+                        <div class="voucher-left">
+                            <div class="voucher-badge premium">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                                <div class="voucher-discount">50%</div>
+                                <div class="voucher-off">OFF</div>
+                            </div>
+                        </div>
+                        <div class="voucher-content">
+                            <div class="voucher-title">First Order Special</div>
+                            <div class="voucher-desc">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                Get 50% off on your first order (up to ₱500)
+                            </div>
+                            <div class="voucher-code-box">
+                                <div class="voucher-code">WELCOME50</div>
+                                <button class="voucher-copy" onclick="event.stopPropagation(); navigator.clipboard.writeText('WELCOME50')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="voucher-expiry">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                Valid until Dec 31, 2025
+                            </div>
+                        </div>
+                        <button class="voucher-apply" onclick="applyVoucher('WELCOME50')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Apply
+                        </button>
+                    </div>
+                    
+                    <div class="voucher-card active">
+                        <div class="voucher-left">
+                            <div class="voucher-badge delivery">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="3" width="15" height="13"/>
+                                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                                    <circle cx="5.5" cy="18.5" r="2.5"/>
+                                    <circle cx="18.5" cy="18.5" r="2.5"/>
+                                </svg>
+                                <div class="voucher-free">FREE</div>
+                            </div>
+                        </div>
+                        <div class="voucher-content">
+                            <div class="voucher-title">Free Delivery</div>
+                            <div class="voucher-desc">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                No delivery fee on orders above ₱500
+                            </div>
+                            <div class="voucher-code-box">
+                                <div class="voucher-code">FREEDELIVERY</div>
+                                <button class="voucher-copy" onclick="event.stopPropagation(); navigator.clipboard.writeText('FREEDELIVERY')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="voucher-expiry">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                Valid until Dec 20, 2025
+                            </div>
+                        </div>
+                        <button class="voucher-apply" onclick="applyVoucher('FREEDELIVERY')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Apply
+                        </button>
+                    </div>
+
+                    <div class="voucher-card active">
+                        <div class="voucher-left">
+                            <div class="voucher-badge student">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                    <path d="M6 12v5c0 1 2 2 6 2s6-1 6-2v-5"/>
+                                </svg>
+                                <div class="voucher-discount">20%</div>
+                                <div class="voucher-off">OFF</div>
+                            </div>
+                        </div>
+                        <div class="voucher-content">
+                            <div class="voucher-title">Student Discount</div>
+                            <div class="voucher-desc">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                Special discount for students on all orders
+                            </div>
+                            <div class="voucher-code-box">
+                                <div class="voucher-code">STUDENT20</div>
+                                <button class="voucher-copy" onclick="event.stopPropagation(); navigator.clipboard.writeText('STUDENT20')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="voucher-expiry">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                Valid until Jan 15, 2026
+                            </div>
+                        </div>
+                        <button class="voucher-apply" onclick="applyVoucher('STUDENT20')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Apply
+                        </button>
+                    </div>
+
+                    <div class="voucher-card expired">
+                        <div class="voucher-left">
+                            <div class="voucher-badge expired-badge">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="15" y1="9" x2="9" y2="15"/>
+                                    <line x1="9" y1="9" x2="15" y2="15"/>
+                                </svg>
+                                <div class="voucher-status">EXPIRED</div>
+                            </div>
+                        </div>
+                        <div class="voucher-content">
+                            <div class="voucher-title">Weekend Special</div>
+                            <div class="voucher-desc">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                15% off on weekend orders
+                            </div>
+                            <div class="voucher-code-box">
+                                <div class="voucher-code disabled">WEEKEND15</div>
+                            </div>
+                            <div class="voucher-expiry expired-date">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="15" y1="9" x2="9" y2="15"/>
+                                    <line x1="9" y1="9" x2="15" y2="15"/>
+                                </svg>
+                                Expired on Dec 10, 2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Favorites Modal -->
+    <div class="modal-overlay" id="favoritesModal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeModal('favoritesModal')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </div>
+                <div class="modal-header-text">
+                    <div class="modal-title">Favorite Restaurants</div>
+                    <div class="modal-subtitle">Quick access to your favorites</div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="favorites-list">
+                    <div class="favorite-card" onclick="goToRestaurant(1)">
+                        <div class="favorite-image">
+                            <img src="../assets/training/Bread/5.jpg" alt="Restaurant">
+                            <div class="favorite-overlay"></div>
+                        </div>
+                        <div class="favorite-info">
+                            <div class="favorite-name">Tony's Pizzeria</div>
+                            <div class="favorite-cuisine">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                    <polyline points="9 22 9 12 15 12 15 22"/>
+                                </svg>
+                                Italian • Pizza
+                            </div>
+                            <div class="favorite-meta">
+                                <span class="favorite-rating">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="2">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                    4.8
+                                </span>
+                                <span class="favorite-time">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                    20-30 min
+                                </span>
+                            </div>
+                        </div>
+                        <button class="favorite-remove" onclick="event.stopPropagation(); removeFavorite(1)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="favorite-card" onclick="goToRestaurant(2)">
+                        <div class="favorite-image">
+                            <img src="../assets/training/Fried food/15.jpg" alt="Restaurant">
+                            <div class="favorite-overlay"></div>
+                        </div>
+                        <div class="favorite-info">
+                            <div class="favorite-name">Burger House</div>
+                            <div class="favorite-cuisine">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                    <polyline points="9 22 9 12 15 12 15 22"/>
+                                </svg>
+                                American • Burgers
+                            </div>
+                            <div class="favorite-meta">
+                                <span class="favorite-rating">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="2">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                    4.6
+                                </span>
+                                <span class="favorite-time">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                    15-25 min
+                                </span>
+                            </div>
+                        </div>
+                        <button class="favorite-remove" onclick="event.stopPropagation(); removeFavorite(2)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="favorite-card" onclick="goToRestaurant(3)">
+                        <div class="favorite-image">
+                            <img src="../assets/training/Noodles-Pasta/25.jpg" alt="Restaurant">
+                            <div class="favorite-overlay"></div>
+                        </div>
+                        <div class="favorite-info">
+                            <div class="favorite-name">Dragon Noodle House</div>
+                            <div class="favorite-cuisine">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                    <polyline points="9 22 9 12 15 12 15 22"/>
+                                </svg>
+                                Asian • Noodles
+                            </div>
+                            <div class="favorite-meta">
+                                <span class="favorite-rating">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="2">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                    4.7
+                                </span>
+                                <span class="favorite-time">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                    25-35 min
+                                </span>
+                            </div>
+                        </div>
+                        <button class="favorite-remove" onclick="event.stopPropagation(); removeFavorite(3)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
