@@ -319,7 +319,14 @@
 }
 
 .saved-icon {
-    font-size: 20px;
+    color: var(--turf-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.saved-icon svg {
+    stroke: var(--turf-green);
 }
 
 .saved-name {
@@ -347,7 +354,7 @@
 .map-container {
     background: white;
     border-radius: 16px;
-    height: 160px;
+    height: 240px;
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     position: relative;
@@ -510,8 +517,15 @@
 }
 
 .detail-icon {
-    font-size: 24px;
     margin-bottom: 8px;
+    color: var(--turf-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-icon svg {
+    stroke: var(--turf-green);
 }
 
 .detail-content {

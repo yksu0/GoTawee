@@ -38,6 +38,13 @@ window.GoTawi = {
         const searchInput = document.querySelector('.search-input');
         if (searchInput) {
             searchInput.placeholder = serviceConfig.searchPlaceholder;
+            
+            // Update search behavior based on service
+            if (this.currentService === 'ride') {
+                searchInput.onclick = () => window.location.href = 'pages/ride-booking.html';
+            } else {
+                searchInput.onclick = () => window.location.href = 'pages/search.html';
+            }
         }
         
         // Update location label
@@ -57,15 +64,15 @@ window.GoTawi = {
     
     // Toggle between food and ride content
     toggleContent() {
-        const foodContent = document.querySelectorAll('.deals-section, .categories-section, .recommended-section, .restaurants-section');
-        const rideContent = document.querySelectorAll('.ride-content'); // To be added later
+        const foodContent = document.getElementById('foodContent');
+        const rideContent = document.getElementById('rideContent');
         
         if (this.currentService === 'food') {
-            foodContent.forEach(el => el.style.display = '');
-            rideContent.forEach(el => el.style.display = 'none');
+            if (foodContent) foodContent.style.display = '';
+            if (rideContent) rideContent.style.display = 'none';
         } else {
-            foodContent.forEach(el => el.style.display = 'none');
-            rideContent.forEach(el => el.style.display = '');
+            if (foodContent) foodContent.style.display = 'none';
+            if (rideContent) rideContent.style.display = '';
         }
     }
 };
@@ -252,6 +259,32 @@ class GoTawiApp {
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', (e) => this.handleNavigation(e.currentTarget));
         });
+        
+        // Ride service event listeners
+        this.setupRideEventListeners();
+    }
+    
+    setupRideEventListeners() {
+        // Quick action cards
+        document.querySelectorAll('.quick-action-card').forEach(card => {
+            card.addEventListener('click', (e) => this.handleQuickAction(e.currentTarget));
+        });
+
+        // Vehicle selection cards
+        document.querySelectorAll('.vehicle-card').forEach(card => {
+            card.addEventListener('click', (e) => this.selectVehicle(e.currentTarget));
+        });
+
+        // Recent destination items
+        document.querySelectorAll('.destination-item').forEach(item => {
+            item.addEventListener('click', (e) => this.selectDestination(e.currentTarget));
+        });
+
+        // Book ride button
+        const bookRideBtn = document.querySelector('.book-ride-btn');
+        if (bookRideBtn) {
+            bookRideBtn.addEventListener('click', () => this.bookRide());
+        }
     }
 
     showCart() {
@@ -309,7 +342,7 @@ class GoTawiApp {
     }
 
     showSearchSuggestions() {
-        this.showToast('🔍 Search for restaurants, cuisines, or dishes');
+        // Toast notification removed for cleaner UX
     }
 
     handleSearch(query) {
@@ -527,7 +560,7 @@ class GoTawiApp {
                     rangeCurrent.textContent = '₱2,500';
                 }
                 
-                this.showToast('🔄 Filters cleared');
+                // Toast notification removed for cleaner UX
             });
         }
 
@@ -537,7 +570,7 @@ class GoTawiApp {
             applyBtn.addEventListener('click', () => {
                 const selectedFilters = this.getSelectedFilters(modal);
                 console.log('Applying filters:', selectedFilters);
-                this.showToast('✅ Filters applied');
+                // Toast notification removed for cleaner UX
                 modal.remove();
             });
         }
@@ -591,9 +624,9 @@ class GoTawiApp {
         const dealCode = dealCard.querySelector('.deal-code').textContent;
         
         navigator.clipboard.writeText(dealCode).then(() => {
-            this.showToast(`✅ Copied code: ${dealCode}`);
+            // Toast notification removed for cleaner UX
         }).catch(() => {
-            this.showToast(`📋 Deal code: ${dealCode}`);
+            // Toast notification removed for cleaner UX
         });
     }
 
@@ -609,7 +642,7 @@ class GoTawiApp {
         const categoryName = categoryItem.querySelector('.category-name').textContent;
         this.activeCategory = categoryName;
         
-        this.showToast(`🍽️ Browsing ${categoryName} restaurants`);
+        // Toast notification removed for cleaner UX
         
         // Scroll to recommended section
         document.querySelector('.recommended-section').scrollIntoView({ 
@@ -651,11 +684,11 @@ class GoTawiApp {
         if (this.favorites.has(foodName)) {
             this.favorites.delete(foodName);
             button.textContent = '🤍';
-            this.showToast(`💔 Removed ${foodName} from favorites`);
+            // Toast notification removed for cleaner UX
         } else {
             this.favorites.add(foodName);
             button.textContent = '❤️';
-            this.showToast(`❤️ Added ${foodName} to favorites`);
+            // Toast notification removed for cleaner UX
         }
     }
 
@@ -727,22 +760,22 @@ class GoTawiApp {
             case 'Home':
                 backgroundAccent.classList.add('morph-home');
                 backgroundShadow.classList.add('morph-home');
-                this.showToast('🏠 Welcome to Go Tawi!');
+                // Toast notification removed for cleaner UX
                 break;
             case 'Search':
                 backgroundAccent.classList.add('morph-search');
                 backgroundShadow.classList.add('morph-search');
-                this.showToast('🔍 Search screen - Coming soon!');
+                // Toast notification removed for cleaner UX
                 break;
             case 'Orders':
                 backgroundAccent.classList.add('morph-orders');
                 backgroundShadow.classList.add('morph-orders');
-                this.showToast('📋 Orders screen - Coming soon!');
+                // Toast notification removed for cleaner UX
                 break;
             case 'Profile':
                 backgroundAccent.classList.add('morph-profile');
                 backgroundShadow.classList.add('morph-profile');
-                this.showToast('👤 Profile screen - Coming soon!');
+                // Toast notification removed for cleaner UX
                 break;
         }
     }
@@ -876,11 +909,11 @@ class GoTawiApp {
         document.querySelector('.recommended-section').scrollIntoView({ 
             behavior: 'smooth' 
         });
-        this.showToast('🍽️ Browse our delicious food items below!');
+        // Toast notification removed for cleaner UX
     }
 
     proceedToCheckout() {
-        this.showToast('🚀 Proceeding to checkout - Coming soon!');
+        // Toast notification removed for cleaner UX
     }
 
     updateQuantity(itemId, newQuantity) {
@@ -982,18 +1015,246 @@ class GoTawiApp {
                 padding: 20px;
             `;
         }
+    }    // =======================================================
+    // RIDE SERVICE HANDLERS
+    // =======================================================
+    
+    handleQuickAction(actionCard) {
+        const actionName = actionCard.querySelector('.quick-action-label').textContent.trim();
+        
+        switch(actionName.toLowerCase()) {
+            case 'book ride':
+                this.initiateBooking();
+                break;
+            case 'home':
+                this.setDestination('Home', 'Jolo, Sulu');
+                break;
+            case 'work':
+                this.setDestination('Work', 'Bongao, Tawi-Tawi');
+                break;
+            case 'schedule':
+                this.showScheduleRide();
+                break;
+            default:
+                // Feature coming soon
+        }
     }
-
-    showToast(message) {
-        const existingToast = document.querySelector('.toast');
-        if (existingToast) {
-            existingToast.remove();
+    
+    selectVehicle(vehicleCard) {
+        // Remove active class from all vehicles
+        document.querySelectorAll('.vehicle-card').forEach(card => 
+            card.classList.remove('active')
+        );
+        
+        // Add active class to selected vehicle
+        vehicleCard.classList.add('active');
+        
+        const vehicleName = vehicleCard.querySelector('.vehicle-name').textContent;
+        const vehiclePrice = vehicleCard.querySelector('.vehicle-price').textContent;
+        
+        // Toast notification removed for cleaner UX
+        
+        // Update book ride button
+        const bookBtn = document.querySelector('.book-ride-btn');
+        if (bookBtn) {
+            bookBtn.innerHTML = `
+                <span>Book ${vehicleName}</span>
+                <span>${vehiclePrice}</span>
+            `;
+        }
+    }
+    
+    selectDestination(destinationItem) {
+        const destinationName = destinationItem.querySelector('.destination-name').textContent;
+        const destinationAddress = destinationItem.querySelector('.destination-address').textContent;
+        
+        this.setDestination(destinationName, destinationAddress);
+    }
+    
+    setDestination(name, address) {
+        // Update search input with destination
+        const searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.value = `To: ${name}`;
         }
         
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.textContent = message;
-        toast.style.cssText = `
+        // Toast notification removed for cleaner UX
+    }
+    
+    initiateBooking() {
+        const searchInput = document.querySelector('.search-input');
+        if (!searchInput || !searchInput.value.trim()) {
+            // Toast notification removed for cleaner UX
+            searchInput?.focus();
+            return;
+        }
+        
+        // Show vehicle selection
+        const vehicleSection = document.querySelector('.vehicle-types-section');
+        if (vehicleSection) {
+            vehicleSection.scrollIntoView({ behavior: 'smooth' });
+            // Toast notification removed for cleaner UX
+        }
+    }
+    
+    showScheduleRide() {
+        const scheduleModal = this.createModal('Schedule Ride', `
+            <div class="schedule-content">
+                <div class="schedule-form">
+                    <h4 style="color: var(--evergreen); margin-bottom: 16px;">Schedule Your Ride</h4>
+                    
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Date</label>
+                        <input type="date" class="schedule-date" style="
+                            width: 100%; 
+                            padding: 12px; 
+                            border: 2px solid #e0e0e0; 
+                            border-radius: 8px;
+                            font-family: 'Inter', sans-serif;
+                        " min="${new Date().toISOString().split('T')[0]}">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Time</label>
+                        <input type="time" class="schedule-time" style="
+                            width: 100%; 
+                            padding: 12px; 
+                            border: 2px solid #e0e0e0; 
+                            border-radius: 8px;
+                            font-family: 'Inter', sans-serif;
+                        ">
+                    </div>
+                    
+                    <button onclick="window.app.confirmSchedule()" style="
+                        width: 100%;
+                        background: var(--turf-green);
+                        color: white;
+                        border: none;
+                        padding: 14px;
+                        border-radius: 12px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: background 0.3s ease;
+                    ">Schedule Ride</button>
+                </div>
+            </div>
+        `);
+        
+        this.showModal(scheduleModal);
+    }
+    
+    confirmSchedule() {
+        const date = document.querySelector('.schedule-date')?.value;
+        const time = document.querySelector('.schedule-time')?.value;
+        
+        if (!date || !time) {
+            // Toast notification removed for cleaner UX
+            return;
+        }
+        
+        this.closeModal();
+        // Toast notification removed for cleaner UX
+    }
+    
+    bookRide() {
+        const selectedVehicle = document.querySelector('.vehicle-card.active');
+        const destination = document.querySelector('.search-input')?.value;
+        
+        if (!destination || !destination.trim()) {
+            // Toast notification removed for cleaner UX
+            return;
+        }
+        
+        if (!selectedVehicle) {
+            // Toast notification removed for cleaner UX
+            return;
+        }
+        
+        const vehicleName = selectedVehicle.querySelector('.vehicle-name').textContent;
+        const price = selectedVehicle.querySelector('.vehicle-price').textContent;
+        
+        // Simulate booking process
+        this.showBookingConfirmation(vehicleName, destination, price);
+    }
+    
+    showBookingConfirmation(vehicle, destination, price) {
+        const confirmationModal = this.createModal('Confirm Booking', `
+            <div class="booking-confirmation">
+                <div style="text-align: center; padding: 20px;">
+                    <div style="
+                        width: 80px; 
+                        height: 80px; 
+                        background: var(--turf-green); 
+                        border-radius: 50%; 
+                        margin: 0 auto 20px; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center;
+                        color: white;
+                        font-size: 36px;
+                    ">🚗</div>
+                    
+                    <h3 style="color: var(--evergreen); margin-bottom: 20px;">Booking Details</h3>
+                    
+                    <div style="
+                        background: var(--porcelain); 
+                        padding: 20px; 
+                        border-radius: 12px; 
+                        margin-bottom: 20px;
+                        text-align: left;
+                    ">
+                        <div style="margin-bottom: 12px;">
+                            <strong>Vehicle:</strong> ${vehicle}
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <strong>Destination:</strong> ${destination.replace('To: ', '')}
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <strong>Pickup:</strong> Current Location
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <strong>Estimated Fare:</strong> ${price}
+                        </div>
+                        <div>
+                            <strong>ETA:</strong> 5-8 minutes
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px;">
+                        <button onclick="window.app.closeModal()" style="
+                            flex: 1;
+                            background: #f0f0f0;
+                            color: var(--evergreen);
+                            border: none;
+                            padding: 14px;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        ">Cancel</button>
+                        
+                        <button onclick="window.app.processBooking('${vehicle}', '${destination}', '${price}')" style="
+                            flex: 1;
+                            background: var(--turf-green);
+                            color: white;
+                            border: none;
+                            padding: 14px;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        ">Confirm Booking</button>
+                    </div>
+                </div>
+            </div>
+        `);
+        
+        this.showModal(confirmationModal);
+    }
+    
+    processBooking(vehicle, destination, price) {
+        this.closeModal();
+        
+        // Show loading state
+        const loadingToast = document.createElement('div');
+        loadingToast.innerHTML = '🔍 Finding your driver...';
+        loadingToast.style.cssText = `
             position: fixed;
             bottom: 120px;
             left: 50%;
@@ -1004,15 +1265,23 @@ class GoTawiApp {
             border-radius: 25px;
             font-size: 14px;
             z-index: 3000;
-            animation: toastSlideUp 0.3s ease;
         `;
+        document.body.appendChild(loadingToast);
         
-        document.body.appendChild(toast);
-        
+        // Simulate finding driver
         setTimeout(() => {
-            toast.style.animation = 'toastSlideDown 0.3s ease forwards';
-            setTimeout(() => toast.remove(), 300);
-        }, 2500);
+            loadingToast.remove();
+            this.showDriverFound(vehicle, destination, price);
+        }, 3000);
+    }
+    
+    showDriverFound(vehicle, destination, price) {
+        // Toast notification removed for cleaner UX
+        
+        // Simulate redirect to tracking page after a short delay
+        setTimeout(() => {
+            window.location.href = 'pages/ride-tracking.html';
+        }, 2000);
     }
 }
 

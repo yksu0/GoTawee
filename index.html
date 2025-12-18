@@ -29,8 +29,8 @@
                         </svg>
                     </div>
                     <div class="location-info">
-                        <span class="location-label">Deliver to</span>
-                        <span class="location-address">Old Housing, Bongao</span>
+                        <span class="location-label" id="locationLabel">Deliver to</span>
+                        <span class="location-address" id="locationAddress">Old Housing, Bongao</span>
                     </div>
                 </div>
                 <div class="top-actions">
@@ -89,7 +89,7 @@
                             <circle cx="11" cy="11" r="8"></circle>
                             <path d="m21 21-4.35-4.35"></path>
                         </svg>
-                        <input type="text" placeholder="Search for food, restaurants..." class="search-input" onclick="window.location.href='pages/search.html'">
+                        <input type="text" placeholder="Search for food, restaurants..." class="search-input" id="searchInput" onclick="window.location.href='pages/search.html'">
                     </div>
                     <button class="filter-button">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -99,8 +99,10 @@
                 </div>
             </div>
 
-        <!-- Deals & Promos Widget -->
-        <div class="deals-section">
+            <!-- Food Service Content -->
+            <div id="foodContent" class="service-content">
+                <!-- Deals & Promos Widget -->
+                <div class="deals-section">
             <h3 class="section-title">Deals & Promos</h3>
             <div class="deals-scroll">
                 <div class="deal-card featured">
@@ -399,7 +401,87 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
+        <!-- End Food Service Content -->
+        
+        <!-- Ride Service Content -->
+        <div id="rideContent" class="service-content" style="display: none;">
+            <!-- Recent Destinations -->
+            <div class="recent-destinations-section">
+                <div class="section-header">
+                    <h3 class="section-title">Recent Destinations</h3>
+                    <span class="view-all" onclick="window.location.href='pages/ride-booking.html'">Book Ride</span>
+                </div>
+                <div class="destinations-list">
+                    <div class="destination-item" onclick="window.location.href='pages/ride-booking.html'" style="cursor: pointer;">
+                        <div class="destination-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="destination-info">
+                            <h4 class="destination-name">Tawi-Tawi Regional Medical Center</h4>
+                            <p class="destination-address">Sanga-Sanga, Bongao • 2 days ago</p>
+                        </div>
+                        <div class="destination-fare">
+                            <span class="fare-amount">₱85</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-item" onclick="window.location.href='pages/ride-booking.html'" style="cursor: pointer;">
+                        <div class="destination-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="destination-info">
+                            <h4 class="destination-name">Bongao Public Market</h4>
+                            <p class="destination-address">Poblacion, Bongao • 1 week ago</p>
+                        </div>
+                        <div class="destination-fare">
+                            <span class="fare-amount">₱45</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-item" onclick="window.location.href='pages/ride-booking.html'" style="cursor: pointer;">
+                        <div class="destination-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="destination-info">
+                            <h4 class="destination-name">Mindanao State University</h4>
+                            <p class="destination-address">Sanga-Sanga, Bongao • 2 weeks ago</p>
+                        </div>
+                        <div class="destination-fare">
+                            <span class="fare-amount">₱120</span>
+                        </div>
+                    </div>
+
+                    <div class="destination-item" onclick="window.location.href='pages/ride-booking.html'" style="cursor: pointer;">
+                        <div class="destination-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="destination-info">
+                            <h4 class="destination-name">Bongao Airport</h4>
+                            <p class="destination-address">Airport Road, Bongao • 3 weeks ago</p>
+                        </div>
+                        <div class="destination-fare">
+                            <span class="fare-amount">₱180</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Ride Service Content -->
+        
         </div>
     </div>
 
@@ -414,16 +496,7 @@
             </span>
             <span class="nav-label">Home</span>
         </div>
-        <div class="nav-item" onclick="window.location.href='pages/search.html'">
-            <span class="nav-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                </svg>
-            </span>
-            <span class="nav-label">Search</span>
-        </div>
-        <div class="nav-item" onclick="window.location.href='pages/orders.html'">
+        <div class="nav-item" onclick="window.location.href='pages/order-tracking.html'">
             <span class="nav-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -435,7 +508,7 @@
             </span>
             <span class="nav-label">Orders</span>
         </div>
-        <div class="nav-item" onclick="window.location.href='pages/ride-booking.html'">
+        <div class="nav-item" onclick="window.location.href='pages/ride-tracking.html'">
             <span class="nav-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M8 6v6h8V6"></path>

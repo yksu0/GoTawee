@@ -3257,6 +3257,503 @@ body {
     }
 }
 
+/**
+ * ============================================================================
+ * RIDE SERVICE CONTENT STYLES
+ * ============================================================================
+ * 
+ * Styles for the ride hailing service content sections:
+ * - Quick actions grid (book ride, home, work, schedule)
+ * - Vehicle types selection (standard, premium, share)
+ * - Recent destinations list
+ * - Nearby drivers status
+ */
+
+/* Content Container Visibility */
+.content-container {
+    display: block;
+}
+
+.content-container.hidden {
+    display: none;
+}
+
+/* Quick Actions Grid */
+.quick-actions {
+    margin-bottom: 32px;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.action-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.action-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, rgba(35, 126, 86, 0.08), rgba(24, 53, 38, 0.06));
+    border-radius: 50%;
+    animation: actionFloat 6s ease-in-out infinite;
+    z-index: 0;
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.action-card:hover::before {
+    animation-duration: 3s;
+}
+
+.action-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--turf-green), var(--evergreen));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.action-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+}
+
+.action-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--evergreen);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes actionFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-2px, -3px) scale(1.05); }
+    66% { transform: translate(1px, -2px) scale(0.95); }
+}
+
+/* Vehicle Types Section */
+.vehicle-types {
+    margin-bottom: 32px;
+}
+
+.vehicle-types-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vehicle-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.vehicle-card::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -25%;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, rgba(253, 188, 34, 0.06), rgba(234, 210, 144, 0.04));
+    border-radius: 50%;
+    animation: vehicleFloat 7s ease-in-out infinite;
+    z-index: 0;
+}
+
+.vehicle-card:nth-child(even)::before {
+    background: linear-gradient(45deg, rgba(35, 126, 86, 0.06), rgba(24, 53, 38, 0.04));
+    animation: vehicleFloat 6s ease-in-out infinite reverse;
+}
+
+.vehicle-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-color: var(--turf-green);
+}
+
+.vehicle-card.active {
+    border-color: var(--turf-green);
+    background: linear-gradient(135deg, rgba(35, 126, 86, 0.05), rgba(24, 53, 38, 0.03));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(35, 126, 86, 0.2);
+}
+
+.vehicle-card.active::before {
+    background: linear-gradient(45deg, rgba(35, 126, 86, 0.1), rgba(24, 53, 38, 0.08));
+}
+
+.vehicle-card:hover::before {
+    animation-duration: 3.5s;
+}
+
+.vehicle-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--light-gold), var(--amber-flame));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.vehicle-icon svg {
+    width: 32px;
+    height: 32px;
+    color: var(--evergreen);
+}
+
+.vehicle-info {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.vehicle-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.vehicle-desc {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.vehicle-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: #666;
+}
+
+.eta {
+    color: var(--turf-green);
+    font-weight: 600;
+}
+
+.vehicle-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--turf-green);
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes vehicleFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-2px, -2px) scale(1.02); }
+}
+
+/* Recent Destinations Section */
+.destinations-section {
+    margin-bottom: 32px;
+}
+
+.destinations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.destination-item {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.destination-item::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, rgba(35, 126, 86, 0.08), rgba(183, 126, 42, 0.06));
+    border-radius: 50%;
+    animation: destinationFloat 8s ease-in-out infinite;
+    z-index: 0;
+}
+
+.destination-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.destination-item:hover::before {
+    animation-duration: 4s;
+}
+
+.destination-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--porcelain);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--turf-green);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.destination-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--turf-green);
+}
+
+.destination-details,
+.destination-info {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.destination-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+    margin-bottom: 4px;
+}
+
+.destination-address {
+    font-size: 13px;
+    color: #666;
+}
+
+.destination-fare {
+    position: relative;
+    z-index: 1;
+}
+
+.fare-amount {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--turf-green);
+}
+
+@keyframes destinationFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-1px, -1px) scale(1.05); }
+}
+
+/* Nearby Drivers Section */
+.drivers-section {
+    margin-bottom: 32px;
+}
+
+.drivers-status {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.drivers-status::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -30%;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, rgba(253, 188, 34, 0.08), rgba(35, 126, 86, 0.06));
+    border-radius: 50%;
+    animation: driversFloat 10s ease-in-out infinite;
+    z-index: 0;
+}
+
+.drivers-status::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    right: -20%;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(35, 126, 86, 0.08), rgba(24, 53, 38, 0.06));
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: driversPulse 8s ease-in-out infinite;
+    z-index: 0;
+}
+
+.drivers-icon {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, var(--turf-green), var(--evergreen));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.drivers-icon svg {
+    width: 36px;
+    height: 36px;
+    stroke: white;
+}
+
+.drivers-count {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.drivers-message {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.book-ride-btn {
+    background: linear-gradient(135deg, var(--amber-flame), var(--light-gold));
+    border: none;
+    border-radius: 12px;
+    padding: 16px 32px;
+    color: var(--evergreen);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 16px rgba(253, 188, 34, 0.3);
+}
+
+.book-ride-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(253, 188, 34, 0.4);
+    background: linear-gradient(135deg, var(--light-gold), var(--amber-flame));
+}
+
+@keyframes driversFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-2px, -3px) scale(1.05); }
+    66% { transform: translate(2px, -1px) scale(0.95); }
+}
+
+@keyframes driversPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
+    50% { opacity: 0.2; transform: scale(1.15) rotate(5deg); }
+}
+
+/* Responsive Design for Ride Content */
+@media (max-width: 430px) {
+    .actions-grid {
+        gap: 12px;
+    }
+    
+    .action-card {
+        padding: 16px;
+    }
+    
+    .action-icon {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .vehicle-card {
+        padding: 16px;
+    }
+    
+    .vehicle-icon {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .vehicle-name {
+        font-size: 16px;
+    }
+    
+    .vehicle-price {
+        font-size: 18px;
+    }
+    
+    .destination-item {
+        padding: 14px;
+    }
+    
+    .drivers-status {
+        padding: 20px;
+    }
+    
+    .drivers-icon {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .book-ride-btn {
+        padding: 14px 28px;
+        font-size: 15px;
+    }
+}
+
 /* ============================================================================
  * END OF STYLESHEET
  * ============================================================================
