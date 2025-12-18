@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information - GoTawee</title>
+    
+    <!-- External Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Local Stylesheets -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/user-information.css">
+</head>
+<body>
+    <!-- Background Decorations -->
+    <div class="background-decoration bg-circle-1"></div>
+    <div class="background-decoration bg-circle-2"></div>
+
+    <div class="user-info-page">
+        <!-- Header -->
+        <div class="info-header">
+            <button id="backBtn" class="back-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+            <h1 class="page-title">Personal Information</h1>
+            <button id="helpBtn" class="help-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Content -->
+        <div class="info-content">
+            <!-- Progress Indicator -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span class="progress-text">Step 1 of 3</span>
+                    <span class="progress-percentage">33%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 33%"></div>
+                </div>
+            </div>
+
+            <!-- Form Section -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="header-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="header-content">
+                        <h2 class="section-title"> Verify Your Account</h2>
+                        <p class="section-subtitle">Please provide accurate information to verify your identity</p>
+                    </div>
+                </div>
+
+                <form id="userInfoForm" class="user-form">
+                    <!-- Personal Details -->
+                    <div class="form-group">
+                        <h3 class="group-title">
+                            <i class="fas fa-user"></i>
+                            Personal Details
+                        </h3>
+                        
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="firstName" class="input-label">First Name*</label>
+                                <input type="text" id="firstName" name="firstName" class="form-input" required>
+                                <span class="input-error" id="firstNameError"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="lastName" class="input-label">Last Name*</label>
+                                <input type="text" id="lastName" name="lastName" class="form-input" required>
+                                <span class="input-error" id="lastNameError"></span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="dateOfBirth" class="input-label">Date of Birth*</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-input" required>
+                            <span class="input-error" id="dateOfBirthError"></span>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="phoneNumber" class="input-label">Phone Number*</label>
+                            <div class="phone-input">
+                                <select id="countryCode" class="country-select">
+                                    <option value="+1" data-flag="🇺🇸">+1</option>
+                                    <option value="+44" data-flag="🇬🇧">+44</option>
+                                    <option value="+33" data-flag="🇫🇷">+33</option>
+                                    <option value="+49" data-flag="🇩🇪">+49</option>
+                                    <option value="+81" data-flag="🇯🇵">+81</option>
+                                    <option value="+86" data-flag="🇨🇳">+86</option>
+                                    <option value="+91" data-flag="🇮🇳">+91</option>
+                                </select>
+                                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" placeholder="Enter phone number" required>
+                            </div>
+                            <span class="input-error" id="phoneNumberError"></span>
+                        </div>
+                    </div>
+
+                    <!-- Address Information -->
+                    <div class="form-group">
+                        <h3 class="group-title">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Address Information
+                        </h3>
+
+                        <div class="input-group">
+                            <label for="streetAddress" class="input-label">Street Address*</label>
+                            <input type="text" id="streetAddress" name="streetAddress" class="form-input" placeholder="123 Main Street" required>
+                            <span class="input-error" id="streetAddressError"></span>
+                        </div>
+
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="city" class="input-label">City*</label>
+                                <input type="text" id="city" name="city" class="form-input" placeholder="New York" required>
+                                <span class="input-error" id="cityError"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="state" class="input-label">State/Province*</label>
+                                <input type="text" id="state" name="state" class="form-input" placeholder="NY" required>
+                                <span class="input-error" id="stateError"></span>
+                            </div>
+                        </div>
+
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="zipCode" class="input-label">ZIP/Postal Code*</label>
+                                <input type="text" id="zipCode" name="zipCode" class="form-input" placeholder="10001" required>
+                                <span class="input-error" id="zipCodeError"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="country" class="input-label">Country*</label>
+                                <select id="country" name="country" class="form-select" required>
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="FR">France</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="CN">China</option>
+                                    <option value="IN">India</option>
+                                </select>
+                                <span class="input-error" id="countryError"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Identity Document Section -->
+                    <div class="form-group">
+                        <h3 class="group-title">
+                            <i class="fas fa-id-card"></i>
+                            Identity Document
+                        </h3>
+
+                        <div class="document-types">
+                            <div class="document-scroll-container">
+                                <div class="document-card" data-type="drivers-license">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-car"></i>
+                                    </div>
+                                    <h4>Driver's License</h4>
+                                    <p>Government-issued license</p>
+                                </div>
+                                <div class="document-card" data-type="passport">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-passport"></i>
+                                    </div>
+                                    <h4>Passport</h4>
+                                    <p>International travel document</p>
+                                </div>
+                                <div class="document-card" data-type="national-id">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-id-badge"></i>
+                                    </div>
+                                    <h4>National ID</h4>
+                                    <p>Government-issued ID card</p>
+                                </div>
+                                <div class="document-card" data-type="student-id">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <h4>Student ID</h4>
+                                    <p>Academic institution ID</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Document Upload Area -->
+                        <div id="documentUploadArea" class="upload-area">
+                            <div class="upload-placeholder">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <h4>Upload Document</h4>
+                                <p>Select a document type above, then upload a clear photo</p>
+                                <div class="upload-buttons">
+                                    <button type="button" class="upload-btn camera-btn">
+                                        <i class="fas fa-camera"></i>
+                                        Take Photo
+                                    </button>
+                                    <button type="button" class="upload-btn gallery-btn">
+                                        <i class="fas fa-image"></i>
+                                        Choose File
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Document Preview -->
+                            <div id="documentPreview" class="document-preview" style="display: none;">
+                                <div class="preview-header">
+                                    <h4 id="documentType">Document Preview</h4>
+                                    <button type="button" class="retake-btn" id="retakeDocumentBtn">
+                                        <i class="fas fa-redo"></i>
+                                        Retake
+                                    </button>
+                                </div>
+                                <div class="preview-image">
+                                    <img id="documentImage" alt="Document preview">
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="file" id="documentFileInput" accept="image/*" style="display: none;">
+                        
+                        <!-- Document ID Number Input -->
+                        <div id="documentIdSection" class="document-id-section">
+                            <div class="input-group">
+                                <label for="documentIdNumber" class="input-label">Document ID Number*</label>
+                                <input type="text" id="documentIdNumber" name="documentIdNumber" class="form-input" placeholder="Enter the ID number from your document" required>
+                                <span class="input-error" id="documentIdNumberError"></span>
+                                <div class="input-help">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span id="documentIdHelp">Enter the unique ID number shown on your document</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Face Scan Section -->
+                    <div class="form-group">
+                        <h3 class="group-title">
+                            <i class="fas fa-user-check"></i>
+                            Face Verification
+                        </h3>
+
+                        <div class="face-scan-container">
+                            <!-- Face Scan Placeholder -->
+                            <div id="faceScanPlaceholder" class="face-scan-placeholder">
+                                <div class="scan-frame">
+                                    <div class="scan-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <h4>Face Verification Required</h4>
+                                    <p>Position your face in the frame and capture a clear photo</p>
+                                    <button type="button" class="start-scan-btn" id="startFaceScanBtn">
+                                        <i class="fas fa-video"></i>
+                                        Start Face Scan
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Camera Interface -->
+                            <div id="faceCamera" class="face-camera" style="display: none;">
+                                <div class="camera-frame">
+                                    <video id="faceVideo" autoplay muted playsinline></video>
+                                    <canvas id="faceCanvas" style="display: none;"></canvas>
+                                    
+                                    <div class="face-guide">
+                                        <div class="guide-circle"></div>
+                                        <div class="guide-text">
+                                            <span>Position your face in the circle</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="camera-controls">
+                                    <button type="button" class="camera-btn capture-face-btn" id="captureFaceBtn">
+                                        <div class="capture-ring"></div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Face Preview -->
+                            <div id="facePreview" class="face-preview" style="display: none;">
+                                <div class="preview-header">
+                                    <h4>Face Verification</h4>
+                                    <button type="button" class="retake-btn" id="retakeFaceBtn">
+                                        <i class="fas fa-redo"></i>
+                                        Retake
+                                    </button>
+                                </div>
+                                <div class="face-preview-image">
+                                    <img id="faceImage" alt="Face verification">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="action-btn secondary-btn" id="saveForLaterBtn">
+                            <i class="fas fa-bookmark"></i>
+                            Save for Later
+                        </button>
+                        <button type="submit" class="action-btn primary-btn" id="continueBtn" disabled>
+                            Continue to Review
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Help & Information</h3>
+                <button id="closeModalBtn" class="modal-close">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h4>Why do we need this information?</h4>
+                    <p>We collect your personal information to verify your identity and ensure account security. This helps prevent fraud and protects both you and other users.</p>
+                </div>
+
+                <div class="help-section">
+                    <h4>Document Requirements</h4>
+                    <ul>
+                        <li>Document must be current and valid</li>
+                        <li>All text should be clearly visible</li>
+                        <li>No glare or shadows on the document</li>
+                        <li>Document should fill most of the frame</li>
+                        <li>Accepted formats: JPG, PNG (max 5MB)</li>
+                    </ul>
+                </div>
+
+                <div class="help-section">
+                    <h4>Face Verification Tips</h4>
+                    <ul>
+                        <li>Ensure good lighting on your face</li>
+                        <li>Look directly at the camera</li>
+                        <li>Remove sunglasses or hat</li>
+                        <li>Keep a neutral expression</li>
+                        <li>Make sure your face fits within the guide circle</li>
+                    </ul>
+                </div>
+
+                <div class="help-section">
+                    <h4>Data Security</h4>
+                    <p>Your information is encrypted and stored securely. We follow industry-standard security practices to protect your personal data and will never share it without your consent.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn primary">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/user-information.js"></script>
+</body>
+</html>

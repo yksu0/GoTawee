@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Verification - Go Tawi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/verification.css">
+</head>
+<body>
+    <div class="verification-page">
+        <!-- Background Decorations -->
+        <div class="background-decoration bg-circle-1"></div>
+        <div class="background-decoration bg-circle-2"></div>
+
+        <!-- Header -->
+        <div class="verification-header">
+            <button class="back-btn" onclick="history.back()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+            </button>
+            <h1 class="page-title">Identity Verification</h1>
+            <button class="help-btn" onclick="showHelp()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Content -->
+        <div class="verification-content">
+            <!-- Introduction Section -->
+            <div class="intro-section" id="introSection">
+                <div class="intro-icon">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4"/>
+                        <path d="M21 12c.552 0 1-.448 1-1V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v6c0 .552.448 1 1 1"/>
+                        <path d="M3 12v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <h2 class="intro-title">Secure Your Account</h2>
+                <p class="intro-description">
+                    To ensure the safety of our community and prevent fraudulent orders, 
+                    we require identity verification for all users.
+                </p>
+                
+                <div class="verification-steps">
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="step-title">1. Upload ID Document</h3>
+                            <p class="step-desc">Take a clear photo of your valid government ID</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+                            </svg>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="step-title">2. Facial Recognition</h3>
+                            <p class="step-desc">Take a selfie to verify your identity</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <div class="step-content">
+                            <h3 class="step-title">3. Verification Complete</h3>
+                            <p class="step-desc">Start ordering from your favorite restaurants</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="start-verification-btn" onclick="startVerification()">
+                    Start Verification
+                </button>
+
+                <div class="security-note">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>Your personal information is encrypted and secure</span>
+                </div>
+            </div>
+
+            <!-- ID Upload Section -->
+            <div class="upload-section" id="idUploadSection" style="display: none;">
+                <div class="section-header">
+                    <h2 class="section-title">Upload Your ID</h2>
+                    <p class="section-subtitle">Please upload a clear photo of your government-issued ID</p>
+                </div>
+
+                <div class="id-types">
+                    <div class="id-type-card active" data-type="drivers-license">
+                        <div class="id-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <circle cx="8" cy="11" r="2"/>
+                                <path d="M14 10h4M14 14h2"/>
+                            </svg>
+                        </div>
+                        <h3 class="id-type-title">Driver's License</h3>
+                    </div>
+                    
+                    <div class="id-type-card" data-type="passport">
+                        <div class="id-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                                <circle cx="12" cy="8" r="2"/>
+                                <path d="M16 14v2a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2"/>
+                            </svg>
+                        </div>
+                        <h3 class="id-type-title">Passport</h3>
+                    </div>
+                    
+                    <div class="id-type-card" data-type="national-id">
+                        <div class="id-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="M7 15h10M7 11h6"/>
+                                <circle cx="11" cy="8" r="1"/>
+                            </svg>
+                        </div>
+                        <h3 class="id-type-title">National ID</h3>
+                    </div>
+                </div>
+
+                <div class="upload-area" id="idUploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21,15 16,10 5,21"/>
+                            </svg>
+                        </div>
+                        <h3 class="upload-title">Upload ID Photo</h3>
+                        <p class="upload-desc">Take a photo or choose from gallery</p>
+                        <div class="upload-buttons">
+                            <button class="upload-btn camera-btn" onclick="openCamera('id')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                    <circle cx="12" cy="13" r="4"/>
+                                </svg>
+                                Take Photo
+                            </button>
+                            <button class="upload-btn gallery-btn" onclick="openGallery('id')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                                    <polyline points="21,15 16,10 5,21"/>
+                                </svg>
+                                Choose from Gallery
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="upload-preview" id="idPreview" style="display: none;">
+                    <div class="preview-header">
+                        <h3>ID Document Preview</h3>
+                        <button class="retake-btn" onclick="retakePhoto('id')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"/>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                            </svg>
+                            Retake
+                        </button>
+                    </div>
+                    <div class="preview-image">
+                        <img id="idPreviewImage" src="" alt="ID Preview">
+                    </div>
+                </div>
+
+                <div class="upload-tips">
+                    <h4>Photo Tips:</h4>
+                    <ul>
+                        <li>Ensure all text is clearly readable</li>
+                        <li>Avoid glare and shadows</li>
+                        <li>Include all corners of the document</li>
+                        <li>Use good lighting</li>
+                    </ul>
+                </div>
+
+                <div class="section-actions">
+                    <button class="action-btn secondary-btn" onclick="showIntroSection()">Back</button>
+                    <button class="action-btn primary-btn" id="idNextBtn" onclick="proceedToSelfie()" disabled>
+                        Continue
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Facial Recognition Section -->
+            <div class="selfie-section" id="selfieSection" style="display: none;">
+                <div class="section-header">
+                    <h2 class="section-title">Facial Recognition</h2>
+                    <p class="section-subtitle">Take a selfie to verify your identity</p>
+                </div>
+
+                <div class="selfie-camera-container">
+                    <div class="camera-frame" id="cameraFrame">
+                        <video id="selfieVideo" autoplay muted playsinline style="display: none;"></video>
+                        <canvas id="selfieCanvas" style="display: none;"></canvas>
+                        
+                        <div class="camera-placeholder" id="cameraPlaceholder">
+                            <div class="placeholder-icon">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+                                </svg>
+                            </div>
+                            <h3>Position Your Face</h3>
+                            <p>Center your face within the frame</p>
+                        </div>
+
+                        <div class="face-outline">
+                            <div class="outline-circle"></div>
+                        </div>
+
+                        <div class="selfie-preview" id="selfiePreviewContainer" style="display: none;">
+                            <img id="selfiePreviewImage" src="" alt="Selfie Preview">
+                        </div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="camera-control-btn" id="startCameraBtn" onclick="startSelfieCamera()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                <circle cx="12" cy="13" r="4"/>
+                            </svg>
+                            Start Camera
+                        </button>
+                        
+                        <button class="capture-btn" id="captureBtn" onclick="captureSelfie()" style="display: none;">
+                            <div class="capture-ring"></div>
+                        </button>
+                        
+                        <button class="camera-control-btn retake" id="retakeSelfieBtn" onclick="retakeSelfie()" style="display: none;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"/>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                            </svg>
+                            Retake
+                        </button>
+                    </div>
+                </div>
+
+                <div class="selfie-instructions">
+                    <h4>Instructions:</h4>
+                    <ul>
+                        <li>Look directly at the camera</li>
+                        <li>Ensure good lighting on your face</li>
+                        <li>Remove glasses or hat if possible</li>
+                        <li>Keep your face centered in the frame</li>
+                    </ul>
+                </div>
+
+                <div class="section-actions">
+                    <button class="action-btn secondary-btn" onclick="showIdUploadSection()">Back</button>
+                    <button class="action-btn primary-btn" id="selfieNextBtn" onclick="submitVerification()" disabled>
+                        Submit for Review
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Processing Section -->
+            <div class="processing-section" id="processingSection" style="display: none;">
+                <div class="processing-animation">
+                    <div class="spinner"></div>
+                </div>
+                <h2 class="processing-title">Verifying Your Identity</h2>
+                <p class="processing-desc">This may take a few moments...</p>
+                <div class="processing-steps">
+                    <div class="processing-step completed">
+                        <div class="step-check">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <span>Document uploaded</span>
+                    </div>
+                    <div class="processing-step active">
+                        <div class="step-spinner"></div>
+                        <span>Analyzing ID document</span>
+                    </div>
+                    <div class="processing-step">
+                        <div class="step-circle"></div>
+                        <span>Matching facial features</span>
+                    </div>
+                    <div class="processing-step">
+                        <div class="step-circle"></div>
+                        <span>Finalizing verification</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Section -->
+            <div class="success-section" id="successSection" style="display: none;">
+                <div class="success-animation">
+                    <div class="success-icon">
+                        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                </div>
+                <h2 class="success-title">Verification Complete!</h2>
+                <p class="success-desc">
+                    Your identity has been successfully verified. 
+                    You can now start ordering from your favorite restaurants.
+                </p>
+                <button class="success-btn" onclick="completeVerification()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    Start Ordering
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Input (Hidden) -->
+    <input type="file" id="fileInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFileSelect(event)">
+
+    <!-- Help Modal -->
+    <div class="modal-overlay" id="helpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Verification Help</h3>
+                <button class="modal-close" onclick="closeHelp()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h4>Why do I need to verify my identity?</h4>
+                    <p>Identity verification helps us prevent fraudulent accounts and ensures a safe ordering experience for all users.</p>
+                </div>
+                <div class="help-section">
+                    <h4>What documents are accepted?</h4>
+                    <ul>
+                        <li>Driver's License</li>
+                        <li>Passport</li>
+                        <li>National ID Card</li>
+                        <li>Government-issued photo ID</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>How long does verification take?</h4>
+                    <p>Most verifications are completed instantly. In some cases, it may take up to 24 hours for manual review.</p>
+                </div>
+                <div class="help-section">
+                    <h4>Is my information secure?</h4>
+                    <p>Yes, all personal information is encrypted and stored securely. We never share your data with third parties.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn primary" onclick="closeHelp()">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/verification.js"></script>
+</body>
+</html>
