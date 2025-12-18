@@ -46,6 +46,9 @@
  *           │   ├── .delivery-location → Location display component
  *           │   └── .top-actions       → Cart and profile buttons
  *           │
+ *           ├── .service-selector    → Food/Ride toggle selector
+ *           │   └── .service-toggle   → Toggle button container
+ *           │
  *           ├── .search-section      → Search functionality container
  *           │   └── .search-container → Search input and filter button
  *           │
@@ -559,6 +562,125 @@ body {
     font-weight: 700;
     color: var(--evergreen);
     margin-bottom: 16px;
+}
+
+/**
+ * ============================================================================
+ * SERVICE SELECTOR COMPONENT
+ * ============================================================================
+ * 
+ * Modern toggle switch for Food/Ride service selection
+ * Located between top bar and search section
+ * 
+ * HTML Structure:
+ * <div class="service-selector">
+ *   <div class="service-toggle">
+ *     <button class="service-btn active" data-service="food">...</button>
+ *     <button class="service-btn" data-service="ride">...</button>
+ *   </div>
+ * </div>
+ */
+
+.service-selector {
+    padding: 0 16px;
+    margin: 20px 0;
+}
+
+.service-toggle {
+    display: flex;
+    background: white;
+    border-radius: 16px;
+    padding: 6px;
+    gap: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(35, 126, 86, 0.08);
+}
+
+.service-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 12px;
+    color: #666;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(35, 126, 86, 0.04), rgba(35, 126, 86, 0.02));
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-btn:hover::before {
+    opacity: 1;
+}
+
+.service-btn:hover {
+    color: var(--evergreen);
+    transform: translateY(-1px);
+}
+
+.service-btn.active {
+    background: linear-gradient(135deg, var(--turf-green) 0%, var(--evergreen) 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(35, 126, 86, 0.25), 
+                0 2px 4px rgba(35, 126, 86, 0.15);
+    transform: translateY(-1px);
+}
+
+.service-btn.active::before {
+    display: none;
+}
+
+.service-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .service-selector {
+        padding: 12px 16px 0;
+    }
+    
+    .service-btn {
+        padding: 10px 12px;
+        gap: 6px;
+    }
+    
+    .service-label {
+        font-size: 12px;
+    }
+    
+    .service-icon svg {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 /**

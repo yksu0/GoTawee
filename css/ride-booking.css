@@ -1,0 +1,652 @@
+/**
+ * ============================================================================
+ * GO TAWI - RIDE BOOKING PAGE STYLESHEET
+ * ============================================================================
+ * 
+ * @file        ride-booking.css
+ * @description Comprehensive styling for the ride booking interface
+ * @version     1.0.0
+ * 
+ * ----------------------------------------------------------------------------
+ * DESIGN PRINCIPLES
+ * ----------------------------------------------------------------------------
+ * 
+ * - Mobile-first responsive design (max-width: 430px)
+ * - Consistent with Go Tawi design system and color palette
+ * - Clean, intuitive interface for seamless ride booking experience
+ * - Focus on accessibility and touch-friendly interactions
+ * 
+ * COLOR PALETTE:
+ * - Turf Green (#237E56): Primary actions and active states
+ * - Evergreen (#183526): Text and headers
+ * - Porcelain (#FDFDFA): Background and contrast text
+ * - Light Gold (#EAD290): Accent highlights
+ * - Amber Flame (#FDBC22): CTA buttons and alerts
+ */
+
+/* ============================================
+ * PAGE CONTAINER
+ * ============================================ */
+
+.ride-booking-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8fffe 0%, #f1f8f6 100%);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background decorations */
+.background-decoration {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-circle-1 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(35, 126, 86, 0.08) 0%, rgba(35, 126, 86, 0.02) 70%);
+    top: -150px;
+    right: -150px;
+    animation: float 20s ease-in-out infinite;
+}
+
+.bg-circle-2 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(234, 210, 144, 0.1) 0%, rgba(234, 210, 144, 0.03) 70%);
+    bottom: 100px;
+    left: -100px;
+    animation: float 15s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* ============================================
+ * HEADER SECTION
+ * ============================================ */
+
+.ride-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 0;
+    position: relative;
+    z-index: 10;
+}
+
+.back-btn {
+    background: white;
+    border: none;
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-btn svg {
+    stroke: var(--evergreen);
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin: 0;
+}
+
+.header-spacer {
+    width: 44px;
+}
+
+/* ============================================
+ * LOCATION SECTION (OPTIMIZED)
+ * ============================================ */
+
+.location-section {
+    padding: 16px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.location-inputs {
+    background: white;
+    border-radius: 16px;
+    padding: 16px 52px 16px 16px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.location-input-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+}
+
+.location-input-group:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.location-input-group:first-child::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 38px;
+    width: 2px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--turf-green) 0%, #e0e0e0  50%, var(--amber-flame) 100%);
+    border-radius: 1px;
+    z-index: 1;
+}
+
+.location-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 28px;
+    position: relative;
+    z-index: 5;
+}
+
+.pickup-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--turf-green);
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 1px #e8f5f0;
+    position: relative;
+    left: 1px;
+}
+
+.destination-marker {
+    width: 14px;
+    height: 14px;
+    background: var(--amber-flame);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    position: relative;
+    left: -1px;
+}
+
+.location-input-container {
+    flex: 1;
+}
+
+.location-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.location-input {
+    width: 100%;
+    border: none;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--evergreen);
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.location-input:focus {
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 2px var(--turf-green);
+    transform: translateY(-1px);
+}
+
+.location-input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+.location-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    color: var(--turf-green);
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 6px;
+    cursor: pointer;
+    padding: 4px 0;
+    transition: all 0.3s ease;
+}
+
+.location-action-btn:hover {
+    color: var(--evergreen);
+}
+
+.swap-locations {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+}
+
+.swap-btn {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.swap-btn:hover {
+    background: var(--turf-green);
+    border-color: var(--turf-green);
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 4px 12px rgba(35, 126, 86, 0.3);
+}
+
+.swap-btn:active {
+    transform: translateY(-50%) scale(0.95) rotate(180deg);
+}
+
+.swap-btn:hover svg {
+    stroke: white;
+}
+
+.swap-btn svg {
+    stroke: var(--turf-green);
+    transition: all 0.3s ease;
+    width: 18px;
+    height: 18px;
+}
+
+/* Saved Locations */
+.saved-locations {
+    margin-top: 12px;
+    display: none; /* Show when destination input is focused */
+}
+
+.location-input:focus + .saved-locations,
+.saved-locations:hover {
+    display: block;
+}
+
+.saved-location-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    background: #f8f9fa;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.saved-location-btn:hover {
+    background: #e8f5f0;
+}
+
+.saved-icon {
+    font-size: 20px;
+}
+
+.saved-name {
+    font-weight: 600;
+    color: var(--evergreen);
+    font-size: 14px;
+}
+
+.saved-address {
+    font-size: 12px;
+    color: #666;
+    margin-left: auto;
+}
+
+/* ============================================
+ * MAP SECTION
+ * ============================================ */
+
+.map-section {
+    padding: 0 20px 16px;
+    position: relative;
+    z-index: 10;
+}
+
+.map-container {
+    background: white;
+    border-radius: 16px;
+    height: 160px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+}
+
+.map-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #999;
+    text-align: center;
+    padding: 20px;
+}
+
+.map-placeholder svg {
+    margin-bottom: 12px;
+    stroke: #ccc;
+}
+
+.map-placeholder p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.map-controls {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+}
+
+.map-control-btn {
+    background: white;
+    border: none;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.map-control-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.map-control-btn svg {
+    stroke: var(--evergreen);
+}
+
+/* ============================================
+ * VEHICLE SELECTION (SIMPLIFIED)
+ * ============================================ */
+
+.vehicle-section {
+    padding: 12px 20px 16px;
+    position: relative;
+    z-index: 10;
+}
+
+.ride-option-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--turf-green);
+    transition: all 0.3s ease;
+}
+
+.ride-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.ride-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--turf-green) 0%, var(--evergreen) 100%);
+    border-radius: 10px;
+    color: white;
+}
+
+.ride-info {
+    flex: 1;
+}
+
+.ride-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin-bottom: 2px;
+}
+
+.ride-description {
+    font-size: 13px;
+    color: #666;
+}
+
+.ride-pricing {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0 6px;
+}
+
+.fare-display {
+    text-align: center;
+}
+
+.fare-amount {
+    display: block;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--turf-green);
+    line-height: 1;
+}
+
+.fare-label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-top: 3px;
+}
+
+/* ============================================
+ * TRIP DETAILS (IMPROVED)
+ * ============================================ */
+
+.trip-details {
+    padding: 0 20px 16px;
+    position: relative;
+    z-index: 10;
+}
+
+.details-grid {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.detail-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.detail-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.detail-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+/* ============================================
+ * BOOKING ACTION
+ * ============================================ */
+
+.booking-action {
+    padding: 16px 20px;
+    background: white;
+    border-top: 1px solid #f0f0f0;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+}
+
+.book-ride-btn {
+    width: 100%;
+    background: var(--amber-flame);
+    border: none;
+    border-radius: 16px;
+    padding: 16px 24px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 4px 16px rgba(253, 188, 34, 0.3);
+}
+
+.book-ride-btn:hover:not(:disabled) {
+    background: #e6a719;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(253, 188, 34, 0.4);
+}
+
+.book-ride-btn:disabled {
+    background: #e0e0e0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.book-btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.book-btn-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.book-btn-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+}
+
+/* ============================================
+ * RESPONSIVE DESIGN
+ * ============================================ */
+
+@media (max-width: 380px) {
+    .ride-header {
+        padding: 16px 16px 0;
+    }
+    
+    .location-section,
+    .map-section,
+    .vehicle-section,
+    .booking-details {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .location-inputs,
+    .trip-summary {
+        padding: 16px;
+    }
+    
+    .vehicle-option {
+        padding: 16px;
+    }
+    
+    .booking-action {
+        padding: 16px;
+    }
+    
+    .page-title {
+        font-size: 20px;
+    }
+}
+
+/* ============================================
+ * LOADING STATES
+ * ============================================ */
+
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #e0e0e0;
+    border-top-color: var(--turf-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

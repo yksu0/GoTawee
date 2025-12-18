@@ -1,0 +1,843 @@
+/* ============================================
+ * RIDE TRACKING STYLES - GO TAWEE
+ * ============================================ */
+
+/* Root Variables */
+:root {
+    --turf-green: #237E56;
+    --evergreen: #183526;
+    --porcelain: #FDFDFA;
+    --light-gold: #EAD290;
+    --amber-flame: #FDBC22;
+}
+
+/* ============================================
+ * BASE LAYOUT
+ * ============================================ */
+
+.main-content {
+    padding-bottom: 100px;
+    min-height: 100vh;
+    background: #f8f9fa;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ============================================
+ * HEADER CUSTOMIZATION
+ * ============================================ */
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 0;
+    position: relative;
+    z-index: 10;
+    background: #f8f9fa;
+}
+
+.back-btn {
+    background: white;
+    border: none;
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-btn svg {
+    stroke: var(--evergreen);
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.support-btn {
+    background: none;
+    border: none;
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.support-btn:hover {
+    background: #f0f0f0;
+}
+
+.support-btn svg {
+    stroke: var(--evergreen);
+}
+
+/* ============================================
+ * MAP SECTION
+ * ============================================ */
+
+.map-section {
+    position: relative;
+    height: 50vh;
+    min-height: 300px;
+    max-height: 400px;
+}
+
+.map-container {
+    position: relative;
+    height: 100%;
+    background: linear-gradient(135deg, #e8f5f0 0%, #f0f9ff 100%);
+    overflow: hidden;
+}
+
+.map-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #666;
+}
+
+.map-placeholder svg {
+    margin-bottom: 12px;
+    opacity: 0.6;
+}
+
+.map-placeholder p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.7;
+}
+
+/* ============================================
+ * MAP OVERLAY
+ * ============================================ */
+
+.map-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 10;
+}
+
+.trip-status {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber-flame);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+}
+
+.status-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--evergreen);
+}
+
+.arrival-time {
+    background: rgba(35, 126, 86, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.eta-label {
+    display: block;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.eta-value {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+}
+
+/* ============================================
+ * PROGRESS BAR
+ * ============================================ */
+
+.progress-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 16px 20px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--turf-green) 0%, var(--amber-flame) 100%);
+    border-radius: 2px;
+    transition: width 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.step {
+    text-align: center;
+    flex: 1;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step.completed,
+.step.active {
+    opacity: 1;
+}
+
+.step.active .step-icon {
+    transform: scale(1.1);
+    animation: bounce 0.6s ease-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1.1); }
+    50% { transform: scale(1.2); }
+}
+
+.step-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    transition: transform 0.3s ease;
+}
+
+.step-icon svg {
+    stroke: #999;
+    transition: stroke 0.3s ease;
+}
+
+.step.completed .step-icon svg,
+.step.active .step-icon svg {
+    stroke: var(--turf-green);
+}
+
+.step span {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--evergreen);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ============================================
+ * DRIVER SECTION
+ * ============================================ */
+
+.driver-section {
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.driver-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.driver-avatar {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--turf-green);
+    flex-shrink: 0;
+}
+
+.driver-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.driver-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.driver-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin: 0 0 4px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.driver-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.rating-stars {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Inter', sans-serif;
+}
+
+.rating-count {
+    font-size: 12px;
+    color: #666;
+    font-family: 'Inter', sans-serif;
+}
+
+.vehicle-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #666;
+    font-family: 'Inter', sans-serif;
+    flex-wrap: wrap;
+}
+
+.vehicle-plate {
+    background: var(--turf-green);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.driver-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.action-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.call-btn {
+    background: var(--turf-green);
+    color: white;
+}
+
+.call-btn:hover {
+    background: var(--evergreen);
+    transform: translateY(-2px);
+}
+
+.message-btn {
+    background: #f0f0f0;
+    color: var(--evergreen);
+}
+
+.message-btn:hover {
+    background: var(--amber-flame);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+ * TRIP DETAILS
+ * ============================================ */
+
+.trip-details {
+    padding: 0 20px 20px;
+}
+
+.details-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+}
+
+.details-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--evergreen);
+    margin: 0 0 16px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.trip-route {
+    margin-bottom: 20px;
+}
+
+.route-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.route-point:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.point-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    position: relative;
+    z-index: 5;
+}
+
+.pickup-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--turf-green);
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 1px #e8f5f0;
+}
+
+.destination-marker {
+    width: 14px;
+    height: 14px;
+    background: var(--amber-flame);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.route-line {
+    position: absolute;
+    left: 30px;
+    top: 22px;
+    width: 2px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--turf-green) 0%, #e0e0e0 50%, var(--amber-flame) 100%);
+    border-radius: 1px;
+    z-index: 1;
+}
+
+.point-details {
+    flex: 1;
+}
+
+.point-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Inter', sans-serif;
+}
+
+.point-address {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--evergreen);
+    line-height: 1.3;
+    font-family: 'Inter', sans-serif;
+}
+
+.trip-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.info-item {
+    text-align: center;
+}
+
+.info-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Inter', sans-serif;
+}
+
+.info-value {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--evergreen);
+    font-family: 'Inter', sans-serif;
+}
+
+/* ============================================
+ * ACTION SECTION
+ * ============================================ */
+
+.action-section {
+    padding: 0 20px 20px;
+    display: flex;
+    gap: 12px;
+}
+
+.emergency-btn,
+.cancel-btn {
+    flex: 1;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.emergency-btn {
+    background: #ff4757;
+    color: white;
+}
+
+.emergency-btn:hover {
+    background: #ff3742;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+}
+
+.cancel-btn {
+    background: #f0f0f0;
+    color: var(--evergreen);
+}
+
+.cancel-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+ * EMERGENCY MODAL
+ * ============================================ */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideUp 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    padding: 24px 24px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--evergreen);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: #f0f0f0;
+}
+
+.emergency-options {
+    padding: 0 24px 24px;
+}
+
+.emergency-option {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.emergency-option:last-child {
+    margin-bottom: 0;
+}
+
+.call-police {
+    background: #ff4757;
+    color: white;
+}
+
+.call-police:hover {
+    background: #ff3742;
+    transform: translateY(-2px);
+}
+
+.share-trip {
+    background: var(--amber-flame);
+    color: var(--evergreen);
+}
+
+.share-trip:hover {
+    background: #e6a719;
+    transform: translateY(-2px);
+}
+
+.contact-support {
+    background: var(--turf-green);
+    color: white;
+}
+
+.contact-support:hover {
+    background: var(--evergreen);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+ * RESPONSIVE DESIGN
+ * ============================================ */
+
+@media (max-width: 380px) {
+    .app-header {
+        padding: 16px 16px 0;
+    }
+    
+    .page-title {
+        font-size: 20px;
+    }
+    
+    .back-btn,
+    .support-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .map-overlay {
+        left: 16px;
+        right: 16px;
+        top: 16px;
+    }
+    
+    .trip-status,
+    .arrival-time {
+        padding: 10px 12px;
+    }
+    
+    .progress-container {
+        padding: 12px 16px;
+    }
+    
+    .driver-section,
+    .trip-details,
+    .action-section {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .driver-card {
+        padding: 16px;
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .driver-info {
+        order: 2;
+    }
+    
+    .driver-actions {
+        order: 3;
+        justify-content: center;
+    }
+    
+    .vehicle-info {
+        justify-content: center;
+    }
+    
+    .details-card {
+        padding: 16px;
+    }
+    
+    .action-section {
+        flex-direction: column;
+    }
+    
+    .emergency-btn,
+    .cancel-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 320px) {
+    .driver-card {
+        gap: 8px;
+        padding: 12px;
+    }
+    
+    .driver-avatar {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .driver-name {
+        font-size: 16px;
+    }
+    
+    .progress-steps {
+        gap: 8px;
+    }
+    
+    .step span {
+        font-size: 9px;
+    }
+}
+
+@media (min-height: 700px) {
+    .map-section {
+        height: 45vh;
+        min-height: 320px;
+    }
+}

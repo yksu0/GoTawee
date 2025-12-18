@@ -1,3 +1,75 @@
+// Go Tawi Application - Service Management & HomeScreen functionality
+
+/**
+ * Global Service State Management
+ * Manages switching between Food Delivery and Ride Hailing services
+ */
+window.GoTawi = {
+    currentService: localStorage.getItem('goTawi_service') || 'food',
+    
+    // Service configuration
+    services: {
+        food: {
+            name: 'Food Delivery',
+            searchPlaceholder: 'Search for food, restaurants...',
+            locationLabel: 'Deliver to'
+        },
+        ride: {
+            name: 'Ride Hailing', 
+            searchPlaceholder: 'Where to?',
+            locationLabel: 'Pick up from'
+        }
+    },
+    
+    // Switch service
+    switchService(service) {
+        if (this.services[service]) {
+            this.currentService = service;
+            localStorage.setItem('goTawi_service', service);
+            this.updateUI();
+        }
+    },
+    
+    // Update UI based on current service
+    updateUI() {
+        const serviceConfig = this.services[this.currentService];
+        
+        // Update search placeholder
+        const searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.placeholder = serviceConfig.searchPlaceholder;
+        }
+        
+        // Update location label
+        const locationLabel = document.querySelector('.location-label');
+        if (locationLabel) {
+            locationLabel.textContent = serviceConfig.locationLabel;
+        }
+        
+        // Update service selector buttons
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.service === this.currentService);
+        });
+        
+        // Toggle content visibility
+        this.toggleContent();
+    },
+    
+    // Toggle between food and ride content
+    toggleContent() {
+        const foodContent = document.querySelectorAll('.deals-section, .categories-section, .recommended-section, .restaurants-section');
+        const rideContent = document.querySelectorAll('.ride-content'); // To be added later
+        
+        if (this.currentService === 'food') {
+            foodContent.forEach(el => el.style.display = '');
+            rideContent.forEach(el => el.style.display = 'none');
+        } else {
+            foodContent.forEach(el => el.style.display = 'none');
+            rideContent.forEach(el => el.style.display = '');
+        }
+    }
+};
+
 // Go Tawi HomeScreen functionality
 class GoTawiApp {
     constructor() {
@@ -9,8 +81,107 @@ class GoTawiApp {
     }
 
     init() {
+        this.setupServiceSelector();
         this.setupEventListeners();
         this.updateCartBadge();
+        
+        // Initialize service state
+        window.GoTawi.updateUI();
+    }
+    
+    setupServiceSelector() {
+        // Service selector event listeners
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const service = btn.dataset.service;
+                window.GoTawi.switchService(service);
+            });
+        });
+        
+        // Initialize navigation state management
+        this.setupNavigationState();
+    }
+    
+    setupNavigationState() {
+        // Enhanced navigation state management for 5-tab system
+        const currentPath = window.location.pathname;
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        // Update active state based on current page
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            
+            // Check if this nav item corresponds to current page
+            const onclick = item.getAttribute('onclick');
+            if (onclick) {
+                const targetPage = onclick.match(/'([^']+)'/)?.[1];
+                if (targetPage && currentPath.includes(targetPage.split('/').pop().split('.')[0])) {
+                    item.classList.add('active');
+                }
+            }
+        });
+        
+        // Special handling for index.html (home page)
+        if (currentPath.endsWith('index.html') || currentPath.endsWith('/')) {
+            const homeItem = document.querySelector('.nav-item:first-child');
+            if (homeItem) homeItem.classList.add('active');
+        }
+        
+        // Add ride booking navigation handler
+        this.handleRideNavigation();
+    }
+    
+    handleRideNavigation() {
+        // Handle navigation to ride booking page (placeholder until page is created)
+        document.querySelectorAll('.nav-item').forEach(item => {
+            const onclick = item.getAttribute('onclick');
+            if (onclick && onclick.includes('ride-booking.html')) {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // For now, show a placeholder message
+                    this.showComingSoonMessage('Ride booking');
+                });
+            }
+        });
+    }
+    
+    showComingSoonMessage(feature) {
+        // Temporary function to show coming soon message
+        const message = document.createElement('div');
+        message.innerHTML = `
+            <div style="
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 20px;
+                border-radius: 16px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+                z-index: 10000;
+                text-align: center;
+            ">
+                <h3 style="margin: 0 0 10px; color: var(--evergreen);">${feature} Coming Soon!</h3>
+                <p style="margin: 0 0 15px; color: #666;">This feature will be available in Phase 2.</p>
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: var(--turf-green);
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                ">Got it</button>
+            </div>
+        `;
+        document.body.appendChild(message);
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            if (message.parentElement) {
+                message.remove();
+            }
+        }, 3000);
     }
 
     setupEventListeners() {
